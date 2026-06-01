@@ -18,19 +18,12 @@
         <a href="research.html">Research</a>
         <a href="talks.html">Talks</a>
         <div class="nav-dropdown">
-          <button class="nav-dropdown-trigger">Workshops</button>
-          <ul class="nav-dropdown-menu">
-            <li><a href="workshops.html#workshop-1">Workshop Name 1</a></li>
-            <li><a href="workshops.html#workshop-2">Workshop Name 2</a></li>
-          </ul>
+          <button class="nav-dropdown-trigger" data-page="workshops">Workshops</button>
+          <ul class="nav-dropdown-menu" id="workshops-menu"></ul>
         </div>
         <div class="nav-dropdown">
-          <button class="nav-dropdown-trigger">Teaching</button>
-          <ul class="nav-dropdown-menu">
-            <li><a href="teaching.html#stockholm">Stockholm University</a></li>
-            <li><a href="teaching.html#kcl">King's College London</a></li>
-            <li><a href="teaching.html#oxford">University of Oxford</a></li>
-          </ul>
+          <button class="nav-dropdown-trigger" data-page="teaching">Teaching</button>
+          <ul class="nav-dropdown-menu" id="teaching-menu"></ul>
         </div>
         <a href="cv.html">CV</a>
       </nav>
@@ -42,38 +35,23 @@
       <h2>Research</h2>
 
       <h3>Published Papers</h3>
-      <ul class="paper-list">
-        <li>
-          <span class="paper-title">"Paper Title Here."</span>
-          <span class="paper-venue"><em>Journal Name</em>, Year.</span>
-          <span class="paper-abstract">A short abstract or description can go here.</span>
-          <span class="paper-links">
-            <a href="#">PDF</a> &middot; <a href="#">Published version</a>
-          </span>
-        </li>
-      </ul>
+      <ul class="paper-list" id="publications"></ul>
 
       <h3>Work in Progress</h3>
-      <ul class="paper-list">
-        <li>
-          <span class="paper-title">"Paper Title Here."</span>
-          <span class="paper-note">Under review.</span>
-          <span class="paper-abstract">A short description can go here.</span>
-        </li>
-        <li>
-          <span class="paper-title">"Paper Title Here."</span>
-          <span class="paper-note">In preparation.</span>
-        </li>
-      </ul>
+      <ul class="paper-list" id="wip"></ul>
     </div>
   </main>
 
-  <footer>
-    <div class="container">
-      <p>&copy; <span id="year"></span> Jonas Haeg</p>
-    </div>
-  </footer>
+  <footer><div class="container"><p>&copy; <span id="year"></span> Jonas Haeg</p></div></footer>
 
+  <script src="data/nav-items.js"></script>
+  <script src="data/publications.js"></script>
+  <script src="data/wip.js"></script>
   <script src="nav.js"></script>
+  <script src="render.js"></script>
+  <script>
+    renderPublications('publications');
+    renderWIP('wip');
+  </script>
 </body>
 </html>
