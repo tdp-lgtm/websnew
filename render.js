@@ -5,19 +5,25 @@ function renderPublications(id) {
   const el = document.getElementById(id);
   if (!el || !PUBLICATIONS.length) { el && (el.innerHTML = '<p class="empty">No publications yet.</p>'); return; }
   el.innerHTML = PUBLICATIONS.map(p => {
+    const isLabel  = typeof p.year === 'string';
+    const yearStr  = p.year ? (isLabel ? p.year : String(p.year)) : '';
     const citation = [
       p.journal ? `<em>${p.journal}</em>` : '',
       p.volume  ? `${p.volume}` : '',
       p.issue   ? `(${p.issue})` : '',
       p.pages   ? `${p.pages}` : '',
     ].filter(Boolean).join(', ');
+    // String years (Forthcoming / Online first) shown as a prefix label; numeric years appended to citation
+    const venueStr = isLabel
+      ? [yearStr, citation].filter(Boolean).join('. ')
+      : [citation, yearStr].filter(Boolean).join(', ');
     const links = [
       p.pdf ? `<a href="${p.pdf}">PDF</a>` : '',
       p.doi ? `<a href="${p.doi}" target="_blank" rel="noopener">Published version</a>` : '',
     ].filter(Boolean).join(' &middot; ');
     return `<li>
       <span class="paper-title">${p.coauthors ? `(with ${p.coauthors}) ` : ''}"${p.title}."</span>
-      ${citation ? `<span class="paper-venue">${citation}${p.year ? `, ${p.year}` : ''}.</span>` : ''}
+      ${venueStr ? `<span class="paper-venue">${venueStr}.</span>` : ''}
       ${p.abstract ? `<span class="paper-abstract">${p.abstract}</span>` : ''}
       ${links ? `<span class="paper-links">${links}</span>` : ''}
     </li>`;
@@ -112,7 +118,7 @@ function renderCV() {
 
   // Publications from data
   const pubItems = PUBLICATIONS.map(p => ({
-    year: String(p.year),
+    year: p.year ? String(p.year) : '',
     detail: `${p.coauthors ? `(with ${p.coauthors}) ` : ''}"${p.title}."`,
     sub: [p.journal ? `<em>${p.journal}</em>` : '', p.volume, p.issue ? `(${p.issue})` : '', p.pages].filter(Boolean).join(', '),
     link: p.doi || p.pdf || '',

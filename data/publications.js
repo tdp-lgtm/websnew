@@ -11,7 +11,7 @@
 const PUBLICATIONS = [
 
   {
-    year:       2024,
+    year:       2024,    // number, or "Forthcoming" or "Online first"
     title:      "Paper Title Here",
     journal:    "Journal of Philosophy",
     volume:     "12",
