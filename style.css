@@ -504,6 +504,14 @@ h2 {
   font-size: 0.8rem;
   color: var(--fg-3);
 }
+.ws-legend {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--fg-3);
+  margin-top: 1rem;
+  letter-spacing: 0.02em;
+}
+.ws-legend sup { color: var(--fg-2); }
 .ws-registration {
   font-size: 0.9rem;
   color: var(--fg-3);

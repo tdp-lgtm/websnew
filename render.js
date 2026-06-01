@@ -229,6 +229,14 @@ function renderWorkshopPage(workshopId, containerId) {
       }).join('')}</div>`
     : '';
 
+  const formats = new Set((w.programme || []).map(e => e.format).filter(Boolean));
+  const legendParts = [];
+  if (formats.has('PC')) legendParts.push('<sup>PC</sup> pre-circulated paper');
+  if (formats.has('T'))  legendParts.push('<sup>T</sup> talk');
+  const legendHtml = legendParts.length
+    ? `<p class="ws-legend">${legendParts.join(' &ensp; ')}</p>`
+    : '';
+
   const descHtml = w.description
     ? w.description.split('\n\n').filter(Boolean).map(p => `<p class="workshop-description">${p}</p>`).join('')
     : '';
@@ -237,6 +245,7 @@ function renderWorkshopPage(workshopId, containerId) {
     <p class="section-subtitle">${meta}</p>
     ${descHtml}
     ${programme}
+    ${legendHtml}
     ${regHtml}`;
   // Set the page title
   document.title = `${w.title} — Jonas Haeg`;
