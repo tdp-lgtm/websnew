@@ -287,6 +287,12 @@ h2 {
   border-top: 1px solid var(--rule);
 }
 
+.wip-item {
+  grid-template-columns: 0 1fr;
+  gap: 0;
+}
+.wip-item .yr { display: none; }
+
 .wip-status {
   font-family: var(--mono);
   font-size: 0.7rem;

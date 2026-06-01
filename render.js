@@ -77,8 +77,8 @@ function renderWIP(id) {
       abstractBtn,
       p.pdf ? `<a href="${p.pdf}" target="_blank" rel="noopener">Draft PDF</a>` : '',
     ].filter(Boolean);
-    return `<li class="pub">
-      <div class="yr">—</div>
+    return `<li class="pub wip-item">
+      <div class="yr"></div>
       <div>
         <h3>"${p.title}."</h3>
         <span class="wip-status">${p.status}</span>
