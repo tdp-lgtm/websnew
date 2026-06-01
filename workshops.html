@@ -18,19 +18,12 @@
         <a href="research.html">Research</a>
         <a href="talks.html">Talks</a>
         <div class="nav-dropdown">
-          <button class="nav-dropdown-trigger">Workshops</button>
-          <ul class="nav-dropdown-menu">
-            <li><a href="workshops.html#workshop-1">Workshop Name 1</a></li>
-            <li><a href="workshops.html#workshop-2">Workshop Name 2</a></li>
-          </ul>
+          <button class="nav-dropdown-trigger" data-page="workshops">Workshops</button>
+          <ul class="nav-dropdown-menu" id="workshops-menu"></ul>
         </div>
         <div class="nav-dropdown">
-          <button class="nav-dropdown-trigger">Teaching</button>
-          <ul class="nav-dropdown-menu">
-            <li><a href="teaching.html#stockholm">Stockholm University</a></li>
-            <li><a href="teaching.html#kcl">King's College London</a></li>
-            <li><a href="teaching.html#oxford">University of Oxford</a></li>
-          </ul>
+          <button class="nav-dropdown-trigger" data-page="teaching">Teaching</button>
+          <ul class="nav-dropdown-menu" id="teaching-menu"></ul>
         </div>
         <a href="cv.html">CV</a>
       </nav>
@@ -40,61 +33,18 @@
   <main>
     <div class="container">
       <h2>Workshops</h2>
-
-      <!-- ====== Workshop 1 ====== -->
-      <!-- Update id, title, date, location, co-organisers, description, and programme below -->
-      <div class="page-section" id="workshop-1">
-        <p class="section-title">Workshop Name 1</p>
-        <p class="section-subtitle">Institution · Month Year · Co-organised with Name</p>
-        <p class="workshop-description">
-          A description of this workshop — its theme, aims, and scope. This can be a paragraph or two.
-        </p>
-        <h3>Programme</h3>
-        <ul class="event-list">
-          <li>
-            <span class="event-title">"Paper Title."</span>
-            <span class="event-details">Speaker Name (Institution).</span>
-          </li>
-          <li>
-            <span class="event-title">"Paper Title."</span>
-            <span class="event-details">Speaker Name (Institution).</span>
-          </li>
-          <li>
-            <span class="event-title">"Paper Title."</span>
-            <span class="event-details">Speaker Name (Institution).</span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- ====== Workshop 2 ====== -->
-      <div class="page-section" id="workshop-2">
-        <p class="section-title">Workshop Name 2</p>
-        <p class="section-subtitle">Institution · Month Year · Co-organised with Name</p>
-        <p class="workshop-description">
-          A description of this workshop.
-        </p>
-        <h3>Programme</h3>
-        <ul class="event-list">
-          <li>
-            <span class="event-title">"Paper Title."</span>
-            <span class="event-details">Speaker Name (Institution).</span>
-          </li>
-          <li>
-            <span class="event-title">"Paper Title."</span>
-            <span class="event-details">Speaker Name (Institution).</span>
-          </li>
-        </ul>
-      </div>
-
+      <div id="workshops"></div>
     </div>
   </main>
 
-  <footer>
-    <div class="container">
-      <p>&copy; <span id="year"></span> Jonas Haeg</p>
-    </div>
-  </footer>
+  <footer><div class="container"><p>&copy; <span id="year"></span> Jonas Haeg</p></div></footer>
 
+  <script src="data/nav-items.js"></script>
+  <script src="data/workshops.js"></script>
   <script src="nav.js"></script>
+  <script src="render.js"></script>
+  <script>
+    renderWorkshops('workshops');
+  </script>
 </body>
 </html>

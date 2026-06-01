@@ -18,19 +18,12 @@
         <a href="research.html">Research</a>
         <a href="talks.html">Talks</a>
         <div class="nav-dropdown">
-          <button class="nav-dropdown-trigger">Workshops</button>
-          <ul class="nav-dropdown-menu">
-            <li><a href="workshops.html#workshop-1">Workshop Name 1</a></li>
-            <li><a href="workshops.html#workshop-2">Workshop Name 2</a></li>
-          </ul>
+          <button class="nav-dropdown-trigger" data-page="workshops">Workshops</button>
+          <ul class="nav-dropdown-menu" id="workshops-menu"></ul>
         </div>
         <div class="nav-dropdown">
-          <button class="nav-dropdown-trigger">Teaching</button>
-          <ul class="nav-dropdown-menu">
-            <li><a href="teaching.html#stockholm">Stockholm University</a></li>
-            <li><a href="teaching.html#kcl">King's College London</a></li>
-            <li><a href="teaching.html#oxford">University of Oxford</a></li>
-          </ul>
+          <button class="nav-dropdown-trigger" data-page="teaching">Teaching</button>
+          <ul class="nav-dropdown-menu" id="teaching-menu"></ul>
         </div>
         <a href="cv.html">CV</a>
       </nav>
@@ -71,18 +64,17 @@
         </p>
       </div>
       <div class="about-photo">
-        <!-- Replace with your photo: <img src="photo.jpg" alt="Jonas Haeg" /> -->
+        <!-- To add your photo, replace the line below with:
+             <img src="photo.jpg" alt="Jonas Haeg" />            -->
         <div class="photo-placeholder"></div>
       </div>
     </div>
   </main>
 
-  <footer>
-    <div class="container">
-      <p>&copy; <span id="year"></span> Jonas Haeg</p>
-    </div>
-  </footer>
+  <footer><div class="container"><p>&copy; <span id="year"></span> Jonas Haeg</p></div></footer>
 
+  <script src="data/nav-items.js"></script>
   <script src="nav.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
