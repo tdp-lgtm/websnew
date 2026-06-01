@@ -1,28 +1,31 @@
 // ============================================================
 //  WORKSHOPS
-//  Add one block per workshop. The 'id' must match the anchor
-//  in nav-items.js (NAV_WORKSHOPS).
+//  The 'id' must match the anchor in NAV_WORKSHOPS (nav-items.js).
 //
 //  Required: id, title, institution, year
-//  Optional: month, coorganisers, description, programme
+//  Optional: month, coorganisers, description, registration,
+//            programme (array of { speaker, title })
 //
-//  Each programme entry needs: title, speaker
+//  For co-presenting speakers use "\n" in the speaker string:
+//    speaker: "Anna Smith (LSE) and\nJohn Doe (Oxford)"
 // ============================================================
 
 const WORKSHOPS = [
 
   {
-    id:            "workshop-1",        // must match NAV_WORKSHOPS anchor
+    id:            "workshop-1",
     title:         "Workshop Name 1",
     institution:   "Stockholm University",
-    month:         "May",               // leave "" to show year only
-    year:          2024,
-    coorganisers:  "Jane Smith",        // leave "" if solo
-    description:   "A description of this workshop — its theme, aims, and scope.",
+    month:         "April",
+    year:          2025,
+    coorganisers:  "Jane Smith",
+    description:   "This workshop will bring together philosophers working on [topic] to explore [themes].",
+    registration:  "The event is free and open to all. To register, please contact [name] ([email]) no later than [date] with your name, affiliation, and any dietary requirements.",
     programme: [
-      { title: "Paper Title", speaker: "Name (Institution)" },
-      { title: "Paper Title", speaker: "Name (Institution)" },
-      { title: "Paper Title", speaker: "Name (Institution)" },
+      { speaker: "Kimberly Ferzan (University of Pennsylvania)", title: "TBA" },
+      { speaker: "Patrick Tomlin (Warwick University)",          title: "Paper Title" },
+      { speaker: "Helen Frowe (Stockholm University)",           title: "Paper Title" },
+      { speaker: "Anna Smith (LSE) and\nJohn Doe (Oxford)",      title: "Paper Title" },
     ],
   },
 
@@ -34,9 +37,10 @@ const WORKSHOPS = [
     year:          2023,
     coorganisers:  "",
     description:   "",
+    registration:  "",
     programme: [
-      { title: "Paper Title", speaker: "Name (Institution)" },
-      { title: "Paper Title", speaker: "Name (Institution)" },
+      { speaker: "Name (Institution)", title: "Paper Title" },
+      { speaker: "Name (Institution)", title: "Paper Title" },
     ],
   },
 

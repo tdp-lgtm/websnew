@@ -1,7 +1,5 @@
 /* ============================================================
-   JONAS HAEG
-   Fonts + colours from "The Reading Room" design system,
-   clean minimal layout.
+   JONAS HAEG — clean minimal layout, Reading Room design system
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
@@ -84,12 +82,19 @@ header {
   color: var(--fg-1);
   letter-spacing: -0.01em;
   border-bottom: none;
+  line-height: 1;
+  flex-shrink: 0;
 }
 .site-title:hover { border-bottom: none; color: var(--fg-1); }
 .site-title b { color: var(--accent); }
 
 /* ---- Nav ---- */
-nav { display: flex; align-items: center; gap: 1.5rem; }
+nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  line-height: 1;
+}
 
 nav > a,
 .nav-dropdown-trigger {
@@ -101,6 +106,9 @@ nav > a,
   border: none;
   border-bottom: 1px solid transparent;
   padding: 0;
+  margin: 0;
+  line-height: 1;
+  vertical-align: middle;
   cursor: pointer;
   transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
@@ -111,13 +119,16 @@ nav > a.active { color: var(--accent); border-bottom-color: var(--accent); }
 .nav-dropdown.active .nav-dropdown-trigger { color: var(--accent); }
 
 /* ---- Dropdown ---- */
-.nav-dropdown { position: relative; }
+.nav-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 
 .nav-dropdown-trigger {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  padding-bottom: 0;
 }
 .nav-dropdown-trigger::after {
   content: "";
@@ -128,13 +139,15 @@ nav > a.active { color: var(--accent); border-bottom-color: var(--accent); }
   border-top: 4px solid currentColor;
   opacity: 0.5;
   transition: transform var(--dur) var(--ease);
+  position: relative;
+  top: 1px;
 }
 .nav-dropdown.open .nav-dropdown-trigger::after { transform: rotate(180deg); }
 
 .nav-dropdown-menu {
   display: none;
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100% + 14px);
   right: 0;
   min-width: 200px;
   background: var(--paper-2);
@@ -166,7 +179,7 @@ nav > a.active { color: var(--accent); border-bottom-color: var(--accent); }
   padding: 3.5rem 1.5rem 5rem;
 }
 
-/* ---- Page title ---- */
+/* ---- Page eyebrow ---- */
 .page-eyebrow,
 .eyebrow {
   font-family: var(--mono);
@@ -235,7 +248,7 @@ h2 {
 .venue {
   font-size: 0.9375rem;
   color: var(--fg-2);
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.35rem;
   line-height: 1.5;
 }
 .venue em { font-style: italic; }
@@ -280,51 +293,95 @@ h2 {
 
 .pub-abstract {
   font-size: 0.9375rem;
-  color: var(--fg-3);
-  line-height: 1.7;
+  color: var(--fg-2);
+  line-height: 1.75;
+  text-align: justify;
   margin-top: 0.75rem;
   padding-top: 0.75rem;
   border-top: 1px solid var(--rule);
 }
 
-.wip-item {
-  grid-template-columns: 0 1fr;
-  gap: 0;
+/* ---- WIP ---- */
+.pub--wip {
+  display: block;
+  padding: 1rem 0;
+  border-top: 1px solid var(--rule);
 }
-.wip-item .yr { display: none; }
+.pub--wip:first-child { border-top: none; }
+
+.wip-title {
+  font-family: var(--serif);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--fg-2);
+  line-height: 1.4;
+  margin: 0 0 0.2rem;
+}
 
 .wip-status {
   font-family: var(--mono);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--fg-3);
   display: block;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.25rem;
+}
+
+/* ---- Page description ---- */
+.page-description {
+  color: var(--fg-2);
+  margin-top: -1rem;
+  margin-bottom: 1.75rem;
+  font-size: 1rem;
+  line-height: 1.7;
 }
 
 /* ---- Talks ---- */
-.talk {
-  display: grid;
-  grid-template-columns: 4.75rem 1fr;
-  gap: 1.5rem;
-  padding: 1.1rem 0;
+.talks-legend {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--fg-3);
+  margin-top: -1.25rem;
+  margin-bottom: 1.75rem;
+  letter-spacing: 0.02em;
+}
+
+.talk-group {
+  padding: 1.25rem 0;
   border-top: 1px solid var(--rule);
 }
-.talk:first-child { border-top: none; }
+.talk-group:first-child { border-top: none; }
 
-.talk h3 {
+.talk-title {
   font-family: var(--serif);
   font-size: 1.0625rem;
   font-weight: 500;
   color: var(--fg-1);
-  margin: 0 0 0.2rem;
   line-height: 1.35;
+  margin-bottom: 0.45rem;
 }
-.talk .where {
-  font-size: 0.9rem;
+
+.talk-row {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 1rem;
+  padding: 0.15rem 0;
+}
+
+.talk-row-detail {
+  font-size: 0.9375rem;
   color: var(--fg-2);
-  margin: 0;
+  line-height: 1.5;
+}
+.talk-tag {
+  color: var(--fg-3);
+  font-size: 0.7em;
+  margin-left: 0.05em;
+}
+.talk-comment {
+  color: var(--fg-3);
+  font-size: 0.875rem;
 }
 
 /* ---- Workshop / Teaching sections ---- */
@@ -344,11 +401,11 @@ h2 {
   font-size: 1.25rem;
   font-weight: 500;
   color: var(--fg-1);
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.15rem;
 }
 .section-subtitle {
   font-family: var(--mono);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--fg-3);
   letter-spacing: 0.04em;
   margin-bottom: 1rem;
@@ -356,60 +413,96 @@ h2 {
 .workshop-description {
   color: var(--fg-2);
   margin-bottom: 1.25rem;
+  line-height: 1.75;
 }
-
-/* ---- Teaching list ---- */
-.teaching-list { list-style: none; }
-.teaching-list li {
-  display: grid;
-  grid-template-columns: 4.75rem 1fr;
-  gap: 1.5rem;
-  padding: 1rem 0;
+.ws-programme {
+  margin: 1rem 0;
   border-top: 1px solid var(--rule);
 }
-.teaching-list li:first-child { border-top: none; }
+.ws-entry {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.ws-speaker {
+  font-size: 0.9375rem;
+  color: var(--fg-2);
+  line-height: 1.5;
+}
+.ws-paper { margin-top: 0.1rem; }
+.ws-paper-title {
+  font-family: var(--serif);
+  font-size: 0.9375rem;
+  font-style: italic;
+  color: var(--fg-1);
+}
+.ws-tba {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--fg-3);
+}
+.ws-registration {
+  font-size: 0.9rem;
+  color: var(--fg-3);
+  margin-top: 1.25rem;
+  line-height: 1.65;
+}
 
-.teaching-course {
+/* ---- Teaching ---- */
+.teaching-role-group {
+  display: grid;
+  grid-template-columns: 11rem 1fr;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--rule);
+}
+.teaching-role-group:first-of-type { border-top: none; }
+
+.teaching-role {
   font-family: var(--serif);
   font-size: 1rem;
   font-weight: 500;
   color: var(--fg-1);
+  padding-top: 0.1rem;
+  line-height: 1.4;
 }
-.teaching-meta {
-  font-family: var(--mono);
-  font-size: 0.75rem;
+
+.teaching-entry { padding: 0.1rem 0; }
+.teaching-course {
+  font-size: 0.9375rem;
+  color: var(--fg-2);
+  line-height: 1.55;
+}
+.teaching-note {
+  font-style: italic;
   color: var(--fg-3);
-  letter-spacing: 0.03em;
-  display: block;
-  margin-top: 0.2rem;
+  font-size: 0.875rem;
 }
 
 /* ---- About ---- */
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 164px;
-  gap: 2.5rem;
-  align-items: start;
+.about-body {
+  line-height: 1.8;
 }
-
-.about-text p {
-  margin-bottom: 1rem;
+.about-body p {
   color: var(--fg-1);
-  line-height: 1.75;
+  margin-bottom: 1rem;
 }
-.about-text p:last-child { margin-bottom: 0; }
+.about-body p:last-child { margin-bottom: 0; }
 
-.portrait { overflow: hidden; }
-.portrait img { width: 100%; display: block; filter: grayscale(1) contrast(1.03); }
-.photo-placeholder { width: 100%; aspect-ratio: 3/4; background: var(--paper-sunk); }
-
-/* ---- Page description ---- */
-.page-description {
-  color: var(--fg-2);
-  margin-top: -1rem;
-  margin-bottom: 1.75rem;
-  font-size: 1rem;
-  line-height: 1.7;
+.about-portrait {
+  float: right;
+  width: 220px;
+  margin: 0.15rem 0 1.5rem 2.25rem;
+  shape-outside: border-box;
+}
+.about-portrait img {
+  width: 100%;
+  display: block;
+  filter: grayscale(1) contrast(1.03);
+}
+.about-portrait .photo-placeholder {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: var(--paper-sunk);
 }
 
 /* ---- CV ---- */
@@ -437,6 +530,7 @@ h2 {
 
 /* ---- Footer ---- */
 footer {
+  clear: both;
   border-top: 1px solid var(--rule);
   padding: 1.5rem 0;
 }
@@ -455,10 +549,11 @@ footer {
 /* ---- Responsive ---- */
 @media (max-width: 580px) {
   .header-inner { padding: 0 1rem; }
-  .container { padding: 2.5rem 1rem 4rem; }
+  .container, .narrow { padding: 2.5rem 1rem 4rem; }
   nav { gap: 1rem; }
   nav > a, .nav-dropdown-trigger { font-size: 0.8rem; }
-  .about-grid { grid-template-columns: 1fr; }
-  .about-grid .portrait { order: -1; max-width: 140px; }
-  .pub, .talk, .cv-item, .teaching-list li { grid-template-columns: 3.5rem 1fr; gap: 1rem; }
+  .about-portrait { width: 150px; margin-left: 1.25rem; }
+  .pub, .cv-item { grid-template-columns: 3.5rem 1fr; gap: 1rem; }
+  .talk-row { grid-template-columns: 6rem 1fr; }
+  .teaching-role-group { grid-template-columns: 1fr; gap: 0.25rem; }
 }
