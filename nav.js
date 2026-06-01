@@ -43,5 +43,4 @@ function _fillDropdown(menuId, items, basePage) {
     return `<li><a href="${href}">${item.label}</a></li>`;
   }).join('');
 }
-
-buildNav();
+// buildNav() is invoked by boot.js once nav data has loaded.

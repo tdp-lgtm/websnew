@@ -1,0 +1,22 @@
+{
+  "workshops": [
+    {
+      "label": "Ethics of Deception",
+      "href": "workshop-1.html"
+    },
+    {
+      "label": "Deterrence and Deontology",
+      "href": "workshop-2.html"
+    }
+  ],
+  "teaching": [
+    {
+      "label": "Courses",
+      "href": "teaching.html"
+    },
+    {
+      "label": "Resources for students",
+      "href": "teaching-resources.html"
+    }
+  ]
+}

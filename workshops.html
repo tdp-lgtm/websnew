@@ -43,10 +43,12 @@
     </div>
   </footer>
 
-  <script src="data/nav-items.js"></script>
-  <script src="data/workshops.js"></script>
   <script src="nav.js"></script>
   <script src="render.js"></script>
-  <script>renderWorkshops('workshops');</script>
+  <script>
+    window.PAGE_NEEDS = ['workshops'];
+    window.initPage = function () { renderWorkshops('workshops'); };
+  </script>
+  <script src="boot.js"></script>
 </body>
 </html>
