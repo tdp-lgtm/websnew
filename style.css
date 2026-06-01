@@ -353,9 +353,23 @@ h2 {
   letter-spacing: 0.02em;
 }
 
-.talk-item h3 { margin-bottom: 0.4rem; }
+.talk-item {
+  list-style: none;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--rule);
+}
+.talk-item:first-child { border-top: none; }
 
-.talk-pres-list { margin-top: 0.1rem; }
+.talk-item h3 {
+  font-family: var(--serif);
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--fg-1);
+  line-height: 1.35;
+  margin: 0 0 0.4rem;
+}
+
+.talk-pres-list { margin-top: 0.15rem; }
 
 .talk-row {
   display: grid;
@@ -366,13 +380,13 @@ h2 {
 
 .talk-row .yr {
   font-family: var(--mono);
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   color: var(--fg-3);
   padding-top: 0.15rem;
 }
 
 .talk-row-detail {
-  font-size: 0.9rem;
+  font-size: 0.9375rem;
   color: var(--fg-2);
   line-height: 1.5;
 }

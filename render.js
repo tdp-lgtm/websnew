@@ -121,12 +121,9 @@ function renderTalks(containerId) {
         <div class="talk-row-detail">${where}${tag}.${comment}</div>
       </div>`;
     }).join('');
-    return `<li class="pub talk-item">
-      <div class="yr"></div>
-      <div>
-        <h3>${talk.title}.</h3>
-        <div class="talk-pres-list">${rows}</div>
-      </div>
+    return `<li class="talk-item">
+      <h3>${talk.title}.</h3>
+      <div class="talk-pres-list">${rows}</div>
     </li>`;
   }).join('')}</ul>`;
 }
