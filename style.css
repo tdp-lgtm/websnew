@@ -452,6 +452,7 @@ h2 {
   line-height: 1.5;
 }
 .ws-paper { margin-top: 0.15rem; }
+.ws-affiliation { color: var(--fg-3); }
 .ws-paper-title {
   font-family: var(--serif);
   font-size: 0.9375rem;

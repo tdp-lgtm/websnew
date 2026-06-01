@@ -10,97 +10,49 @@
     "registration": "",
     "programme": [
       {
-        "day": "Wednesday 26 November"
+        "name": "Chloe Kennedy",
+        "affiliation": "Edinburgh",
+        "title": "The Ethics (and Legality) of Deceptive Intimate Relationships"
       },
       {
-        "time": "09.30 – 09.45",
-        "label": "Welcome and Introductions"
+        "name": "Helen Frowe",
+        "affiliation": "Stockholm",
+        "title": "Criminalising Deceptive Relationships"
       },
       {
-        "time": "09.45 – 10.45",
-        "speaker": "Chloe Kennedy (Edinburgh)",
-        "title": "The Ethics (and Legality) of Deceptive Intimate Relationships",
-        "format": "PC",
-        "chair": "Helen Frowe"
+        "name": "Radu Bumbăcea",
+        "affiliation": "LMU Munich",
+        "title": "Personas and Deception"
       },
       {
-        "time": "10.45 – 11.15",
-        "label": "Coffee"
+        "name": "Shalom Chalson",
+        "affiliation": "Singapore",
+        "title": "Lying to Loved Ones: (Wrongful) Deception and Health Status"
       },
       {
-        "time": "11.15 – 12.30",
-        "speaker": "Helen Frowe (Stockholm)",
-        "title": "Criminalising Deceptive Relationships",
-        "format": "PC",
-        "chair": "Jonas Haeg"
+        "name": "Alex Barber and Sean Cordell",
+        "affiliation": "Open University",
+        "title": "Legislating against Political Lying"
       },
       {
-        "time": "12.30 – 14.00",
-        "label": "Lunch at the Faculty Club (speakers only)"
+        "name": "Jörg Löschke",
+        "affiliation": "Stuttgart",
+        "title": "Love, Games, and Deception"
       },
       {
-        "time": "14.00 – 15.15",
-        "speaker": "Radu Bumbăcea (LMU Munich)",
-        "title": "Personas and Deception",
-        "format": "T",
-        "chair": "Fabio Crespi"
+        "name": "Maria Lucila Tuñón Corti",
+        "affiliation": "MPI/Würzburg",
+        "title": "Stealthing: Between Consent and Deception"
       },
       {
-        "time": "15.20 – 16.35",
-        "speaker": "Shalom Chalson (Singapore)",
-        "title": "Lying to Loved Ones: (Wrongful) Deception and Health Status",
-        "format": "PC",
-        "chair": "Ellen Svensson"
+        "name": "Pascal Mowla",
+        "affiliation": "Oxford",
+        "title": "Sentimentality and Generative AI: What's Wrong with “Cheating”?"
       },
       {
-        "day": "Thursday 27 November"
-      },
-      {
-        "time": "10.00 – 11.00",
-        "speaker": "Alex Barber and Sean Cordell (Open University)",
-        "title": "Legislating against Political Lying",
-        "format": "PC",
-        "chair": "Ellen Davidsson"
-      },
-      {
-        "time": "11.00 – 11.30",
-        "label": "Coffee"
-      },
-      {
-        "time": "11.30 – 12.30",
-        "speaker": "Jörg Löschke (Stuttgart)",
-        "title": "Love, Games, and Deception",
-        "format": "PC",
-        "chair": "Helen Frowe"
-      },
-      {
-        "time": "12.30 – 14.00",
-        "label": "Lunch at the Faculty Club (speakers only)"
-      },
-      {
-        "time": "14.00 – 15.00",
-        "speaker": "Maria Lucila Tuñón Corti (MPI/Würzburg)",
-        "title": "Stealthing: Between Consent and Deception",
-        "format": "PC",
-        "chair": "Ana Belén Valverde Cano"
-      },
-      {
-        "time": "15.05 – 16.20",
-        "speaker": "Pascal Mowla (Oxford)",
-        "title": "Sentimentality and Generative AI: What's Wrong with “Cheating”?",
-        "format": "T",
-        "chair": "Kris Moody"
-      },
-      {
-        "time": "16.20 – 16.40",
-        "label": "Coffee"
-      },
-      {
-        "time": "16.40 – 17.55",
-        "speaker": "Luke Hunt (Alabama)",
-        "title": "The Legal and Moral Right (and Duty) to Deceive",
-        "format": "T",
-        "chair": "Jonas Haeg"
+        "name": "Luke Hunt",
+        "affiliation": "Alabama",
+        "title": "The Legal and Moral Right (and Duty) to Deceive"
       }
     ]
   },
@@ -115,35 +67,43 @@
     "registration": "",
     "programme": [
       {
-        "speaker": "Kimberly Ferzan (University of Pennsylvania)",
+        "name": "Kimberly Ferzan",
+        "affiliation": "University of Pennsylvania",
         "title": "TBA"
       },
       {
-        "speaker": "Patrick Tomlin (Warwick University)",
+        "name": "Patrick Tomlin",
+        "affiliation": "Warwick University",
         "title": "To Infinity and Beyond?: On the Logic and Limits of Deterrence"
       },
       {
-        "speaker": "Helen Frowe (Stockholm University)",
+        "name": "Helen Frowe",
+        "affiliation": "Stockholm University",
         "title": "The Ethics of Collective Defence Agreements"
       },
       {
-        "speaker": "Bashshar Haydar (American University of Beirut) and\nLars Christie (University of Inland Norway)",
+        "name": "Bashshar Haydar (American University of Beirut) and\nLars Christie",
+        "affiliation": "\nUniversity of Inland Norway",
         "title": "Deterrence and Proportionality in Defensive Wars"
       },
       {
-        "speaker": "Anna Dvorishchina (LSE) and\nTrenton Sewell (University of Surrey)",
+        "name": "Anna Dvorishchina (LSE) and\nTrenton Sewell",
+        "affiliation": "\nUniversity of Surrey",
         "title": "Punishment, General Deterrence, and Overdetermination"
       },
       {
-        "speaker": "Jeremy Davis (University of Georgia)",
+        "name": "Jeremy Davis",
+        "affiliation": "University of Georgia",
         "title": "Intervening Agency, Deterrence, and Proportionality"
       },
       {
-        "speaker": "Jimmy Goodrich (UW-Madison) and\nJoe Bowen (University of Leeds)",
+        "name": "Jimmy Goodrich (UW-Madison) and\nJoe Bowen",
+        "affiliation": "\nUniversity of Leeds",
         "title": "Innocence Regained: On the Basis of Moral Liability to General Deterrence"
       },
       {
-        "speaker": "Lee-Ann Chae (Temple University)",
+        "name": "Lee-Ann Chae",
+        "affiliation": "Temple University",
         "title": "When Deterrence Becomes Provocation"
       }
     ]

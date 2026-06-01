@@ -124,7 +124,11 @@ content:
         label: Presentations
         type: object
         list: true
+        primary: venue
         fields:
+          - name: venue
+            label: Venue / event
+            type: string
           - name: type
             label: Type
             type: select
@@ -135,9 +139,6 @@ content:
             type: string
           - name: month
             label: Month
-            type: string
-          - name: venue
-            label: Venue / event
             type: string
           - name: institution
             label: Institution
@@ -171,12 +172,13 @@ content:
         label: Courses
         type: object
         list: true
+        primary: course
         fields:
-          - name: role
-            label: Role
-            type: string
           - name: course
             label: Course
+            type: string
+          - name: role
+            label: Role
             type: string
           - name: year
             label: Year
@@ -230,9 +232,13 @@ content:
         label: Speakers
         type: object
         list: true
+        primary: name
         fields:
-          - name: speaker
-            label: Speaker
+          - name: name
+            label: Name
+            type: string
+          - name: affiliation
+            label: Affiliation
             type: string
           - name: title
             label: Talk title
@@ -251,6 +257,7 @@ content:
         label: Workshops dropdown
         type: object
         list: true
+        primary: label
         fields:
           - name: label
             label: Label
@@ -262,6 +269,7 @@ content:
         label: Teaching dropdown
         type: object
         list: true
+        primary: label
         fields:
           - name: label
             label: Label

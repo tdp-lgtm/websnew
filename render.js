@@ -202,10 +202,15 @@ function renderWorkshopPage(workshopId, containerId) {
   const date = [w.month, w.year].filter(Boolean).join(' ');
   const meta = [w.institution, date, w.coorganisers ? `Organised with ${w.coorganisers}` : ''].filter(Boolean).join(' · ');
 
-  const speakers = (w.programme || []).filter(e => e.speaker);
+  const speakers = (w.programme || []).filter(e => e.name);
   const programme = speakers.length
     ? `<ul class="ws-speaker-list">${speakers.map(e => {
-        const speakerHtml = e.speaker.split('\n').join('<br>');
+        const names = e.name.split('\n');
+        const affiliations = (e.affiliation || '').split('\n');
+        const speakerHtml = names.map((n, i) => {
+          const aff = affiliations[i] ? ` <span class="ws-affiliation">(${affiliations[i]})</span>` : '';
+          return `${n}${aff}`;
+        }).join('<br>');
         const titleHtml = e.title && e.title !== 'TBA'
           ? `<em class="ws-paper-title">${e.title}</em>`
           : '';
