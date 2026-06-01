@@ -48,6 +48,7 @@ function _pubItem(p) {
     p.pdf ? `<a href="${p.pdf}" target="_blank" rel="noopener">PDF</a>` : '',
     abstractBtn,
     p.doi ? `<a href="${p.doi}" target="_blank" rel="noopener">Publisher ↗</a>` : '',
+    p.prize ? `<span class="award">${p.prize}</span>` : '',
   ].filter(Boolean);
 
   return `<li class="pub">
@@ -55,7 +56,6 @@ function _pubItem(p) {
     <div>
       <h3>${p.coauthors ? `(with ${p.coauthors}) ` : ''}"${p.title}."</h3>
       ${citation ? `<p class="venue">${citation}.</p>` : ''}
-      ${p.prize ? `<span class="award">${p.prize}</span>` : ''}
       ${links.length ? `<div class="pub-links">${links.join('')}</div>` : ''}
       ${abstractDiv}
     </div>

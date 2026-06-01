@@ -61,8 +61,8 @@ header {
   top: 0;
   z-index: 40;
   height: var(--nav-h);
-  background: color-mix(in srgb, var(--paper) 88%, transparent);
-  backdrop-filter: blur(8px);
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--rule);
 }
 
@@ -74,6 +74,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 2rem;
 }
 
 .site-title {
@@ -240,16 +241,17 @@ h2 {
 .venue em { font-style: italic; }
 
 .award {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   font-family: var(--mono);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   letter-spacing: 0.04em;
   color: #7a5f2e;
   background: var(--gold-tint);
   border: 1px solid #d4bc80;
   border-radius: 3px;
-  padding: 0.2rem 0.55rem;
-  margin-bottom: 0.5rem;
+  padding: 0.18rem 0.5rem;
+  line-height: 1.6;
 }
 
 .pub-links {
@@ -379,31 +381,30 @@ h2 {
 /* ---- About ---- */
 .about-grid {
   display: grid;
-  grid-template-columns: 1fr 180px;
+  grid-template-columns: 1fr 164px;
   gap: 2.5rem;
   align-items: start;
-  margin-bottom: 2rem;
 }
 
 .about-text p {
   margin-bottom: 1rem;
   color: var(--fg-1);
+  line-height: 1.75;
 }
 .about-text p:last-child { margin-bottom: 0; }
 
-.position {
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--accent);
-  display: block;
-  margin-bottom: 1.25rem;
-}
-
-.portrait { overflow: hidden; background: var(--paper-sunk); }
-.portrait img { width: 100%; display: block; filter: grayscale(1) contrast(1.02); }
+.portrait { overflow: hidden; }
+.portrait img { width: 100%; display: block; filter: grayscale(1) contrast(1.03); }
 .photo-placeholder { width: 100%; aspect-ratio: 3/4; background: var(--paper-sunk); }
+
+/* ---- Page description ---- */
+.page-description {
+  color: var(--fg-2);
+  margin-top: -1rem;
+  margin-bottom: 1.75rem;
+  font-size: 1rem;
+  line-height: 1.7;
+}
 
 /* ---- CV ---- */
 .cv-section { margin-bottom: 2.5rem; }
