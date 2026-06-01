@@ -3,7 +3,7 @@
 //  Add one block per talk. Order = display order (newest first).
 //
 //  Required: year, title, venue, institution
-//  type options: "Invited" | "Conference"
+//  type options: "Invited" | "Peer-Rewiew" | "None"
 //  Optional: month, comment (e.g. "commentator: Name")
 // ============================================================
 
