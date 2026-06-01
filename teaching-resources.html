@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Talks — Jonas Haeg</title>
+  <title>Resources for Students — Jonas Haeg</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>
-<body data-page="talks">
+<body data-page="teaching">
 
   <header>
     <div class="header-inner">
@@ -30,9 +30,13 @@
 
   <main>
     <div class="narrow">
-      <span class="eyebrow">Talks</span>
-      <p class="talks-legend"><sup>*</sup> invited &ensp; <sup>&#8224;</sup> peer-reviewed</p>
-      <div id="talks"></div>
+      <span class="eyebrow">Teaching</span>
+      <h2>Resources for students</h2>
+      <div id="resources-content">
+        <!-- Edit this section directly to add resources for students.
+             You can add links to reading lists, essay guides, etc. -->
+        <p style="color:var(--fg-3)">Resources coming soon.</p>
+      </div>
     </div>
   </main>
 
@@ -44,11 +48,7 @@
   </footer>
 
   <script src="data/nav-items.js"></script>
-  <script src="data/talks.js"></script>
   <script src="nav.js"></script>
-  <script src="render.js"></script>
-  <script>
-    renderTalks('talks');
-  </script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

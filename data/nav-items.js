@@ -5,13 +5,14 @@
 //  anchors must match the IDs in workshops.js / teaching.js.
 // ============================================================
 
+// For workshops: set href to the workshop's own page.
+// For teaching: set href to the target page directly.
 const NAV_WORKSHOPS = [
-  { label: "Workshop Name 1", anchor: "workshop-1" },
-  { label: "Workshop Name 2", anchor: "workshop-2" },
+  { label: "Workshop Name 1", href: "workshop-1.html" },
+  { label: "Workshop Name 2", href: "workshop-2.html" },
 ];
 
 const NAV_TEACHING = [
-  { label: "Stockholm University", anchor: "stockholm" },
-  { label: "King's College London", anchor: "kcl"      },
-  { label: "University of Oxford",  anchor: "oxford"   },
+  { label: "Courses",               href: "teaching.html"           },
+  { label: "Resources for students", href: "teaching-resources.html" },
 ];

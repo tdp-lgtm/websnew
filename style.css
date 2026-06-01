@@ -330,8 +330,8 @@ h2 {
 
 .wip-title {
   font-family: var(--serif);
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-size: 0.875rem;
+  font-weight: 400;
   color: var(--fg-2);
   line-height: 1.45;
   margin: 0;
@@ -519,7 +519,27 @@ h2 {
   width: 100%;
   display: block;
   filter: grayscale(1) contrast(1.03);
+  transition: filter 0.4s ease;
 }
+.about-portrait img:hover { filter: grayscale(0) contrast(1); }
+
+.about-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.75rem;
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+}
+.about-links a {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+  border-bottom: none;
+}
+.about-links a:hover { color: var(--accent); border-bottom: none; }
 .about-portrait .photo-placeholder {
   width: 100%;
   aspect-ratio: 3/4;

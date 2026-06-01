@@ -207,6 +207,37 @@ function renderWorkshops(id) {
   }).join('');
 }
 
+function renderWorkshopPage(workshopId, containerId) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const w = WORKSHOPS.find(x => x.id === workshopId);
+  if (!w) { el.innerHTML = '<p>Workshop not found.</p>'; return; }
+  const date = [w.month, w.year].filter(Boolean).join(' ');
+  const meta = [w.institution, date, w.coorganisers ? `Co-organised with ${w.coorganisers}` : ''].filter(Boolean).join(' · ');
+  const programme = w.programme && w.programme.length
+    ? `<div class="ws-programme">${w.programme.map(e => {
+        const speakerHtml = e.speaker.split('\n').join('<br>');
+        const titleHtml = e.title && e.title !== 'TBA'
+          ? `<em class="ws-paper-title">${e.title}</em>`
+          : `<span class="ws-tba">TBA</span>`;
+        return `<div class="ws-entry">
+          <div class="ws-speaker">${speakerHtml}:</div>
+          <div class="ws-paper">${titleHtml}</div>
+        </div>`;
+      }).join('')}</div>`
+    : '';
+  const regHtml = w.registration ? `<p class="ws-registration">${w.registration}</p>` : '';
+  el.innerHTML = `
+    <p class="section-subtitle">${meta}</p>
+    ${w.description ? `<p class="workshop-description">${w.description}</p>` : ''}
+    ${programme}
+    ${regHtml}`;
+  // Set the page title
+  document.title = `${w.title} — Jonas Haeg`;
+  const eyebrow = document.getElementById('ws-title');
+  if (eyebrow) eyebrow.textContent = w.title;
+}
+
 function renderCV() {
   _renderCVSection('cv-employment', [
     { year: '2023–', detail: 'Postdoctoral Researcher, Stockholm Centre for the Ethics of War and Peace, Department of Philosophy, Stockholm University' },

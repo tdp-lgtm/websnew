@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Talks — Jonas Haeg</title>
+  <title>Workshop — Jonas Haeg</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>
-<body data-page="talks">
+<body data-page="workshops">
 
   <header>
     <div class="header-inner">
@@ -30,9 +30,9 @@
 
   <main>
     <div class="narrow">
-      <span class="eyebrow">Talks</span>
-      <p class="talks-legend"><sup>*</sup> invited &ensp; <sup>&#8224;</sup> peer-reviewed</p>
-      <div id="talks"></div>
+      <span class="eyebrow">Workshop</span>
+      <h2 id="ws-title"></h2>
+      <div id="workshop-content"></div>
     </div>
   </main>
 
@@ -44,11 +44,9 @@
   </footer>
 
   <script src="data/nav-items.js"></script>
-  <script src="data/talks.js"></script>
+  <script src="data/workshops.js"></script>
   <script src="nav.js"></script>
   <script src="render.js"></script>
-  <script>
-    renderTalks('talks');
-  </script>
+  <script>renderWorkshopPage('workshop-2', 'workshop-content');</script>
 </body>
 </html>

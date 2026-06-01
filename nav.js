@@ -38,9 +38,10 @@ function buildNav() {
 function _fillDropdown(menuId, items, basePage) {
   const menu = document.getElementById(menuId);
   if (!menu) return;
-  menu.innerHTML = items.map(item =>
-    `<li><a href="${basePage}#${item.anchor}">${item.label}</a></li>`
-  ).join('');
+  menu.innerHTML = items.map(item => {
+    const href = item.href ? item.href : `${basePage}#${item.anchor}`;
+    return `<li><a href="${href}">${item.label}</a></li>`;
+  }).join('');
 }
 
 buildNav();
