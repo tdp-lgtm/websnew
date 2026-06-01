@@ -61,7 +61,7 @@ const PUBLICATIONS = [
   {
     type:       "Article",
     year:       2022,
-    title:      "Entrapment and Manipulation.",
+    title:      "Entrapment and Manipulation",
     journal:    "Res Publica",
     volume:     "28",
     issue:      "1",
@@ -97,7 +97,7 @@ const PUBLICATIONS = [
     issue:      "",
     pages:      "315-323",
     coauthors:  "",
-    abstract:   "",
+    abstract:   "This paper reviews The Ethics of Undercover Policing by Christopher Nathan.",
     pdf:        "https://philpapers.org/archive/HAEROC.pdf",
     doi:        "https://doi.org/10.1007/s11572-023-09715-2",
     prize:      "​",
