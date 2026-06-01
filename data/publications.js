@@ -25,9 +25,24 @@ const PUBLICATIONS = [
     abstract:   "How can we justify the practice of punishing offenders? Constrained Instrumentalism has become an attractive alternative to traditional answers like Retributivism and Instrumentalism. This paper focuses on two versions of this view, the Forfeiture View and the Duty View, and argues that both face a False Confessions Problem: they cannot adequately explain why we should punish, or at least prefer to punish, only those guilty of a crime instead of anyone who voluntarily but falsely confesses to a crime. They fail to account for the powerful intuition that punishment should not be simply about pursuing valuable ends (like general deterrence) without violating rights but, fundamentally, should be about pursuing these ends by punishing the guilty. Finally, I suggest that Constrained Instrumentalists might avoid this objection by defending something like 'instrumental desert'",
     pdf:        "",
     doi:        "",
-    prize:      "Winner, Plah Prize",              // e.g. 'Winner, <a href="#">Prize Name</a>'
+    prize:      "",              // e.g. 'Winner, <a href="#">Prize Name</a>'
   },
 
+  {
+    type:       "Article",
+    year:       2025,
+    title:      "Necessity Over Time",
+    journal:    "Journal of Moral Philosophy",
+    volume:     "Online First",
+    issue:      "",
+    pages:      "1-27",
+    coauthors:  "",
+    abstract:   "This paper explores how the necessity condition for permissible selfdefence operates over time. It addresses two core questions. First: when, leading up to an attack, does the necessity condition begin to apply? Second: if it applies before an attack, what are the implications of disregarding it? I argue that if aggressors are fully culpable, the condition applies only at the moment of attack. For less culpable aggressors, however, it can require that defenders act earlier to avoid or reduce future harm. However, failing to comply with these earlier demands does not automatically render all subsequent defensive action impermissible. It only makes justifying it more difficult. Finally, I discuss some implications of my views for other-defence and third-party intervention.",
+    pdf:        "https://philpapers.org/archive/HAENOT.pdf",
+    doi:        "https://doi.org/10.1163/17455243-20254456",
+    prize:      "",
+  },
+  
   {
     type:       "Article",
     year:       2024,
@@ -43,4 +58,48 @@ const PUBLICATIONS = [
     prize:      "",
   },
 
+  {
+    type:       "Article",
+    year:       2022,
+    title:      "Entrapment and Manipulation.",
+    journal:    "Res Publica",
+    volume:     "28",
+    issue:      "1",
+    pages:      "557-583",
+    coauthors:  "",
+    abstract:   "Why is it wrong to punish criminals who have been entrapped by the state? The paper begins by presenting some criticisms of existing answers to this question. First, they fail to put the target, or victim, of entrapment at the centre of the moral explanation. Second, they fail to account for the intuitive relation between the reasons not to entrap and the reasons not to punish. Third, they struggle to account for the existence of agent-neutral reasons not to punish entrapped offenders. Lastly, they are ill-equipped to explain why entrapment seems problematic also outside the legal context. In response, the paper develops a novel account of entrapment: the Manipulation Account. According to this, entrapment always involves a particular kind of manipulation (manipulation-by-hidden-intentions) which morally taints punishment. In short, I suggest that both the initial entrapment and the subsequent punishment involve wrongful manipulation. Lastly, the paper presents some untraditional, but ultimately welcoming, implications of the account.",
+    pdf:        "https://philpapers.org/archive/HAEEAM.pdf",
+    doi:        "https://doi.org/10.1007/s11158-022-09567-y",
+    prize:      "Winner, 2022 Postgraduate Essay Prize",
+  },
+
+    {
+    type:       "Article",
+    year:       2022,
+    title:      "The Ethics of Political Bots: Should We Allow Them for Personal Use?",
+    journal:    "Journal of Practical Ethics",
+    volume:     "5",
+    issue:      "2",
+    pages:      "85-104",
+    coauthors:  "",
+    abstract:   "Why is it wrong to punish criminals who have been entrapped by the state? The paper begins by presenting some criticisms of existing answers to this question. First, they fail to put the target, or victim, of entrapment at the centre of the moral explanation. Second, they fail to account for the intuitive relation between the reasons not to entrap and the reasons not to punish. Third, they struggle to account for the existence of agent-neutral reasons not to punish entrapped offenders. Lastly, they are ill-equipped to explain why entrapment seems problematic also outside the legal context. In response, the paper develops a novel account of entrapment: the Manipulation Account. According to this, entrapment always involves a particular kind of manipulation (manipulation-by-hidden-intentions) which morally taints punishment. In short, I suggest that both the initial entrapment and the subsequent punishment involve wrongful manipulation. Lastly, the paper presents some untraditional, but ultimately welcoming, implications of the account.",
+    pdf:        "https://philpapers.org/archive/HAETEO-3.pdf",
+    doi:        "https://www.jpe.ox.ac.uk/papers/the-ethics-of-political-bots-should-we-allow-them-for-personal-use/",
+    prize:      "Runner-up, 2017 Oxford Uehiro Prize in Practical Ethics.​",
+  },
+
+    {
+    type:       "Review",
+    year:       2024,
+    title:      "Review of Christopher Nathan, The Ethics of Undercover Policing",
+    journal:    "Criminal Law and Philosophy",
+    volume:     "18",
+    issue:      "",
+    pages:      "315-323",
+    coauthors:  "",
+    abstract:   "",
+    pdf:        "https://philpapers.org/archive/HAEROC.pdf",
+    doi:        "https://doi.org/10.1007/s11572-023-09715-2",
+    prize:      "​",
+  },
 ];
