@@ -53,6 +53,7 @@ function _pubItem(p) {
     abstractBtn,
     p.pdf ? `<a href="${p.pdf}" target="_blank" rel="noopener">&#8595; PDF</a>` : '',
     p.doi ? `<a href="${p.doi}" target="_blank" rel="noopener">Publisher &#8599;</a>` : '',
+    p.prize ? `<span class="award-inline">${p.prize}</span>` : '',
   ].filter(Boolean);
 
   return `<li class="pub">
@@ -60,7 +61,6 @@ function _pubItem(p) {
     <div>
       <h3>${p.coauthors ? `(with ${p.coauthors}) ` : ''}${p.title}.</h3>
       ${citation ? `<p class="venue">${citation}.</p>` : ''}
-      ${p.prize ? `<span class="award">${p.prize}</span>` : ''}
       ${links.length ? `<div class="pub-links">${links.join('')}</div>` : ''}
       ${abstractDiv}
     </div>
@@ -107,7 +107,7 @@ function renderTalks(containerId) {
     el.innerHTML = '<p style="color:var(--fg-3)">Nothing to show yet.</p>';
     return;
   }
-  el.innerHTML = TALKS.map(talk => {
+  el.innerHTML = `<ul class="pub-list">${TALKS.map(talk => {
     const rows = (talk.presentations || []).map(p => {
       const tag = p.type === 'Invited'
         ? '<sup class="talk-tag">*</sup>'
@@ -118,15 +118,15 @@ function renderTalks(containerId) {
       const where = [p.venue, p.institution].filter(Boolean).join(', ');
       const comment = p.comment ? ` <em class="talk-comment">${p.comment}</em>` : '';
       return `<div class="talk-row">
-        <div class="yr">${date}</div>
+        <div class="talk-yr">${date}</div>
         <div class="talk-row-detail">${where}${tag}.${comment}</div>
       </div>`;
     }).join('');
-    return `<div class="talk-group">
-      <h3 class="talk-title">${talk.title}</h3>
+    return `<li class="talk-item">
+      <h3>${talk.title}.</h3>
       <div class="talk-pres-list">${rows}</div>
-    </div>`;
-  }).join('');
+    </li>`;
+  }).join('')}</ul>`;
 }
 
 function renderTeaching(id) {

@@ -233,7 +233,8 @@ h2 {
   font-family: var(--mono);
   font-size: 0.8125rem;
   color: var(--fg-3);
-  padding-top: 0.2rem;
+  padding-top: 0.25rem;
+  line-height: 1.35;
 }
 
 .pub h3 {
@@ -253,18 +254,11 @@ h2 {
 }
 .venue em { font-style: italic; }
 
-.award {
-  display: inline-flex;
-  align-items: center;
+.award-inline {
   font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.04em;
-  color: #7a5f2e;
-  background: var(--gold-tint);
-  border: 1px solid #d4bc80;
-  border-radius: 3px;
-  padding: 0.18rem 0.5rem;
-  line-height: 1.6;
+  font-size: 0.75rem;
+  color: var(--fg-3);
+  letter-spacing: 0.01em;
 }
 
 .pub-links {
@@ -369,26 +363,36 @@ h2 {
   letter-spacing: 0.02em;
 }
 
-.talk-group {
+.talk-item {
+  list-style: none;
   padding: 1.25rem 0;
   border-top: 1px solid var(--rule);
 }
-.talk-group:first-child { border-top: none; }
+.talk-item:first-child { border-top: none; }
 
-.talk-title {
+.talk-item > h3 {
   font-family: var(--serif);
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   font-weight: 500;
   color: var(--fg-1);
   line-height: 1.35;
-  margin-bottom: 0.45rem;
+  margin: 0 0 0.4rem;
 }
+
+.talk-pres-list { display: flex; flex-direction: column; gap: 0.1rem; }
 
 .talk-row {
   display: grid;
-  grid-template-columns: 8rem 1fr;
-  gap: 1rem;
-  padding: 0.15rem 0;
+  grid-template-columns: 4.75rem 1fr;
+  gap: 1.5rem;
+}
+
+.talk-yr {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  color: var(--fg-3);
+  padding-top: 0.15rem;
+  line-height: 1.35;
 }
 
 .talk-row-detail {
@@ -576,6 +580,6 @@ footer {
   nav > a, .nav-dropdown-trigger { font-size: 0.8rem; }
   .about-portrait { width: 150px; margin-left: 1.25rem; }
   .pub, .cv-item { grid-template-columns: 3.5rem 1fr; gap: 1rem; }
-  .talk-row { grid-template-columns: 6rem 1fr; }
+  .talk-row { grid-template-columns: 4.75rem 1fr; }
   .teaching-role-group { grid-template-columns: 1fr; gap: 0.25rem; }
 }
