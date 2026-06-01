@@ -224,7 +224,7 @@ h2 {
   display: grid;
   grid-template-columns: 4.75rem 1fr;
   gap: 1.5rem;
-  padding: 1.25rem 0;
+  padding: 0.9rem 0;
   border-top: 1px solid var(--rule);
   align-items: baseline;
 }
@@ -360,7 +360,7 @@ h2 {
 
 .talk-item {
   list-style: none;
-  padding: 1.25rem 0;
+  padding: 0.9rem 0;
   border-top: 1px solid var(--rule);
 }
 .talk-item:first-child { border-top: none; }
@@ -436,82 +436,28 @@ h2 {
   margin-bottom: 1.25rem;
   line-height: 1.75;
 }
-.ws-programme {
+.ws-speaker-list {
+  list-style: none;
   margin: 1.75rem 0 0;
   border-top: 1px solid var(--rule);
 }
-.ws-day {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--accent);
-  padding: 1.4rem 0 0.5rem;
-}
-.ws-entry,
-.ws-break {
-  display: grid;
-  grid-template-columns: 8.5rem 1fr;
-  gap: 1.25rem;
-  padding: 0.7rem 0;
+.ws-speaker-item {
+  padding: 0.8rem 0;
   border-top: 1px solid var(--rule);
 }
-.ws-day + .ws-entry,
-.ws-day + .ws-break { border-top: none; }
-.ws-programme--untimed .ws-entry,
-.ws-programme--untimed .ws-break { grid-template-columns: 1fr; gap: 0; }
-.ws-programme--untimed .ws-time { display: none; }
-.ws-time {
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  color: var(--fg-3);
-  line-height: 1.5;
-  padding-top: 0.1rem;
-}
-.ws-break-label {
-  font-size: 0.875rem;
-  font-style: italic;
-  color: var(--fg-3);
-  line-height: 1.5;
-}
+.ws-speaker-item:first-child { border-top: none; }
 .ws-speaker {
   font-size: 0.9375rem;
   color: var(--fg-2);
   line-height: 1.5;
 }
-.ws-paper { margin-top: 0.1rem; }
+.ws-paper { margin-top: 0.15rem; }
 .ws-paper-title {
   font-family: var(--serif);
   font-size: 0.9375rem;
   font-style: italic;
   color: var(--fg-1);
 }
-.ws-format {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  color: var(--fg-3);
-}
-.ws-chair {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  color: var(--fg-3);
-  margin-top: 0.3rem;
-  letter-spacing: 0.02em;
-}
-.ws-tba {
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  color: var(--fg-3);
-}
-.ws-legend {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  color: var(--fg-3);
-  margin-top: 1rem;
-  letter-spacing: 0.02em;
-}
-.ws-legend sup { color: var(--fg-2); }
 .ws-registration {
   font-size: 0.9rem;
   color: var(--fg-3);
@@ -577,8 +523,8 @@ h2 {
 .about-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 1.75rem;
-  margin-top: 1.75rem;
+  gap: 0 1.25rem;
+  margin-top: 0.75rem;
 }
 .about-links a {
   font-family: var(--mono);

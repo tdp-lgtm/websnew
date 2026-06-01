@@ -8,8 +8,8 @@
 // For workshops: set href to the workshop's own page.
 // For teaching: set href to the target page directly.
 const NAV_WORKSHOPS = [
-  { label: "Workshop Name 1", href: "workshop-1.html" },
-  { label: "Workshop Name 2", href: "workshop-2.html" },
+  { label: "Ethics of Deception", href: "workshop-1.html" },
+  { label: "Deterrence and Deontology", href: "workshop-2.html" },
 ];
 
 const NAV_TEACHING = [

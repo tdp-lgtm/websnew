@@ -202,40 +202,21 @@ function renderWorkshopPage(workshopId, containerId) {
   const date = [w.month, w.year].filter(Boolean).join(' ');
   const meta = [w.institution, date, w.coorganisers ? `Organised with ${w.coorganisers}` : ''].filter(Boolean).join(' · ');
 
-  const isTimed = (w.programme || []).some(e => e.time);
-  const programme = w.programme && w.programme.length
-    ? `<div class="ws-programme${isTimed ? '' : ' ws-programme--untimed'}">${w.programme.map(e => {
-        if (e.day) return `<div class="ws-day">${e.day}</div>`;
-        if (!e.speaker) {
-          return `<div class="ws-break">
-            ${e.time ? `<div class="ws-time">${e.time}</div>` : '<div></div>'}
-            <div class="ws-break-label">${e.label || ''}</div>
-          </div>`;
-        }
+  const speakers = (w.programme || []).filter(e => e.speaker);
+  const programme = speakers.length
+    ? `<ul class="ws-speaker-list">${speakers.map(e => {
         const speakerHtml = e.speaker.split('\n').join('<br>');
-        const fmt   = e.format ? ` <span class="ws-format">(${e.format})</span>` : '';
-        const chair = e.chair ? `<div class="ws-chair">Chair: ${e.chair}</div>` : '';
         const titleHtml = e.title && e.title !== 'TBA'
-          ? `<em class="ws-paper-title">${e.title}</em>${fmt}`
-          : `<span class="ws-tba">TBA</span>`;
-        return `<div class="ws-entry">
-          ${e.time ? `<div class="ws-time">${e.time}</div>` : '<div></div>'}
-          <div class="ws-detail">
-            <div class="ws-speaker">${speakerHtml}</div>
-            <div class="ws-paper">${titleHtml}</div>
-            ${chair}
-          </div>
-        </div>`;
-      }).join('')}</div>`
+          ? `<em class="ws-paper-title">${e.title}</em>`
+          : '';
+        return `<li class="ws-speaker-item">
+          <div class="ws-speaker">${speakerHtml}</div>
+          ${titleHtml ? `<div class="ws-paper">${titleHtml}</div>` : ''}
+        </li>`;
+      }).join('')}</ul>`
     : '';
 
-  const formats = new Set((w.programme || []).map(e => e.format).filter(Boolean));
-  const legendParts = [];
-  if (formats.has('PC')) legendParts.push('<sup>PC</sup> pre-circulated paper');
-  if (formats.has('T'))  legendParts.push('<sup>T</sup> talk');
-  const legendHtml = legendParts.length
-    ? `<p class="ws-legend">${legendParts.join(' &ensp; ')}</p>`
-    : '';
+  const legendHtml = '';
 
   const descHtml = w.description
     ? w.description.split('\n\n').filter(Boolean).map(p => `<p class="workshop-description">${p}</p>`).join('')
