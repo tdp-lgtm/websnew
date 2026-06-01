@@ -272,11 +272,49 @@ h3:first-of-type { margin-top: 0; }
   color: var(--muted);
 }
 
+.paper-abstract-toggle {
+  margin-top: 0.35rem;
+}
+
+.paper-abstract-toggle summary {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--accent);
+  cursor: pointer;
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  user-select: none;
+}
+.paper-abstract-toggle summary::-webkit-details-marker { display: none; }
+.paper-abstract-toggle summary::before {
+  content: "▸";
+  font-size: 0.7rem;
+  transition: transform 0.15s;
+}
+.paper-abstract-toggle[open] summary::before { transform: rotate(90deg); }
+.paper-abstract-toggle:hover summary { color: var(--text); }
+
 .paper-abstract {
   display: block;
-  font-size: 1rem;
+  font-size: 0.975rem;
   color: var(--muted);
-  margin-top: 0.35rem;
+  margin-top: 0.5rem;
+  line-height: 1.65;
+}
+
+.paper-prize {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-style: italic;
+  color: #7a5c1e;
+  background: #fdf3dc;
+  border: 1px solid #e8d5a0;
+  border-radius: 3px;
+  padding: 0.15rem 0.5rem;
+  margin-top: 0.3rem;
 }
 
 .paper-links {

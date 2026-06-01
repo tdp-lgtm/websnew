@@ -3,31 +3,62 @@
 
 function renderPublications(id) {
   const el = document.getElementById(id);
-  if (!el || !PUBLICATIONS.length) { el && (el.innerHTML = '<p class="empty">No publications yet.</p>'); return; }
-  el.innerHTML = PUBLICATIONS.map(p => {
-    const isLabel  = typeof p.year === 'string';
-    const yearStr  = p.year ? (isLabel ? p.year : String(p.year)) : '';
-    const citation = [
-      p.journal ? `<em>${p.journal}</em>` : '',
-      p.volume  ? `${p.volume}` : '',
-      p.issue   ? `(${p.issue})` : '',
-      p.pages   ? `${p.pages}` : '',
-    ].filter(Boolean).join(', ');
-    // String years (Forthcoming / Online first) shown as a prefix label; numeric years appended to citation
-    const venueStr = isLabel
-      ? [yearStr, citation].filter(Boolean).join('. ')
-      : [citation, yearStr].filter(Boolean).join(', ');
-    const links = [
-      p.pdf ? `<a href="${p.pdf}">PDF</a>` : '',
-      p.doi ? `<a href="${p.doi}" target="_blank" rel="noopener">Published version</a>` : '',
-    ].filter(Boolean).join(' &middot; ');
-    return `<li>
-      <span class="paper-title">${p.coauthors ? `(with ${p.coauthors}) ` : ''}"${p.title}."</span>
-      ${venueStr ? `<span class="paper-venue">${venueStr}.</span>` : ''}
-      ${p.abstract ? `<span class="paper-abstract">${p.abstract}</span>` : ''}
-      ${links ? `<span class="paper-links">${links}</span>` : ''}
-    </li>`;
-  }).join('');
+  if (!el) return;
+
+  const articles = PUBLICATIONS.filter(p => !p.type || p.type === 'Article');
+  const reviews  = PUBLICATIONS.filter(p => p.type === 'Review');
+
+  let html = '';
+  if (articles.length) {
+    html += `<h3>Articles</h3><ul class="paper-list">${articles.map(_pubItem).join('')}</ul>`;
+  }
+  if (reviews.length) {
+    html += `<h3>Reviews</h3><ul class="paper-list">${reviews.map(_pubItem).join('')}</ul>`;
+  }
+  if (!html) html = '<p class="empty">No publications yet.</p>';
+  el.innerHTML = html;
+}
+
+function _pubItem(p) {
+  const isLabel = typeof p.year === 'string';
+  const yearStr = p.year ? String(p.year) : '';
+
+  // Citation: Journal vol(issue), pages — volume and issue joined without comma
+  const volIssue = p.volume ? (p.issue ? `${p.volume}(${p.issue})` : p.volume) : (p.issue ? `(${p.issue})` : '');
+  const citation = [
+    p.journal ? `<em>${p.journal}</em>` : '',
+    volIssue,
+    p.pages || '',
+  ].filter(Boolean).join(', ');
+
+  // String years (Forthcoming / Online first) prefix the citation; numeric years append
+  const venueStr = isLabel
+    ? [yearStr, citation].filter(Boolean).join('. ')
+    : [citation, yearStr].filter(Boolean).join(', ');
+
+  const links = [
+    p.pdf ? `<a href="${p.pdf}">PDF</a>` : '',
+    p.doi ? `<a href="${p.doi}" target="_blank" rel="noopener">Published version</a>` : '',
+  ].filter(Boolean).join(' &middot; ');
+
+  const abstract = p.abstract
+    ? `<details class="paper-abstract-toggle">
+        <summary>Abstract</summary>
+        <span class="paper-abstract">${p.abstract}</span>
+       </details>`
+    : '';
+
+  const prize = p.prize
+    ? `<span class="paper-prize">${p.prize}</span>`
+    : '';
+
+  return `<li>
+    <span class="paper-title">${p.coauthors ? `(with ${p.coauthors}) ` : ''}"${p.title}."</span>
+    ${venueStr ? `<span class="paper-venue">${venueStr}.</span>` : ''}
+    ${prize}
+    ${abstract}
+    ${links ? `<span class="paper-links">${links}</span>` : ''}
+  </li>`;
 }
 
 function renderWIP(id) {
@@ -120,7 +151,7 @@ function renderCV() {
   const pubItems = PUBLICATIONS.map(p => ({
     year: p.year ? String(p.year) : '',
     detail: `${p.coauthors ? `(with ${p.coauthors}) ` : ''}"${p.title}."`,
-    sub: [p.journal ? `<em>${p.journal}</em>` : '', p.volume, p.issue ? `(${p.issue})` : '', p.pages].filter(Boolean).join(', '),
+    sub: [p.journal ? `<em>${p.journal}</em>` : '', p.volume ? (p.issue ? `${p.volume}(${p.issue})` : p.volume) : (p.issue ? `(${p.issue})` : ''), p.pages].filter(Boolean).join(', '),
     link: p.doi || p.pdf || '',
   }));
   _renderCVSection('cv-publications', pubItems);
