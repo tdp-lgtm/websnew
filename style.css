@@ -24,7 +24,7 @@
   --sans:  'Hanken Grotesk', system-ui, sans-serif;
   --mono:  'IBM Plex Mono', ui-monospace, monospace;
 
-  --max-w:  760px;
+  --max-w:  800px;
   --nav-h:  56px;
   --ease:   cubic-bezier(0.22, 1, 0.36, 1);
   --dur:    200ms;
@@ -224,7 +224,7 @@ h2 {
   display: grid;
   grid-template-columns: 4.75rem 1fr;
   gap: 1.5rem;
-  padding: 0.9rem 0;
+  padding: 0.7rem 0;
   border-top: 1px solid var(--rule);
   align-items: baseline;
 }
@@ -360,7 +360,7 @@ h2 {
 
 .talk-item {
   list-style: none;
-  padding: 0.9rem 0;
+  padding: 0.7rem 0;
   border-top: 1px solid var(--rule);
 }
 .talk-item:first-child { border-top: none; }
@@ -515,6 +515,7 @@ h2 {
 .about-portrait img {
   width: 100%;
   display: block;
+  border-radius: 6px;
   filter: grayscale(1) contrast(1.03);
   transition: filter 0.4s ease;
 }
@@ -523,8 +524,9 @@ h2 {
 .about-links {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0 1.25rem;
-  margin-top: 0.75rem;
+  margin-top: 0.85rem;
 }
 .about-links a {
   font-family: var(--mono);
