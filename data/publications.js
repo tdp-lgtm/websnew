@@ -25,7 +25,7 @@ const PUBLICATIONS = [
     abstract:   "How can we justify the practice of punishing offenders? Constrained Instrumentalism has become an attractive alternative to traditional answers like Retributivism and Instrumentalism. This paper focuses on two versions of this view, the Forfeiture View and the Duty View, and argues that both face a False Confessions Problem: they cannot adequately explain why we should punish, or at least prefer to punish, only those guilty of a crime instead of anyone who voluntarily but falsely confesses to a crime. They fail to account for the powerful intuition that punishment should not be simply about pursuing valuable ends (like general deterrence) without violating rights but, fundamentally, should be about pursuing these ends by punishing the guilty. Finally, I suggest that Constrained Instrumentalists might avoid this objection by defending something like 'instrumental desert'",
     pdf:        "",
     doi:        "",
-    prize:      "",              // e.g. 'Winner, <a href="#">Prize Name</a>'
+    prize:      "Winner, Plah Prize",              // e.g. 'Winner, <a href="#">Prize Name</a>'
   },
 
   {
