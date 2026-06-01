@@ -292,13 +292,35 @@ h2 {
 .pub-links button:hover { border-bottom-color: var(--accent); color: var(--accent-deep); }
 
 .pub-abstract {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.25s ease, margin-top 0.25s ease, padding-top 0.25s ease;
+  overflow: hidden;
+  margin-top: 0;
+  padding-top: 0;
+}
+.pub-abstract.open {
+  grid-template-rows: 1fr;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--rule);
+}
+.pub-abstract-inner {
+  overflow: hidden;
+  min-height: 0;
   font-size: 0.9375rem;
   color: var(--fg-2);
   line-height: 1.75;
   text-align: justify;
-  margin-top: 0.75rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--rule);
+}
+
+.research-bio {
+  margin-bottom: 2rem;
+}
+.research-bio p {
+  color: var(--fg-1);
+  line-height: 1.75;
+  padding-bottom: 1.5rem;
 }
 
 /* ---- WIP ---- */
