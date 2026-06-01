@@ -318,31 +318,26 @@ h2 {
 }
 
 /* ---- WIP ---- */
+/* .pub--wip keeps the .pub grid so titles align with article titles,
+   but is lighter and more compact since it's less prominent. */
 .pub--wip {
-  display: block;
-  padding: 1rem 0;
-  border-top: 1px solid var(--rule);
+  padding: 0.8rem 0;
 }
-.pub--wip:first-child { border-top: none; }
+
+.wip-group-label {
+  margin-top: 2rem;
+}
 
 .wip-title {
   font-family: var(--serif);
-  font-size: 0.9375rem;
+  font-size: 0.95rem;
   font-weight: 500;
   color: var(--fg-2);
-  line-height: 1.4;
-  margin: 0 0 0.2rem;
+  line-height: 1.45;
+  margin: 0;
 }
-
-.wip-status {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--fg-3);
-  display: block;
-  margin-bottom: 0.25rem;
-}
+.pub--wip .pub-links a,
+.pub--wip .pub-links button { font-size: 0.78rem; }
 
 /* ---- Page description ---- */
 .page-description {
@@ -516,9 +511,9 @@ h2 {
 
 .about-portrait {
   float: right;
-  width: 220px;
-  margin: 0.15rem 0 1.5rem 2.25rem;
-  shape-outside: border-box;
+  width: 280px;
+  margin: 0.2rem 0 1.25rem 2.5rem;
+  shape-outside: margin-box;
 }
 .about-portrait img {
   width: 100%;

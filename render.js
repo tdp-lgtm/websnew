@@ -78,26 +78,39 @@ function renderWIP(id) {
   const el = document.getElementById(id);
   if (!el) return;
   if (!WIP.length) { el.innerHTML = '<p style="color:var(--fg-3)">Nothing to show yet.</p>'; return; }
-  el.innerHTML = `<ul class="pub-list">${WIP.map(p => {
-    const abstractId = `abs-${Math.random().toString(36).slice(2,7)}`;
-    const abstractBtn = p.abstract
-      ? `<button onclick="_toggleAbstract('${abstractId}',this)">&#8801; Abstract</button>`
-      : '';
-    const abstractDiv = p.abstract
-      ? `<div class="pub-abstract" id="${abstractId}"><div class="pub-abstract-inner">${p.abstract}</div></div>` : '';
-    const links = [
-      abstractBtn,
-      p.pdf ? `<a href="${p.pdf}" target="_blank" rel="noopener">&#8595; Draft PDF</a>` : '',
-    ].filter(Boolean);
-    return `<li class="pub pub--wip">
-      <div>
-        <h3 class="wip-title">${p.title}.</h3>
-        <span class="wip-status">${p.status}</span>
-        ${links.length ? `<div class="pub-links">${links.join('')}</div>` : ''}
-        ${abstractDiv}
-      </div>
-    </li>`;
-  }).join('')}</ul>`;
+
+  // Group papers by status, preserving the order each status first appears
+  const groups = {};
+  const order  = [];
+  WIP.forEach(p => {
+    const key = p.status || 'Other';
+    if (!groups[key]) { groups[key] = []; order.push(key); }
+    groups[key].push(p);
+  });
+
+  el.innerHTML = order.map(status => {
+    const items = groups[status].map(p => {
+      const abstractId = `abs-${Math.random().toString(36).slice(2,7)}`;
+      const abstractBtn = p.abstract
+        ? `<button onclick="_toggleAbstract('${abstractId}',this)">&#8801; Abstract</button>`
+        : '';
+      const abstractDiv = p.abstract
+        ? `<div class="pub-abstract" id="${abstractId}"><div class="pub-abstract-inner">${p.abstract}</div></div>` : '';
+      const links = [
+        abstractBtn,
+        p.pdf ? `<a href="${p.pdf}" target="_blank" rel="noopener">&#8595; Draft PDF</a>` : '',
+      ].filter(Boolean);
+      return `<li class="pub pub--wip">
+        <div class="yr"></div>
+        <div>
+          <h3 class="wip-title">${p.title}.</h3>
+          ${links.length ? `<div class="pub-links">${links.join('')}</div>` : ''}
+          ${abstractDiv}
+        </div>
+      </li>`;
+    }).join('');
+    return `<span class="section-label wip-group-label">${status}</span><ul class="pub-list">${items}</ul>`;
+  }).join('');
 }
 
 function renderTalks(containerId) {
