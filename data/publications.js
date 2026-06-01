@@ -73,7 +73,7 @@ const PUBLICATIONS = [
     prize:      "Winner, 2022 Postgraduate Essay Prize",
   },
 
-    {
+  {
     type:       "Article",
     year:       2022,
     title:      "The Ethics of Political Bots: Should We Allow Them for Personal Use?",
@@ -85,10 +85,10 @@ const PUBLICATIONS = [
     abstract:   "The technology to create and automate large numbers of fake social media users, or “social bots”, is becoming increasingly more accessible to private individuals. This paper explores one potential use of the technology, namely the creation of “political bots”: social bots aimed at influencing the political opinions of others. Despite initial worries about licensing the use of such bots by private individuals, this paper provides an, albeit limited, argument in favour of this. The argument begins by providing a prima facie case in favour of these political bots and proceeds by attempting to answer a series of potential objections. These objections are based on (1) the dangerous effectiveness of the technology; the (2) corruptive, (3) deceitful and (4) manipulating nature of political bots; (5) the worry that the technology will lead to chaos and be detrimental to trust online; and (6) practical issues involved in ensuring acceptable use of the technology. In all cases I will argue that the objections are overestimated, and that a closer look at the use of political bots helps us realise that using them is simply a new way of speaking up in modern society.",
     pdf:        "https://philpapers.org/archive/HAETEO-3.pdf",
     doi:        "https://www.jpe.ox.ac.uk/papers/the-ethics-of-political-bots-should-we-allow-them-for-personal-use/",
-    prize:      "Runner-up, 2017 Oxford Uehiro Prize in Practical Ethics.​",
+    prize:      "Runner-up, 2017 Oxford Uehiro Prize in Practical Ethics​",
   },
 
-    {
+  {
     type:       "Review",
     year:       2024,
     title:      "Review of Christopher Nathan, The Ethics of Undercover Policing",
@@ -100,6 +100,6 @@ const PUBLICATIONS = [
     abstract:   "This paper reviews The Ethics of Undercover Policing by Christopher Nathan.",
     pdf:        "https://philpapers.org/archive/HAEROC.pdf",
     doi:        "https://doi.org/10.1007/s11572-023-09715-2",
-    prize:      "​",
+    prize:      "",
   },
 ];
