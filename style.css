@@ -226,6 +226,7 @@ h2 {
   gap: 1.5rem;
   padding: 1.25rem 0;
   border-top: 1px solid var(--rule);
+  align-items: baseline;
 }
 .pub:first-child { border-top: none; }
 
@@ -233,7 +234,6 @@ h2 {
   font-family: var(--mono);
   font-size: 0.8125rem;
   color: var(--fg-3);
-  padding-top: 0.25rem;
   line-height: 1.35;
 }
 
@@ -370,29 +370,29 @@ h2 {
 }
 .talk-item:first-child { border-top: none; }
 
-.talk-item > h3 {
+.talk-item h3 {
   font-family: var(--serif);
   font-size: 1.125rem;
   font-weight: 500;
   color: var(--fg-1);
   line-height: 1.35;
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.35rem;
 }
 
-.talk-pres-list { display: flex; flex-direction: column; gap: 0.1rem; }
+.talk-pres-list { display: flex; flex-direction: column; gap: 0.15rem; }
 
 .talk-row {
   display: grid;
   grid-template-columns: 4.75rem 1fr;
   gap: 1.5rem;
+  align-items: baseline;
 }
 
 .talk-yr {
   font-family: var(--mono);
   font-size: 0.8125rem;
   color: var(--fg-3);
-  padding-top: 0.15rem;
-  line-height: 1.35;
+  line-height: 1.5;
 }
 
 .talk-row-detail {

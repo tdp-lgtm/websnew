@@ -123,7 +123,10 @@ function renderTalks(containerId) {
       </div>`;
     }).join('');
     return `<li class="talk-item">
-      <h3>${talk.title}.</h3>
+      <div class="talk-row">
+        <div class="talk-yr"></div>
+        <h3>${talk.title}.</h3>
+      </div>
       <div class="talk-pres-list">${rows}</div>
     </li>`;
   }).join('')}</ul>`;
