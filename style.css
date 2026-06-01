@@ -328,7 +328,7 @@ h2 {
   margin-top: 2rem;
 }
 
-.wip-title {
+.pub h3.wip-title {
   font-family: var(--serif);
   font-size: 0.875rem;
   font-weight: 400;
@@ -353,8 +353,8 @@ h2 {
   font-family: var(--mono);
   font-size: 0.75rem;
   color: var(--fg-3);
-  margin-top: -1.25rem;
-  margin-bottom: 1.75rem;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
   letter-spacing: 0.02em;
 }
 
@@ -437,12 +437,43 @@ h2 {
   line-height: 1.75;
 }
 .ws-programme {
-  margin: 1rem 0;
+  margin: 1.75rem 0 0;
   border-top: 1px solid var(--rule);
 }
-.ws-entry {
-  padding: 0.75rem 0;
-  border-bottom: 1px solid var(--rule);
+.ws-day {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  padding: 1.4rem 0 0.5rem;
+}
+.ws-entry,
+.ws-break {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 1.25rem;
+  padding: 0.7rem 0;
+  border-top: 1px solid var(--rule);
+}
+.ws-day + .ws-entry,
+.ws-day + .ws-break { border-top: none; }
+.ws-programme--untimed .ws-entry,
+.ws-programme--untimed .ws-break { grid-template-columns: 1fr; gap: 0; }
+.ws-programme--untimed .ws-time { display: none; }
+.ws-time {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--fg-3);
+  line-height: 1.5;
+  padding-top: 0.1rem;
+}
+.ws-break-label {
+  font-size: 0.875rem;
+  font-style: italic;
+  color: var(--fg-3);
+  line-height: 1.5;
 }
 .ws-speaker {
   font-size: 0.9375rem;
@@ -455,6 +486,18 @@ h2 {
   font-size: 0.9375rem;
   font-style: italic;
   color: var(--fg-1);
+}
+.ws-format {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--fg-3);
+}
+.ws-chair {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--fg-3);
+  margin-top: 0.3rem;
+  letter-spacing: 0.02em;
 }
 .ws-tba {
   font-family: var(--mono);
@@ -527,9 +570,7 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   gap: 0 1.75rem;
-  margin-top: 2rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--rule);
+  margin-top: 1.75rem;
 }
 .about-links a {
   font-family: var(--mono);

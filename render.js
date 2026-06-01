@@ -181,30 +181,17 @@ function renderTeaching(id) {
 function renderWorkshops(id) {
   const el = document.getElementById(id);
   if (!el) return;
-  el.innerHTML = WORKSHOPS.map((w, i) => {
+  el.innerHTML = `<ul class="pub-list">${WORKSHOPS.map(w => {
     const date = [w.month, w.year].filter(Boolean).join(' ');
-    const meta = [w.institution, date, w.coorganisers ? `Co-organised with ${w.coorganisers}` : ''].filter(Boolean).join(' · ');
-    const programme = w.programme && w.programme.length
-      ? `<div class="ws-programme">${w.programme.map(e => {
-          const speakerHtml = e.speaker.split('\n').join('<br>');
-          const titleHtml = e.title && e.title !== 'TBA'
-            ? `<em class="ws-paper-title">${e.title}</em>`
-            : `<span class="ws-tba">TBA</span>`;
-          return `<div class="ws-entry">
-            <div class="ws-speaker">${speakerHtml}:</div>
-            <div class="ws-paper">${titleHtml}</div>
-          </div>`;
-        }).join('')}</div>`
-      : '';
-    const regHtml = w.registration ? `<p class="ws-registration">${w.registration}</p>` : '';
-    return `<div class="page-section${i === 0 ? ' page-section--first' : ''}" id="${w.id}">
-      <p class="section-title">${w.title}</p>
-      <p class="section-subtitle">${meta}</p>
-      ${w.description ? `<p class="workshop-description">${w.description}</p>` : ''}
-      ${programme}
-      ${regHtml}
-    </div>`;
-  }).join('');
+    const meta = [w.institution, date, w.coorganisers ? `Organised with ${w.coorganisers}` : ''].filter(Boolean).join(' · ');
+    return `<li class="pub">
+      <div class="yr">${w.year || ''}</div>
+      <div>
+        <h3><a href="${w.id}.html">${w.title}</a></h3>
+        <p class="venue">${meta}.</p>
+      </div>
+    </li>`;
+  }).join('')}</ul>`;
 }
 
 function renderWorkshopPage(workshopId, containerId) {
@@ -213,29 +200,48 @@ function renderWorkshopPage(workshopId, containerId) {
   const w = WORKSHOPS.find(x => x.id === workshopId);
   if (!w) { el.innerHTML = '<p>Workshop not found.</p>'; return; }
   const date = [w.month, w.year].filter(Boolean).join(' ');
-  const meta = [w.institution, date, w.coorganisers ? `Co-organised with ${w.coorganisers}` : ''].filter(Boolean).join(' · ');
+  const meta = [w.institution, date, w.coorganisers ? `Organised with ${w.coorganisers}` : ''].filter(Boolean).join(' · ');
+
+  const isTimed = (w.programme || []).some(e => e.time);
   const programme = w.programme && w.programme.length
-    ? `<div class="ws-programme">${w.programme.map(e => {
+    ? `<div class="ws-programme${isTimed ? '' : ' ws-programme--untimed'}">${w.programme.map(e => {
+        if (e.day) return `<div class="ws-day">${e.day}</div>`;
+        if (!e.speaker) {
+          return `<div class="ws-break">
+            ${e.time ? `<div class="ws-time">${e.time}</div>` : '<div></div>'}
+            <div class="ws-break-label">${e.label || ''}</div>
+          </div>`;
+        }
         const speakerHtml = e.speaker.split('\n').join('<br>');
+        const fmt   = e.format ? ` <span class="ws-format">(${e.format})</span>` : '';
+        const chair = e.chair ? `<div class="ws-chair">Chair: ${e.chair}</div>` : '';
         const titleHtml = e.title && e.title !== 'TBA'
-          ? `<em class="ws-paper-title">${e.title}</em>`
+          ? `<em class="ws-paper-title">${e.title}</em>${fmt}`
           : `<span class="ws-tba">TBA</span>`;
         return `<div class="ws-entry">
-          <div class="ws-speaker">${speakerHtml}:</div>
-          <div class="ws-paper">${titleHtml}</div>
+          ${e.time ? `<div class="ws-time">${e.time}</div>` : '<div></div>'}
+          <div class="ws-detail">
+            <div class="ws-speaker">${speakerHtml}</div>
+            <div class="ws-paper">${titleHtml}</div>
+            ${chair}
+          </div>
         </div>`;
       }).join('')}</div>`
+    : '';
+
+  const descHtml = w.description
+    ? w.description.split('\n\n').filter(Boolean).map(p => `<p class="workshop-description">${p}</p>`).join('')
     : '';
   const regHtml = w.registration ? `<p class="ws-registration">${w.registration}</p>` : '';
   el.innerHTML = `
     <p class="section-subtitle">${meta}</p>
-    ${w.description ? `<p class="workshop-description">${w.description}</p>` : ''}
+    ${descHtml}
     ${programme}
     ${regHtml}`;
   // Set the page title
   document.title = `${w.title} — Jonas Haeg`;
-  const eyebrow = document.getElementById('ws-title');
-  if (eyebrow) eyebrow.textContent = w.title;
+  const heading = document.getElementById('ws-title');
+  if (heading) heading.textContent = w.title;
 }
 
 function renderCV() {
