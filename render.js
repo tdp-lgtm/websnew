@@ -23,41 +23,42 @@ function _pubItem(p) {
   const isLabel = typeof p.year === 'string';
   const yearStr = p.year ? String(p.year) : '';
 
-  // Citation: Journal vol(issue), pages — volume and issue joined without comma
-  const volIssue = p.volume ? (p.issue ? `${p.volume}(${p.issue})` : p.volume) : (p.issue ? `(${p.issue})` : '');
-  const citation = [
+  // Chicago-style citation: Journal, vol. X, no. Y: pages.
+  // For string years (Forthcoming/Online first), embed in citation instead of year column
+  const volPart   = p.volume ? `vol. ${p.volume}` : '';
+  const issuePart = p.issue  ? `no. ${p.issue}`   : '';
+  const pagesPart = p.pages  ? (volPart || issuePart ? `: ${p.pages}` : p.pages) : '';
+  const volStr    = [volPart, issuePart].filter(Boolean).join(', ') + pagesPart;
+  const citation  = [
     p.journal ? `<em>${p.journal}</em>` : '',
-    volIssue,
-    p.pages || '',
+    volStr,
+    isLabel ? yearStr : '',   // string year goes inline
   ].filter(Boolean).join(', ');
 
-  // String years (Forthcoming / Online first) prefix the citation; numeric years append
-  const venueStr = isLabel
-    ? [yearStr, citation].filter(Boolean).join('. ')
-    : [citation, yearStr].filter(Boolean).join(', ');
+  // Abstract toggle button (inline with links)
+  const abstractId = `abs-${Math.random().toString(36).slice(2, 7)}`;
+  const abstractBtn = p.abstract
+    ? `<button onclick="var el=document.getElementById('${abstractId}');el.hidden=!el.hidden;this.textContent=el.hidden?'Abstract':'Hide abstract'">Abstract</button>`
+    : '';
+  const abstractDiv = p.abstract
+    ? `<div class="pub-abstract" id="${abstractId}" hidden>${p.abstract}</div>`
+    : '';
 
   const links = [
-    p.pdf ? `<a href="${p.pdf}">PDF</a>` : '',
-    p.doi ? `<a href="${p.doi}" target="_blank" rel="noopener">Published version</a>` : '',
-  ].filter(Boolean).join(' &middot; ');
-
-  const abstract = p.abstract
-    ? `<details class="paper-abstract-toggle">
-        <summary>Abstract</summary>
-        <span class="paper-abstract">${p.abstract}</span>
-       </details>`
-    : '';
-
-  const prize = p.prize
-    ? `<span class="paper-prize">${p.prize}</span>`
-    : '';
+    p.pdf ? `<a href="${p.pdf}" target="_blank" rel="noopener">PDF</a>` : '',
+    abstractBtn,
+    p.doi ? `<a href="${p.doi}" target="_blank" rel="noopener">Publisher ↗</a>` : '',
+  ].filter(Boolean);
 
   return `<li>
-    <span class="paper-title">${p.coauthors ? `(with ${p.coauthors}) ` : ''}"${p.title}."</span>
-    ${venueStr ? `<span class="paper-venue">${venueStr}.</span>` : ''}
-    ${prize}
-    ${abstract}
-    ${links ? `<span class="paper-links">${links}</span>` : ''}
+    <span class="pub-year">${isLabel ? '' : yearStr}</span>
+    <div class="pub-body">
+      <span class="pub-title">${p.coauthors ? `(with ${p.coauthors}) ` : ''}"${p.title}."</span>
+      ${citation ? `<span class="pub-venue">${citation}.</span>` : ''}
+      ${p.prize ? `<span class="pub-prize">${p.prize}</span>` : ''}
+      ${links.length ? `<div class="pub-links">${links.join('')}</div>` : ''}
+      ${abstractDiv}
+    </div>
   </li>`;
 }
 
@@ -151,7 +152,7 @@ function renderCV() {
   const pubItems = PUBLICATIONS.map(p => ({
     year: p.year ? String(p.year) : '',
     detail: `${p.coauthors ? `(with ${p.coauthors}) ` : ''}"${p.title}."`,
-    sub: [p.journal ? `<em>${p.journal}</em>` : '', p.volume ? (p.issue ? `${p.volume}(${p.issue})` : p.volume) : (p.issue ? `(${p.issue})` : ''), p.pages].filter(Boolean).join(', '),
+    sub: (() => { const v = p.volume ? `vol. ${p.volume}` : ''; const i = p.issue ? `no. ${p.issue}` : ''; const pg = p.pages ? `: ${p.pages}` : ''; const vol = [v,i].filter(Boolean).join(', ')+pg; return [p.journal ? `<em>${p.journal}</em>` : '', vol].filter(Boolean).join(', '); })(),
     link: p.doi || p.pdf || '',
   }));
   _renderCVSection('cv-publications', pubItems);
