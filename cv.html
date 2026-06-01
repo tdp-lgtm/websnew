@@ -4,16 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CV — Jonas Haeg</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body data-page="cv">
 
   <header>
     <div class="header-inner">
-      <a href="index.html" class="site-title">Jonas Haeg</a>
+      <a href="index.html" class="site-title">Jonas Haeg<b>.</b></a>
       <nav>
         <a href="research.html">Research</a>
         <a href="talks.html">Talks</a>
@@ -31,56 +29,64 @@
   </header>
 
   <main>
-    <div class="container">
-      <h2>CV</h2>
-
-      <!-- Uncomment when you have a PDF to link:
-      <a class="cv-download" href="files/cv.pdf" target="_blank">↓ Download PDF</a>
-      -->
+    <div class="narrow">
+      <span class="eyebrow">Curriculum Vitae</span>
+      <h2 style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem">
+        Jonas Haeg
+        <!-- Uncomment when you have a PDF:
+        <a class="cv-download" href="files/cv.pdf" target="_blank">↓ Download PDF</a>
+        -->
+      </h2>
 
       <div class="cv-section">
-        <h3>Employment</h3>
+        <span class="eyebrow">Positions</span>
         <div id="cv-employment"></div>
       </div>
 
       <div class="cv-section">
-        <h3>Education</h3>
+        <span class="eyebrow">Education</span>
         <div id="cv-education"></div>
       </div>
 
       <div class="cv-section">
-        <h3>Publications</h3>
+        <span class="eyebrow">Publications</span>
         <div id="cv-publications"></div>
       </div>
 
       <div class="cv-section">
-        <h3>Invited Talks</h3>
+        <span class="eyebrow">Invited talks</span>
         <div id="cv-talks-invited"></div>
       </div>
 
       <div class="cv-section">
-        <h3>Conference Presentations</h3>
+        <span class="eyebrow">Conference presentations</span>
         <div id="cv-talks-conference"></div>
       </div>
 
       <div class="cv-section">
-        <h3>Teaching</h3>
+        <span class="eyebrow">Teaching</span>
         <div id="cv-teaching"></div>
       </div>
 
       <div class="cv-section">
-        <h3>Service</h3>
+        <span class="eyebrow">Service</span>
         <div class="cv-item">
           <span class="cv-year">2023–</span>
-          <span class="cv-detail">Editor, Public Ethics blog</span>
+          <div>
+            <div class="cv-detail">Editor, Public Ethics blog</div>
+          </div>
         </div>
         <!-- Add further service items here if needed -->
       </div>
-
     </div>
   </main>
 
-  <footer><div class="container"><p>&copy; <span id="year"></span> Jonas Haeg</p></div></footer>
+  <footer>
+    <div class="foot-inner">
+      <div class="foot-brand">Jonas Haeg<b>.</b></div>
+      <div class="foot-fine">&copy; <span id="year"></span> Jonas Haeg</div>
+    </div>
+  </footer>
 
   <script src="data/nav-items.js"></script>
   <script src="data/publications.js"></script>

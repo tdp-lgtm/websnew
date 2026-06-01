@@ -4,16 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Research — Jonas Haeg</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body data-page="research">
 
   <header>
     <div class="header-inner">
-      <a href="index.html" class="site-title">Jonas Haeg</a>
+      <a href="index.html" class="site-title">Jonas Haeg<b>.</b></a>
       <nav>
         <a href="research.html">Research</a>
         <a href="talks.html">Talks</a>
@@ -31,17 +29,23 @@
   </header>
 
   <main>
-    <div class="container">
-      <h2>Research</h2>
+    <div class="narrow">
+      <span class="eyebrow">Research</span>
+      <h2>Academic papers &amp; work in progress</h2>
 
       <div id="publications"></div>
 
-      <h3>Work in Progress</h3>
-      <ul class="paper-list" id="wip"></ul>
+      <span class="section-label" style="margin-top:3rem">In progress</span>
+      <div id="wip"></div>
     </div>
   </main>
 
-  <footer><div class="container"><p>&copy; <span id="year"></span> Jonas Haeg</p></div></footer>
+  <footer>
+    <div class="foot-inner">
+      <div class="foot-brand">Jonas Haeg<b>.</b></div>
+      <div class="foot-fine">&copy; <span id="year"></span> Jonas Haeg</div>
+    </div>
+  </footer>
 
   <script src="data/nav-items.js"></script>
   <script src="data/publications.js"></script>

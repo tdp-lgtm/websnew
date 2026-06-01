@@ -10,12 +10,12 @@ function renderPublications(id) {
 
   let html = '';
   if (articles.length) {
-    html += `<h3>Articles</h3><ul class="paper-list">${articles.map(_pubItem).join('')}</ul>`;
+    html += `<span class="section-label">Articles</span><ul class="pub-list">${articles.map(_pubItem).join('')}</ul>`;
   }
   if (reviews.length) {
-    html += `<h3>Reviews</h3><ul class="paper-list">${reviews.map(_pubItem).join('')}</ul>`;
+    html += `<span class="section-label">Reviews</span><ul class="pub-list">${reviews.map(_pubItem).join('')}</ul>`;
   }
-  if (!html) html = '<p class="empty">No publications yet.</p>';
+  if (!html) html = '<p style="color:var(--fg-3);font-size:var(--t-small)">No publications yet.</p>';
   el.innerHTML = html;
 }
 
@@ -50,12 +50,12 @@ function _pubItem(p) {
     p.doi ? `<a href="${p.doi}" target="_blank" rel="noopener">Publisher ↗</a>` : '',
   ].filter(Boolean);
 
-  return `<li>
-    <span class="pub-year">${isLabel ? '' : yearStr}</span>
-    <div class="pub-body">
-      <span class="pub-title">${p.coauthors ? `(with ${p.coauthors}) ` : ''}"${p.title}."</span>
-      ${citation ? `<span class="pub-venue">${citation}.</span>` : ''}
-      ${p.prize ? `<span class="pub-prize">${p.prize}</span>` : ''}
+  return `<li class="pub">
+    <div class="yr">${isLabel ? '' : yearStr}</div>
+    <div>
+      <h3>${p.coauthors ? `(with ${p.coauthors}) ` : ''}"${p.title}."</h3>
+      ${citation ? `<p class="venue">${citation}.</p>` : ''}
+      ${p.prize ? `<span class="award">${p.prize}</span>` : ''}
       ${links.length ? `<div class="pub-links">${links.join('')}</div>` : ''}
       ${abstractDiv}
     </div>
@@ -64,13 +64,29 @@ function _pubItem(p) {
 
 function renderWIP(id) {
   const el = document.getElementById(id);
-  if (!el || !WIP.length) { el && (el.innerHTML = '<p class="empty">Nothing to show yet.</p>'); return; }
-  el.innerHTML = WIP.map(p => `<li>
-    <span class="paper-title">"${p.title}."</span>
-    <span class="paper-note">${p.status}.</span>
-    ${p.abstract ? `<span class="paper-abstract">${p.abstract}</span>` : ''}
-    ${p.pdf ? `<span class="paper-links"><a href="${p.pdf}">Draft PDF</a></span>` : ''}
-  </li>`).join('');
+  if (!el) return;
+  if (!WIP.length) { el.innerHTML = '<p style="color:var(--fg-3);font-size:var(--t-small)">Nothing to show yet.</p>'; return; }
+  el.innerHTML = `<ul class="pub-list">${WIP.map(p => {
+    const abstractId = `abs-${Math.random().toString(36).slice(2,7)}`;
+    const abstractBtn = p.abstract
+      ? `<button onclick="var el=document.getElementById('${abstractId}');el.hidden=!el.hidden;this.textContent=el.hidden?'Abstract':'Hide abstract'">Abstract</button>`
+      : '';
+    const abstractDiv = p.abstract
+      ? `<div class="pub-abstract" id="${abstractId}" hidden>${p.abstract}</div>` : '';
+    const links = [
+      abstractBtn,
+      p.pdf ? `<a href="${p.pdf}" target="_blank" rel="noopener">Draft PDF</a>` : '',
+    ].filter(Boolean);
+    return `<li class="pub">
+      <div class="yr">—</div>
+      <div>
+        <h3>"${p.title}."</h3>
+        <span class="wip-status">${p.status}</span>
+        ${links.length ? `<div class="pub-links">${links.join('')}</div>` : ''}
+        ${abstractDiv}
+      </div>
+    </li>`;
+  }).join('')}</ul>`;
 }
 
 function renderTalks(invitedId, conferenceId) {
@@ -83,13 +99,16 @@ function renderTalks(invitedId, conferenceId) {
 function _renderTalkList(id, items) {
   const el = document.getElementById(id);
   if (!el) return;
-  if (!items.length) { el.innerHTML = '<li class="empty">Nothing to show yet.</li>'; return; }
+  if (!items.length) { el.innerHTML = '<p style="color:var(--fg-3);font-size:var(--t-small)">Nothing to show yet.</p>'; return; }
   el.innerHTML = items.map(t => {
-    const date = [t.month, t.year].filter(Boolean).join(' ');
-    return `<li>
-      <span class="event-title">"${t.title}."</span>
-      <span class="event-details">${t.venue}, ${t.institution}${date ? `, ${date}` : ''}.${t.comment ? ` <em>${t.comment}</em>` : ''}</span>
-    </li>`;
+    const date = [t.month, t.year].filter(Boolean).join(' ');
+    return `<div class="talk">
+      <div class="yr">${t.year || ''}</div>
+      <div>
+        <h3>"${t.title}."</h3>
+        <p class="where">${t.venue}, ${t.institution}${date ? `, ${date}` : ''}.${t.comment ? ` <em>${t.comment}</em>` : ''}</p>
+      </div>
+    </div>`;
   }).join('');
 }
 
