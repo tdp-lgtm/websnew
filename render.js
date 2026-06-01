@@ -1,6 +1,13 @@
 // render.js — reads data arrays and builds page content
 // You should never need to edit this file.
 
+function renderResearchBio(id) {
+  const el = document.getElementById(id);
+  if (!el || typeof RESEARCH_BIO === 'undefined') return;
+  const paras = RESEARCH_BIO.split('\n\n').filter(Boolean);
+  el.innerHTML = `<div class="research-bio">${paras.map(p => `<p>${p}</p>`).join('')}</div>`;
+}
+
 function renderPublications(id) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -20,8 +27,10 @@ function renderPublications(id) {
 }
 
 function _pubItem(p) {
-  const isLabel = typeof p.year === 'string';
-  const yearStr = p.year ? String(p.year) : '';
+  const rawYear = p.year ? String(p.year) : '';
+  const displayYear = rawYear === 'Forthcoming'  ? 'Forthc.'
+                    : rawYear === 'Online first' ? 'Online'
+                    : rawYear;
 
   const volPart   = p.volume ? `vol. ${p.volume}` : '';
   const issuePart = p.issue  ? `no. ${p.issue}`   : '';
@@ -30,33 +39,39 @@ function _pubItem(p) {
   const citation  = [
     p.journal ? `<em>${p.journal}</em>` : '',
     volStr,
-    isLabel ? yearStr : '',
   ].filter(Boolean).join(', ');
 
   const abstractId = `abs-${Math.random().toString(36).slice(2, 7)}`;
   const abstractBtn = p.abstract
-    ? `<button onclick="var el=document.getElementById('${abstractId}');el.hidden=!el.hidden;this.textContent=el.hidden?'≡ Abstract':'≡ Hide'">≡ Abstract</button>`
+    ? `<button onclick="_toggleAbstract('${abstractId}',this)">&#8801; Abstract</button>`
     : '';
   const abstractDiv = p.abstract
-    ? `<div class="pub-abstract" id="${abstractId}" hidden>${p.abstract}</div>`
+    ? `<div class="pub-abstract" id="${abstractId}"><div class="pub-abstract-inner">${p.abstract}</div></div>`
     : '';
 
   const links = [
     abstractBtn,
-    p.pdf ? `<a href="${p.pdf}" target="_blank" rel="noopener">↓ PDF</a>` : '',
-    p.doi ? `<a href="${p.doi}" target="_blank" rel="noopener">Publisher ↗</a>` : '',
-    p.prize ? `<span class="award">${p.prize}</span>` : '',
+    p.pdf ? `<a href="${p.pdf}" target="_blank" rel="noopener">&#8595; PDF</a>` : '',
+    p.doi ? `<a href="${p.doi}" target="_blank" rel="noopener">Publisher &#8599;</a>` : '',
   ].filter(Boolean);
 
   return `<li class="pub">
-    <div class="yr">${isLabel ? '' : yearStr}</div>
+    <div class="yr">${displayYear}</div>
     <div>
       <h3>${p.coauthors ? `(with ${p.coauthors}) ` : ''}${p.title}.</h3>
       ${citation ? `<p class="venue">${citation}.</p>` : ''}
+      ${p.prize ? `<span class="award">${p.prize}</span>` : ''}
       ${links.length ? `<div class="pub-links">${links.join('')}</div>` : ''}
       ${abstractDiv}
     </div>
   </li>`;
+}
+
+function _toggleAbstract(id, btn) {
+  const el = document.getElementById(id);
+  const isOpen = el.classList.contains('open');
+  el.classList.toggle('open', !isOpen);
+  btn.textContent = isOpen ? '≡ Abstract' : '≡ Hide';
 }
 
 function renderWIP(id) {
@@ -66,13 +81,13 @@ function renderWIP(id) {
   el.innerHTML = `<ul class="pub-list">${WIP.map(p => {
     const abstractId = `abs-${Math.random().toString(36).slice(2,7)}`;
     const abstractBtn = p.abstract
-      ? `<button onclick="var el=document.getElementById('${abstractId}');el.hidden=!el.hidden;this.textContent=el.hidden?'≡ Abstract':'≡ Hide'">≡ Abstract</button>`
+      ? `<button onclick="_toggleAbstract('${abstractId}',this)">&#8801; Abstract</button>`
       : '';
     const abstractDiv = p.abstract
-      ? `<div class="pub-abstract" id="${abstractId}" hidden>${p.abstract}</div>` : '';
+      ? `<div class="pub-abstract" id="${abstractId}"><div class="pub-abstract-inner">${p.abstract}</div></div>` : '';
     const links = [
       abstractBtn,
-      p.pdf ? `<a href="${p.pdf}" target="_blank" rel="noopener">↓ Draft PDF</a>` : '',
+      p.pdf ? `<a href="${p.pdf}" target="_blank" rel="noopener">&#8595; Draft PDF</a>` : '',
     ].filter(Boolean);
     return `<li class="pub pub--wip">
       <div>
@@ -182,9 +197,9 @@ function renderCV() {
   ]);
 
   const edu = [
-    { year: '2023', detail: 'PhD in Philosophy, King\'s College London', sub: 'Supervised by David Owens, Massimo Renzo, and Sarah Fine' },
+    { year: '2023', detail: "PhD in Philosophy, King's College London", sub: 'Supervised by David Owens, Massimo Renzo, and Sarah Fine' },
     { year: '',     detail: 'MPhil in Philosophy, University of Oxford' },
-    { year: '',     detail: 'BA in Philosophy, King\'s College London' },
+    { year: '',     detail: "BA in Philosophy, King's College London" },
   ];
   _renderCVSection('cv-education', edu);
 
