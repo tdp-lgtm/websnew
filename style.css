@@ -644,7 +644,13 @@ h2 {
 .cv-area-label { color: var(--fg-2); font-size: 0.75rem; letter-spacing: 0.04em; }
 .cv-detail { font-family: var(--serif); font-size: 1rem; font-weight: 500; color: var(--fg-1); line-height: 1.4; }
 .cv-detail-sub { display: block; font-family: var(--sans); font-size: 0.875rem; font-weight: 400; color: var(--fg-2); margin-top: 3px; line-height: 1.5; }
-.cv-detail-inline { font-family: var(--sans); font-size: 0.875rem; font-weight: 500; color: var(--fg-1); font-style: italic; }
+/* cv-pub-title: bold, same serif as cv-detail */
+.cv-pub-title { font-weight: 500; }
+/* journal name: same size as title, italic, slightly lighter */
+.cv-detail-inline { font-family: var(--serif); font-size: 1rem; font-weight: 400; color: var(--fg-2); }
+/* vol/issue/pages: smaller, sans, muted */
+.cv-detail-vol { font-family: var(--sans); font-size: 0.875rem; font-weight: 400; color: var(--fg-2); }
+.cv-contact-addr { display: block; margin-top: 0.15rem; }
 .cv-prize { display: block; font-family: var(--mono); font-size: 0.75rem; color: var(--fg-3); margin-top: 2px; }
 /* CV talks should match the size of other CV sections, not the larger Talks page */
 #cv-talks .talk-item h3 { font-size: 1rem; }
@@ -744,19 +750,15 @@ footer {
 }
 @media (max-width: 580px) {
   /* Layout */
-  .header-inner { padding: 0 1rem; }
+  .header-inner { padding: 0 0.75rem; gap: 0.75rem; }
   .container, .narrow { padding: 2rem 1rem 3.5rem; }
 
-  /* Nav: scroll horizontally so all items stay on one line */
-  nav {
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    gap: 1rem;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  nav::-webkit-scrollbar { display: none; }
-  nav > a, .nav-dropdown-trigger { font-size: 0.72rem; flex-shrink: 0; }
+  /* Site title: smaller so nav items all fit on one line */
+  .site-title { font-size: 0.9rem; }
+
+  /* Nav: tighter gaps and smaller font to fit all items */
+  nav { gap: 0.6rem; }
+  nav > a, .nav-dropdown-trigger { font-size: 0.72rem; }
 
   /* Typography */
   h2 { font-size: 1.35rem; }
@@ -791,8 +793,8 @@ footer {
   /* CV contact: prevent overflow */
   #cv-contact { overflow-wrap: break-word; word-break: break-word; }
 
-  /* CV download button: full-width tap target */
-  .cv-download { width: 100%; justify-content: center; }
+  /* CV download button: hide on mobile (print doesn't work well on mobile) */
+  .cv-download { display: none; }
 
   /* CV references: single column, no indent */
   .cv-references-grid { grid-template-columns: 1fr; padding-left: 0; }

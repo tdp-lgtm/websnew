@@ -317,12 +317,13 @@ function renderCV() {
         const issPart = p.issue  ? `no. ${p.issue}`   : '';
         const pgPart  = p.pages  ? (volPart || issPart ? `: ${p.pages}` : p.pages) : '';
         const vol = [volPart, issPart].filter(Boolean).join(', ') + pgPart;
-        const citation = [p.journal ? `<em>${p.journal}</em>` : '', vol].filter(Boolean).join(', ');
+        const journalPart = p.journal ? `<span class="cv-detail-inline"><em>${p.journal}</em></span>` : '';
+        const volPart2 = vol ? `<span class="cv-detail-vol">${vol}.</span>` : '';
         const prize = p.prize ? `<span class="cv-prize">${p.prize}</span>` : '';
         return `<div class="cv-item">
           <span class="cv-year">${p.year || ''}</span>
           <span class="cv-detail">
-            ${p.coauthors ? `(with ${p.coauthors}) ` : ''}'${p.title}'.${citation ? ` <span class="cv-detail-inline">${citation}.</span>` : ''}${prize}
+            <span class="cv-pub-title">${p.coauthors ? `(with ${p.coauthors}) ` : ''}${p.title}.</span>${journalPart ? ` ${journalPart}` : ''}${volPart2 ? ` ${volPart2}` : ''}${prize}
           </span>
         </div>`;
       }).join('');
@@ -376,12 +377,12 @@ function _reorderCVSections(order) {
 function _renderCVContact(c) {
   const el = document.getElementById('cv-contact');
   if (!el) return;
-  const parts = [
+  const inline = [
     c.website ? `<a href="https://${c.website.replace(/^https?:\/\//,'')}" target="_blank" rel="noopener">${c.website}</a>` : '',
     c.email   ? `<a href="mailto:${c.email}">${c.email}</a>` : '',
-    c.address || '',
-  ].filter(Boolean);
-  el.innerHTML = parts.join('<span class="cv-contact-sep">·</span>');
+  ].filter(Boolean).join('<span class="cv-contact-sep">·</span>');
+  const addr = c.address ? `<span class="cv-contact-addr">${c.address}</span>` : '';
+  el.innerHTML = inline + addr;
 }
 
 function _renderCVTalks(id, talks) {
