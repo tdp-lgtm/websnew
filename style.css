@@ -644,10 +644,7 @@ h2 {
 .cv-area-label { color: var(--fg-2); font-size: 0.75rem; letter-spacing: 0.04em; }
 .cv-detail { font-family: var(--serif); font-size: 1rem; font-weight: 500; color: var(--fg-1); line-height: 1.4; }
 .cv-detail-sub { display: block; font-family: var(--sans); font-size: 0.875rem; font-weight: 400; color: var(--fg-2); margin-top: 3px; line-height: 1.5; }
-.cv-detail-inline { font-family: var(--sans); font-size: 0.875rem; font-weight: 400; color: var(--fg-2); }
-/* CV publications: journal first and prominent, title lighter below */
-.cv-pub-citation { font-family: var(--serif); font-size: 1rem; font-weight: 500; color: var(--fg-1); display: block; }
-.cv-pub-title { font-family: var(--sans); font-size: 0.875rem; font-weight: 400; color: var(--fg-2); display: block; margin-top: 1px; }
+.cv-detail-inline { font-family: var(--sans); font-size: 0.875rem; font-weight: 500; color: var(--fg-1); font-style: italic; }
 .cv-prize { display: block; font-family: var(--mono); font-size: 0.75rem; color: var(--fg-3); margin-top: 2px; }
 /* CV talks should match the size of other CV sections, not the larger Talks page */
 #cv-talks .talk-item h3 { font-size: 1rem; }
@@ -749,8 +746,17 @@ footer {
   /* Layout */
   .header-inner { padding: 0 1rem; }
   .container, .narrow { padding: 2rem 1rem 3.5rem; }
-  nav { gap: 0.85rem; }
-  nav > a, .nav-dropdown-trigger { font-size: 0.8rem; }
+
+  /* Nav: scroll horizontally so all items stay on one line */
+  nav {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav > a, .nav-dropdown-trigger { font-size: 0.72rem; flex-shrink: 0; }
 
   /* Typography */
   h2 { font-size: 1.35rem; }
@@ -766,19 +772,32 @@ footer {
   }
 
   /* Publications & CV: collapse to single column (year above content) */
-  .pub, .cv-item { grid-template-columns: 1fr; gap: 0.15rem; }
+  .pub, .cv-item { grid-template-columns: 1fr; gap: 0.15rem; align-items: start; }
   .yr, .cv-year { font-size: 0.75rem; opacity: 0.75; }
 
-  /* Talks: narrower year column */
-  .talk-row { grid-template-columns: 3.5rem 1fr; gap: 0.75rem; }
-  .talk-pres-list .talk-row-detail { padding-left: 0; }
-  #cv-talks .talk-pres-list .talk-row-detail { padding-left: 0; }
+  /* More breathing room between publications on mobile */
+  .pub { padding: 0.85rem 0; }
+
+  /* Talks: narrower year column, more gap between items, wrap comment */
+  .talk-row { grid-template-columns: 3.5rem 1fr; gap: 0.75rem; align-items: start; }
+  .talk-item { padding: 0.75rem 0; }
+  .talk-pres-list .talk-row-detail { padding-left: 1rem; }
+  #cv-talks .talk-pres-list .talk-row-detail { padding-left: 1rem; }
+  .talk-comment { white-space: normal; display: inline; }
 
   /* CV h2 name+button: stack vertically */
   h2[style*="justify-content"] { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
 
+  /* CV contact: prevent overflow */
+  #cv-contact { overflow-wrap: break-word; word-break: break-word; }
+
+  /* CV download button: full-width tap target */
+  .cv-download { width: 100%; justify-content: center; }
+
   /* CV references: single column, no indent */
   .cv-references-grid { grid-template-columns: 1fr; padding-left: 0; }
 
-  .teaching-role-group { grid-template-columns: 1fr; gap: 0.25rem; }
+  /* Teaching courses: full-width, not crammed under year */
+  #teaching .talk-row,
+  #cv-teaching .cv-item { grid-template-columns: 1fr; gap: 0.15rem; }
 }

@@ -15,7 +15,7 @@ function _prepHtml(text) {
     html = html.split('\n\n').filter(Boolean).map(p => `<p>${p}</p>`).join('');
   }
   // Add target/rel to external links that don't already have a target.
-  html = html.replace(/<a (?![^>]*\btarget=)([^>]*href="https?:\/\/[^"]*"[^>]*)>/g,
+  html = html.replace(/<a (?![^>]*\btarget=)([^>]*href=["']https?:\/\/[^"']*["'][^>]*)>/g,
     '<a target="_blank" rel="noopener" $1>');
   return html;
 }
@@ -112,12 +112,12 @@ function _toggleAbstract(id, btn) {
 function renderWIP(id) {
   const el = document.getElementById(id);
   if (!el) return;
-  if (!WIP.length) { el.innerHTML = '<p style="color:var(--fg-3)">Nothing to show yet.</p>'; return; }
+  if (!WIP || !WIP.length) { el.innerHTML = '<p style="color:var(--fg-3)">Nothing to show yet.</p>'; return; }
 
   const groups = {};
   const order  = [];
   WIP.filter(_isPublished).forEach(p => {
-    const key = p.status || 'Other';
+    const key = p.status || 'In preparation';
     if (!groups[key]) { groups[key] = []; order.push(key); }
     groups[key].push(p);
   });
@@ -315,14 +315,14 @@ function renderCV() {
       const rendered = items.map(p => {
         const volPart = p.volume ? `vol. ${p.volume}` : '';
         const issPart = p.issue  ? `no. ${p.issue}`   : '';
-        const pgPart  = p.pages  ? `: ${p.pages}` : '';
+        const pgPart  = p.pages  ? (volPart || issPart ? `: ${p.pages}` : p.pages) : '';
         const vol = [volPart, issPart].filter(Boolean).join(', ') + pgPart;
         const citation = [p.journal ? `<em>${p.journal}</em>` : '', vol].filter(Boolean).join(', ');
         const prize = p.prize ? `<span class="cv-prize">${p.prize}</span>` : '';
         return `<div class="cv-item">
           <span class="cv-year">${p.year || ''}</span>
           <span class="cv-detail">
-            ${citation ? `<span class="cv-pub-citation">${citation}.</span> ` : ''}<span class="cv-pub-title">${p.coauthors ? `(with ${p.coauthors}) ` : ''}'${p.title}'.</span>${prize}
+            ${p.coauthors ? `(with ${p.coauthors}) ` : ''}'${p.title}'.${citation ? ` <span class="cv-detail-inline">${citation}.</span>` : ''}${prize}
           </span>
         </div>`;
       }).join('');
