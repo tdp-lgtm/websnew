@@ -329,6 +329,8 @@ h2 {
 .wip-group-label {
   margin-top: 2rem;
 }
+/* Ensure the WIP block always gets breathing room after publications */
+#wip { margin-top: 2.5rem; }
 
 .pub h3.wip-title {
   font-family: var(--serif);

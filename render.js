@@ -199,10 +199,9 @@ function renderTeaching(id) {
       const note = e.note ? ` <span class="talk-comment">${e.note}</span>` : '';
       const levels = (e.levels && e.levels.length)
         ? ` <span class="teaching-levels">${[].concat(e.levels).join(', ')}</span>` : '';
-      const inst = e.institution ? ` <span class="talk-comment">${e.institution}</span>` : '';
       return `<div class="talk-row">
         <div class="talk-yr">${e.year || ''}</div>
-        <div class="talk-row-detail">${e.course}${levels}${inst}${note}</div>
+        <div class="talk-row-detail">${e.course}${levels}${note}</div>
       </div>`;
     }).join('');
     return `<span class="section-label${i === 0 ? ' section-label--first' : ''}">${role}</span>
