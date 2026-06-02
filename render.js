@@ -67,10 +67,10 @@ function _pubItem(p) {
                     : rawYear === 'Online first'  ? 'Online'
                     : rawYear;
 
-  const volPart   = p.volume ? `vol. ${p.volume}` : '';
-  const issuePart = p.issue  ? `no. ${p.issue}`   : '';
-  const pagesPart = p.pages  ? (volPart || issuePart ? `: ${p.pages}` : p.pages) : '';
-  const volStr    = [volPart, issuePart].filter(Boolean).join(', ') + pagesPart;
+  const volStr    = (p.volume || p.issue)
+    ? (p.volume ? (p.issue ? `${p.volume}(${p.issue})` : p.volume) : `(${p.issue})`)
+        + (p.pages ? `: ${p.pages}` : '')
+    : (p.pages || '');
   const citation  = [
     p.journal ? `<em>${p.journal}</em>` : '',
     volStr,
@@ -313,10 +313,10 @@ function renderCV() {
       const items = (PUBLICATIONS || []).filter(p => _isPublished(p) && _isOnCV(p) && types.indexOf(p.type || 'Article') > -1);
       if (!items.length) return;
       const rendered = items.map(p => {
-        const volPart = p.volume ? `vol. ${p.volume}` : '';
-        const issPart = p.issue  ? `no. ${p.issue}`   : '';
-        const pgPart  = p.pages  ? (volPart || issPart ? `: ${p.pages}` : p.pages) : '';
-        const vol = [volPart, issPart].filter(Boolean).join(', ') + pgPart;
+        const vol = (p.volume || p.issue)
+          ? (p.volume ? (p.issue ? `${p.volume}(${p.issue})` : p.volume) : `(${p.issue})`)
+              + (p.pages ? `: ${p.pages}` : '')
+          : (p.pages || '');
         const journalPart = p.journal ? `<span class="cv-detail-inline"><em>${p.journal}</em></span>` : '';
         const volPart2 = vol ? `<span class="cv-detail-vol">${vol}.</span>` : '';
         const prize = p.prize ? `<span class="cv-prize">${p.prize}</span>` : '';
