@@ -59,39 +59,48 @@
   "awards": [
     {
       "year": "2027–29",
-      "description": "Leverhulme Early Career Fellowship (accepted)"
+      "description": "Leverhulme Early Career Fellowship (accepted)",
+      "amount": ""
     },
     {
       "year": "2024",
-      "description": "Nominated for a King's Education Award (Teaching Excellence Award)"
+      "description": "Nominated for a King's Education Award (Teaching Excellence Award)",
+      "amount": ""
     },
     {
       "year": "2022",
-      "description": "Winner of the Res Publica Post Graduate Essay Prize (£100)"
+      "description": "Winner of the Res Publica Post Graduate Essay Prize",
+      "amount": "£100"
     },
     {
       "year": "2021",
-      "description": "Funding for the KCL Graduate Conference in Politics, Philosophy, and Law from the Society for Applied Philosophy, Mind Association, and Aristotelian Society (£4,000)"
+      "description": "Funding for the KCL Graduate Conference in Politics, Philosophy, and Law from the Society for Applied Philosophy, Mind Association, and Aristotelian Society",
+      "amount": "£4,000"
     },
     {
       "year": "2018–23",
-      "description": "King's PGR International Scholarship PhD funding (£68,000 + Fees)"
+      "description": "King's PGR International Scholarship PhD funding",
+      "amount": "£68,000 + Fees"
     },
     {
       "year": "2017",
-      "description": "Runner up in the Oxford Uehiro Prize in Practical Ethics (£100)"
+      "description": "Runner up in the Oxford Uehiro Prize in Practical Ethics",
+      "amount": "£100"
     },
     {
       "year": "2016–18",
-      "description": "Aker Scholarship BPhil funding (£41,000)"
+      "description": "Aker Scholarship BPhil funding",
+      "amount": "£41,000"
     },
     {
       "year": "2016",
-      "description": "Joint Winner of the Sowerby Philosophy of Medicine Essay Contest (£350)"
+      "description": "Joint Winner of the Sowerby Philosophy of Medicine Essay Contest",
+      "amount": "£350"
     },
     {
       "year": "2015",
-      "description": "Adrian Grey-Turner Memorial Prize for outstanding academic achievement (£60)"
+      "description": "Adrian Grey-Turner Memorial Prize for outstanding academic achievement",
+      "amount": "£60"
     }
   ],
   "events": [
@@ -162,5 +171,10 @@
       "institution": "Stockholm University",
       "email": "helen.frowe@philosophy.su.se"
     }
-  ]
+  ],
+  "contact": {
+    "website": "jonashaeg.com",
+    "email": "jonas.haeg@philosophy.su.se",
+    "address": "Department of Philosophy, Stockholm University"
+  }
 }

@@ -1,92 +1,70 @@
-[
-  {
-    "institution": "Stockholm University",
-    "anchor": "stockholm",
-    "entries": [
-      {
-        "role": "Module Convenor",
-        "year": "2025",
-        "course": "Course Name",
-        "note": "for MA students"
-      }
-    ]
-  },
-  {
-    "institution": "King's College London",
-    "anchor": "kcl",
-    "entries": [
-      {
-        "role": "Module Convenor",
-        "year": "2025",
-        "course": "The Ethics of War",
-        "note": "with Helen Frowe, for MA and PhD students"
-      },
-      {
-        "role": "Module Convenor",
-        "year": "2023",
-        "course": "General Philosophy",
-        "note": "for MA students"
-      },
-      {
-        "role": "Seminar Convenor",
-        "year": "2024",
-        "course": "Doctor and Society",
-        "note": "for medical students"
-      },
-      {
-        "role": "Seminar Convenor",
-        "year": "2023",
-        "course": "Political Philosophy 2",
-        "note": ""
-      },
-      {
-        "role": "Graduate Teaching Assistant",
-        "year": "2022",
-        "course": "Doctor and Society",
-        "note": "for medical students"
-      },
-      {
-        "role": "Graduate Teaching Assistant",
-        "year": "2021",
-        "course": "Ethics 2",
-        "note": ""
-      },
-      {
-        "role": "Graduate Teaching Assistant",
-        "year": "2020",
-        "course": "Environmental Ethics",
-        "note": ""
-      },
-      {
-        "role": "Graduate Teaching Assistant",
-        "year": "2020",
-        "course": "Topics in Political Philosophy: The Ethics of Migration",
-        "note": ""
-      },
-      {
-        "role": "Graduate Teaching Assistant",
-        "year": "2019",
-        "course": "Ethics 1",
-        "note": ""
-      },
-      {
-        "role": "Supervision",
-        "year": "",
-        "course": "BA Philosophy dissertation (x3)",
-        "note": ""
-      }
-    ]
-  },
-  {
-    "institution": "University of Oxford",
-    "anchor": "oxford",
-    "entries": [
-      {
-        "role": "Tutor",
-        "year": "2020",
-        "course": "Course Name",
-        "note": "Undergraduate"
-      }
-    ]
-  }
-]
+{
+  "items": [
+    {
+      "institution": "King’s College London",
+      "anchor": "kcl",
+      "entries": [
+        {
+          "role": "Lecturer",
+          "year": "2025",
+          "course": "The Ethics of War",
+          "note": "with Helen Frowe"
+        },
+        {
+          "role": "Lecturer",
+          "year": "2024",
+          "course": "General Philosophy",
+          "note": ""
+        },
+        {
+          "role": "Seminar Convenor",
+          "year": "2024",
+          "course": "Philosophy and Medicine",
+          "note": ""
+        },
+        {
+          "role": "Seminar Convenor",
+          "year": "2023",
+          "course": "Political Philosophy II",
+          "note": ""
+        },
+        {
+          "role": "Teaching Assistant",
+          "year": "2022",
+          "course": "Philosophy and Medicine",
+          "note": ""
+        },
+        {
+          "role": "Teaching Assistant",
+          "year": "2021",
+          "course": "Ethics II: Contemporary Ethical Philosophy",
+          "note": ""
+        },
+        {
+          "role": "Teaching Assistant",
+          "year": "2020",
+          "course": "Environmental Ethics",
+          "note": ""
+        },
+        {
+          "role": "Teaching Assistant",
+          "year": "2020",
+          "course": "Topics in Political Philosophy: Ethics of Migration",
+          "note": ""
+        },
+        {
+          "role": "Teaching Assistant",
+          "year": "2019",
+          "course": "Ethics I",
+          "note": ""
+        },
+        {
+          "role": "Supervisor",
+          "year": "2023–24",
+          "course": "BA Philosophy Dissertation (×3)",
+          "note": ""
+        }
+      ]
+    }
+  ]
+}

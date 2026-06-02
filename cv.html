@@ -21,10 +21,9 @@
       <span class="eyebrow">Curriculum Vitae</span>
       <h2 style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem">
         Jonas Haeg
-        <!-- Uncomment when you have a PDF:
-        <a class="cv-download" href="files/cv.pdf" target="_blank">↓ Download PDF</a>
-        -->
+        <button class="cv-download" onclick="window.print()">&#8595; Download PDF</button>
       </h2>
+      <p id="cv-contact" class="cv-contact"></p>
 
       <div class="cv-section">
         <span class="eyebrow">Research interests</span>
@@ -47,13 +46,9 @@
       </div>
 
       <div class="cv-section">
-        <span class="eyebrow">Invited talks</span>
-        <div id="cv-talks-invited"></div>
-      </div>
-
-      <div class="cv-section">
-        <span class="eyebrow">Conference presentations</span>
-        <div id="cv-talks-conference"></div>
+        <span class="eyebrow">Selected presentations</span>
+        <p class="talks-legend"><sup>*</sup> invited &ensp; <sup>&#8224;</sup> peer-reviewed</p>
+        <div id="cv-talks"></div>
       </div>
 
       <div class="cv-section">
