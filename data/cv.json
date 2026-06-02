@@ -1,36 +1,4 @@
 {
-  "section_order": [
-    {
-      "section": "interests"
-    },
-    {
-      "section": "positions"
-    },
-    {
-      "section": "education"
-    },
-    {
-      "section": "publications"
-    },
-    {
-      "section": "presentations"
-    },
-    {
-      "section": "teaching"
-    },
-    {
-      "section": "awards"
-    },
-    {
-      "section": "events"
-    },
-    {
-      "section": "service"
-    },
-    {
-      "section": "references"
-    }
-  ],
   "contact": {
     "website": "jonashaeg.com",
     "email": "jonas.haeg@philosophy.su.se",

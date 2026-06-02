@@ -421,8 +421,9 @@ h2 {
   font-size: 1.25rem;
   font-weight: 500;
   color: var(--fg-1);
-  margin-bottom: 0.15rem;
+  margin-bottom: 0;
 }
+.page-section > .section-label:first-of-type { margin-top: 0.5rem; }
 .section-subtitle {
   font-family: var(--mono);
   font-size: 0.72rem;
@@ -536,6 +537,7 @@ h2 {
   color: var(--accent);
 }
 .resource-note { color: var(--fg-3); font-style: italic; font-size: 0.85rem; }
+.resource-author { font-family: var(--sans); font-size: 0.875rem; color: var(--fg-2); }
 
 /* ---- About ---- */
 .about-body {
@@ -586,6 +588,11 @@ h2 {
 
 /* ---- CV ---- */
 .cv-section { margin-bottom: 2.5rem; }
+.cv-section > .eyebrow {
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0.6rem;
+}
 .cv-item {
   display: grid;
   grid-template-columns: 4.75rem 1fr;
@@ -598,9 +605,11 @@ h2 {
 .cv-detail { font-family: var(--serif); font-size: 1rem; font-weight: 500; color: var(--fg-1); line-height: 1.4; }
 .cv-detail-sub { display: block; font-family: var(--sans); font-size: 0.875rem; font-weight: 400; color: var(--fg-2); margin-top: 3px; line-height: 1.5; }
 .cv-detail-inline { font-family: var(--sans); font-size: 0.875rem; font-weight: 400; color: var(--fg-2); }
+.cv-prize { display: block; font-family: var(--mono); font-size: 0.75rem; color: var(--fg-3); margin-top: 2px; }
 /* CV talks should match the size of other CV sections, not the larger Talks page */
 #cv-talks .talk-item h3 { font-size: 1rem; }
 #cv-talks .talk-item { padding: 0.3rem 0; }
+#cv-talks .talk-pres-list .talk-row { padding-left: 1.5rem; }
 .cv-subsection-label {
   font-family: var(--mono);
   font-size: 0.7rem;

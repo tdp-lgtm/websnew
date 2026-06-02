@@ -260,7 +260,7 @@ function renderWorkshopPage(workshopId, containerId) {
     : '';
 
   const descHtml = w.description
-    ? `<div class="workshop-description">${_prepHtml(w.description)}</div>`
+    ? `<div class="workshop-description"${w.justify ? ' style="text-align:justify"' : ''}>${_prepHtml(w.description)}</div>`
     : '';
   const regHtml = w.registration ? `<p class="ws-registration">${w.registration}</p>` : '';
   el.innerHTML = `
@@ -318,7 +318,7 @@ function renderCV() {
         const pgPart  = p.pages  ? `: ${p.pages}` : '';
         const vol = [volPart, issPart].filter(Boolean).join(', ') + pgPart;
         const citation = [p.journal ? `<em>${p.journal}</em>` : '', vol].filter(Boolean).join(', ');
-        const prize = p.prize ? ` <span class="cv-award-amount">${p.prize}</span>` : '';
+        const prize = p.prize ? `<span class="cv-prize">${p.prize}</span>` : '';
         return `<div class="cv-item">
           <span class="cv-year">${p.year || ''}</span>
           <span class="cv-detail">
@@ -497,7 +497,7 @@ function renderTeachingResources(id) {
       const label = it.url
         ? `<a href="${it.url}" target="_blank" rel="noopener">${it.title}</a>`
         : it.title;
-      const by = it.author ? ` <span class="venue">by ${it.author}</span>` : '';
+      const by = it.author ? ` <span class="resource-author">by ${it.author}</span>` : '';
       const note = it.note ? `<p class="venue">${it.note}</p>` : '';
       return `<li class="pub">
         <div class="yr"></div>

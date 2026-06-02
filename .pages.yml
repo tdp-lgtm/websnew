@@ -367,6 +367,10 @@ content:
               switcher: false
               media: false
             description: Use the toolbar for links, bold, alignment, etc.
+          - name: justify
+            label: Justify description text
+            type: boolean
+            default: false
           - name: registration
             label: Registration note
             type: string
@@ -403,30 +407,6 @@ content:
     path: data/cv.json
     format: json
     fields:
-      - name: section_order
-        label: Section order (drag to reorder)
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{section}"
-        description: Drag these rows to set the order of the CV sections on the page.
-        fields:
-          - name: section
-            label: Section
-            type: select
-            options:
-              values:
-                - interests
-                - positions
-                - education
-                - publications
-                - presentations
-                - teaching
-                - awards
-                - events
-                - service
-                - references
       - name: contact
         label: Contact (shown under your name)
         type: object
