@@ -644,10 +644,10 @@ h2 {
 .cv-area-label { color: var(--fg-2); font-size: 0.75rem; letter-spacing: 0.04em; }
 .cv-detail { font-family: var(--serif); font-size: 1rem; font-weight: 500; color: var(--fg-1); line-height: 1.4; }
 .cv-detail-sub { display: block; font-family: var(--sans); font-size: 0.875rem; font-weight: 400; color: var(--fg-2); margin-top: 3px; line-height: 1.5; }
-/* cv-pub-title: bold, same serif as cv-detail */
-.cv-pub-title { font-weight: 500; }
-/* journal name: same size as title, italic, slightly lighter */
-.cv-detail-inline { font-family: var(--serif); font-size: 1rem; font-weight: 400; color: var(--fg-2); }
+/* cv-pub-title: normal weight */
+.cv-pub-title { font-weight: 400; }
+/* journal name: same size as title, bold */
+.cv-detail-inline { font-family: var(--serif); font-size: 1rem; font-weight: 500; color: var(--fg-1); }
 /* vol/issue/pages: smaller, sans, muted */
 .cv-detail-vol { font-family: var(--sans); font-size: 0.875rem; font-weight: 400; color: var(--fg-2); }
 .cv-contact-addr { display: block; margin-top: 0.15rem; }
