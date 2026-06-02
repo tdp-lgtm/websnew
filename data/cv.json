@@ -1,16 +1,41 @@
 {
   "section_order": [
-    { "section": "interests" },
-    { "section": "positions" },
-    { "section": "education" },
-    { "section": "publications" },
-    { "section": "presentations" },
-    { "section": "teaching" },
-    { "section": "awards" },
-    { "section": "events" },
-    { "section": "service" },
-    { "section": "references" }
+    {
+      "section": "interests"
+    },
+    {
+      "section": "positions"
+    },
+    {
+      "section": "education"
+    },
+    {
+      "section": "publications"
+    },
+    {
+      "section": "presentations"
+    },
+    {
+      "section": "teaching"
+    },
+    {
+      "section": "awards"
+    },
+    {
+      "section": "events"
+    },
+    {
+      "section": "service"
+    },
+    {
+      "section": "references"
+    }
   ],
+  "contact": {
+    "website": "jonashaeg.com",
+    "email": "jonas.haeg@philosophy.su.se",
+    "address": "Department of Philosophy, Stockholm University"
+  },
   "aos": "Political Philosophy, Normative Ethics, Legal Philosophy",
   "aoc": "Social Philosophy, Feminist Philosophy, Applied Ethics",
   "employment": [
@@ -43,41 +68,30 @@
     {
       "year": "Fall 2022",
       "degree": "Visiting Student",
-      "institution": "Department of Philosophy, Stockholm University",
-      "note": "",
-      "thesis": "",
-      "supervisors": "",
-      "examiners": ""
+      "institution": "Department of Philosophy, Stockholm University"
     },
     {
       "year": "2016–18",
       "degree": "BPhil in Philosophy",
       "institution": "University of Oxford",
       "note": "Distinction",
-      "thesis": "",
-      "supervisors": "",
-      "examiners": ""
+      "supervisors": "Jeff McMahan"
     },
     {
       "year": "2013–16",
       "degree": "BA in Philosophy",
       "institution": "King's College London",
-      "note": "First Class Honours",
-      "thesis": "",
-      "supervisors": "",
-      "examiners": ""
+      "note": "First Class Honours"
     }
   ],
   "awards": [
     {
       "year": "2027–29",
-      "description": "Leverhulme Early Career Fellowship (accepted)",
-      "amount": ""
+      "description": "Leverhulme Early Career Fellowship (accepted)"
     },
     {
       "year": "2024",
-      "description": "Nominated for a King's Education Award (Teaching Excellence Award)",
-      "amount": ""
+      "description": "Nominated for a King's Education Award (Teaching Excellence Award)"
     },
     {
       "year": "2022",
@@ -183,10 +197,5 @@
       "institution": "Stockholm University",
       "email": "helen.frowe@philosophy.su.se"
     }
-  ],
-  "contact": {
-    "website": "jonashaeg.com",
-    "email": "jonas.haeg@philosophy.su.se",
-    "address": "Department of Philosophy, Stockholm University"
-  }
+  ]
 }
