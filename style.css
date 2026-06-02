@@ -352,11 +352,10 @@ h2 {
 /* ---- Talks ---- */
 .talks-legend {
   font-family: var(--mono);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--fg-3);
-  margin-top: 0.5rem;
-  margin-bottom: 2rem;
   letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
 .talk-item {
@@ -588,11 +587,19 @@ h2 {
 
 /* ---- CV ---- */
 .cv-section { margin-bottom: 2.5rem; }
-.cv-section > .eyebrow {
+.cv-section > .eyebrow,
+.cv-section .cv-eyebrow-row {
   padding-bottom: 0.4rem;
   border-bottom: 1px solid var(--rule);
   margin-bottom: 0.6rem;
 }
+.cv-eyebrow-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.cv-eyebrow-row .eyebrow { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
 .cv-item {
   display: grid;
   grid-template-columns: 4.75rem 1fr;
@@ -617,8 +624,8 @@ h2 {
   letter-spacing: 0.1em;
   color: var(--fg-3);
   margin: 1.25rem 0 0;
-  padding-bottom: 0.35rem;
-  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0;
+  border-bottom: none;
 }
 .cv-subsection-label:first-child { margin-top: 0; }
 .cv-references-grid {
