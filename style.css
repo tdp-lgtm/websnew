@@ -102,7 +102,7 @@ nav {
 nav > a,
 .nav-dropdown-trigger {
   font-family: var(--sans);
-  font-size: 0.933rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--fg-3);
   background: none;
