@@ -1,27 +1,44 @@
 // render.js — reads data arrays and builds page content
 // You should never need to edit this file.
 
+function renderFrontPage(id) {
+  const el = document.getElementById(id);
+  if (!el || typeof FRONT_PAGE === 'undefined') return;
+  const fp = FRONT_PAGE;
+  const paras = (fp.text || '').split('\n\n').filter(Boolean);
+  const justify = fp.justify ? ' style="text-align:justify"' : '';
+  el.innerHTML = paras.map(p => `<p${justify}>${p}</p>`).join('');
+}
+
 function renderResearchBio(id) {
   const el = document.getElementById(id);
   if (!el || typeof RESEARCH_BIO === 'undefined') return;
   const paras = RESEARCH_BIO.split('\n\n').filter(Boolean);
-  el.innerHTML = `<div class="research-bio">${paras.map(p => `<p>${p}</p>`).join('')}</div>`;
+  const justify = window.RESEARCH_BIO_JUSTIFY ? ' style="text-align:justify"' : '';
+  el.innerHTML = `<div class="research-bio">${paras.map(p => `<p${justify}>${p}</p>`).join('')}</div>`;
 }
 
 function renderPublications(id) {
   const el = document.getElementById(id);
   if (!el) return;
 
-  const articles = PUBLICATIONS.filter(p => !p.type || p.type === 'Article');
-  const reviews  = PUBLICATIONS.filter(p => p.type === 'Review');
+  // Ordered category definitions
+  const categories = [
+    { key: 'Article',  label: 'Articles' },
+    { key: 'Book',     label: 'Books' },
+    { key: 'Chapter',  label: 'Book chapters' },
+    { key: 'Editor',   label: 'As editor' },
+    { key: 'Review',   label: 'Reviews' },
+    { key: 'Public',   label: 'Public writing' },
+  ];
 
   let html = '';
-  if (articles.length) {
-    html += `<span class="section-label">Articles</span><ul class="pub-list">${articles.map(_pubItem).join('')}</ul>`;
-  }
-  if (reviews.length) {
-    html += `<span class="section-label">Reviews</span><ul class="pub-list">${reviews.map(_pubItem).join('')}</ul>`;
-  }
+  categories.forEach(({ key, label }) => {
+    const items = PUBLICATIONS.filter(p => (p.type || 'Article') === key);
+    if (items.length) {
+      html += `<span class="section-label">${label}</span><ul class="pub-list">${items.map(_pubItem).join('')}</ul>`;
+    }
+  });
   if (!html) html = '<p style="color:var(--fg-3)">No publications yet.</p>';
   el.innerHTML = html;
 }
@@ -29,7 +46,7 @@ function renderPublications(id) {
 function _pubItem(p) {
   const rawYear = p.year ? String(p.year) : '';
   const displayYear = rawYear === 'Forthcoming'  ? 'Forthc.'
-                    : rawYear === 'Online first' ? 'Online'
+                    : rawYear === 'Online first'  ? 'Online'
                     : rawYear;
 
   const volPart   = p.volume ? `vol. ${p.volume}` : '';
@@ -79,7 +96,6 @@ function renderWIP(id) {
   if (!el) return;
   if (!WIP.length) { el.innerHTML = '<p style="color:var(--fg-3)">Nothing to show yet.</p>'; return; }
 
-  // Group papers by status, preserving the order each status first appears
   const groups = {};
   const order  = [];
   WIP.forEach(p => {
@@ -221,8 +237,6 @@ function renderWorkshopPage(workshopId, containerId) {
       }).join('')}</ul>`
     : '';
 
-  const legendHtml = '';
-
   const descHtml = w.description
     ? w.description.split('\n\n').filter(Boolean).map(p => `<p class="workshop-description">${p}</p>`).join('')
     : '';
@@ -231,39 +245,69 @@ function renderWorkshopPage(workshopId, containerId) {
     <p class="section-subtitle">${meta}</p>
     ${descHtml}
     ${programme}
-    ${legendHtml}
     ${regHtml}`;
-  // Set the page title
   document.title = `${w.title} — Jonas Haeg`;
   const heading = document.getElementById('ws-title');
   if (heading) heading.textContent = w.title;
 }
 
+// ---- CV ----
+
 function renderCV() {
-  _renderCVSection('cv-employment', [
-    { year: '2023–', detail: 'Postdoctoral Researcher, Stockholm Centre for the Ethics of War and Peace, Department of Philosophy, Stockholm University' },
-  ]);
+  const cv = window.CV_DATA || {};
 
-  const edu = [
-    { year: '2023', detail: "PhD in Philosophy, King's College London", sub: 'Supervised by David Owens, Massimo Renzo, and Sarah Fine' },
-    { year: '',     detail: 'MPhil in Philosophy, University of Oxford' },
-    { year: '',     detail: "BA in Philosophy, King's College London" },
-  ];
-  _renderCVSection('cv-education', edu);
+  // AOS / AOC
+  _renderCVAreas(cv);
 
-  const pubItems = PUBLICATIONS.map(p => ({
-    year: p.year ? String(p.year) : '',
-    detail: `${p.coauthors ? `(with ${p.coauthors}) ` : ''}${p.title}.`,
-    sub: (() => { const v = p.volume ? `vol. ${p.volume}` : ''; const iss = p.issue ? `no. ${p.issue}` : ''; const pg = p.pages ? `: ${p.pages}` : ''; const vol = [v,iss].filter(Boolean).join(', ')+pg; return [p.journal ? `<em>${p.journal}</em>` : '', vol].filter(Boolean).join(', '); })(),
-    link: p.doi || p.pdf || '',
+  // Employment from data
+  _renderCVSection('cv-employment', (cv.employment || []).map(e => ({
+    year: e.year, detail: e.title, sub: e.institution,
+  })));
+
+  // Education from data
+  _renderCVSection('cv-education', (cv.education || []).map(e => {
+    const parts = [e.note, e.thesis ? `Thesis: ${e.thesis}` : '', e.supervisors ? `Supervisors: ${e.supervisors}` : '', e.examiners ? `Examiners: ${e.examiners}` : ''].filter(Boolean);
+    return { year: e.year, detail: `${e.degree}, ${e.institution}`, sub: parts.join(' · ') || '' };
   }));
-  _renderCVSection('cv-publications', pubItems);
 
+  // Publications — grouped by type
+  const pubGroups = [
+    { types: ['Article', undefined, null, ''], label: 'Articles' },
+    { types: ['Book'],    label: 'Books' },
+    { types: ['Chapter'], label: 'Book chapters' },
+    { types: ['Editor'],  label: 'As editor' },
+    { types: ['Review'],  label: 'Reviews' },
+    { types: ['Public'],  label: 'Public writing' },
+  ];
+  const pubEl = document.getElementById('cv-publications');
+  if (pubEl && PUBLICATIONS) {
+    let html = '';
+    pubGroups.forEach(({ types, label }) => {
+      const items = (PUBLICATIONS || []).filter(p => types.indexOf(p.type || 'Article') > -1);
+      if (!items.length) return;
+      const rendered = items.map(p => {
+        const volPart = p.volume ? `vol. ${p.volume}` : '';
+        const issPart = p.issue  ? `no. ${p.issue}`   : '';
+        const pgPart  = p.pages  ? `: ${p.pages}` : '';
+        const vol = [volPart, issPart].filter(Boolean).join(', ') + pgPart;
+        const citation = [p.journal ? `<em>${p.journal}</em>` : '', vol].filter(Boolean).join(', ');
+        return `<div class="cv-item">
+          <span class="cv-year">${p.year || ''}</span>
+          <span class="cv-detail">
+            ${p.coauthors ? `(with ${p.coauthors}) ` : ''}${p.title}.
+            ${citation ? `<span class="cv-detail-sub">${citation}.</span>` : ''}
+          </span>
+        </div>`;
+      }).join('');
+      html += `<div class="cv-subsection-label">${label}</div>${rendered}`;
+    });
+    pubEl.innerHTML = html || '<p class="empty">Nothing to show yet.</p>';
+  }
+
+  // Talks
   const allPresFlat = [];
   (TALKS || []).forEach(talk => {
-    (talk.presentations || []).forEach(p => {
-      allPresFlat.push({ pres: p, talk });
-    });
+    (talk.presentations || []).forEach(p => allPresFlat.push({ pres: p, talk }));
   });
   _renderCVSection('cv-talks-invited', allPresFlat.filter(x => x.pres.type === 'Invited').map(x => ({
     year: String(x.pres.year),
@@ -274,6 +318,7 @@ function renderCV() {
     detail: `${x.talk.title}. ${[x.pres.venue, x.pres.institution].filter(Boolean).join(', ')}.`,
   })));
 
+  // Teaching
   const teachItems = [];
   (TEACHING || []).forEach(inst => {
     (inst.entries || []).forEach(e => {
@@ -281,12 +326,52 @@ function renderCV() {
     });
   });
   _renderCVSection('cv-teaching', teachItems);
+
+  // Awards
+  _renderCVSection('cv-awards', (cv.awards || []).map(a => ({ year: a.year, detail: a.description })));
+
+  // Event organising
+  _renderCVSection('cv-events', (cv.events || []).map(e => ({
+    year: e.year, detail: e.title, sub: `${e.institution}${e.note ? ' · ' + e.note : ''}`,
+  })));
+
+  // Service
+  const serviceItems = (cv.service || []).map(s => ({ year: s.year, detail: s.description }));
+  if (cv.reviewer) {
+    serviceItems.push({ year: '', detail: `Reviewer: ${cv.reviewer}` });
+  }
+  _renderCVSection('cv-service', serviceItems);
+
+  // References
+  _renderCVReferences(cv.references || []);
+}
+
+function _renderCVAreas(cv) {
+  const el = document.getElementById('cv-areas');
+  if (!el) return;
+  const rows = [
+    cv.aos ? `<div class="cv-item"><span class="cv-year cv-area-label">AOS</span><span class="cv-detail">${cv.aos}</span></div>` : '',
+    cv.aoc ? `<div class="cv-item"><span class="cv-year cv-area-label">AOC</span><span class="cv-detail">${cv.aoc}</span></div>` : '',
+  ].filter(Boolean);
+  el.innerHTML = rows.join('') || '';
+}
+
+function _renderCVReferences(refs) {
+  const el = document.getElementById('cv-references');
+  if (!el || !refs.length) return;
+  el.innerHTML = refs.map(r => `
+    <div class="cv-ref">
+      <div class="cv-ref-name">${r.name}</div>
+      <div class="cv-ref-detail">${r.title}</div>
+      <div class="cv-ref-detail">${r.institution}</div>
+      ${r.email ? `<div class="cv-ref-detail"><a href="mailto:${r.email}">${r.email}</a></div>` : ''}
+    </div>`).join('');
 }
 
 function _renderCVSection(id, items) {
   const el = document.getElementById(id);
   if (!el) return;
-  if (!items.length) { el.innerHTML = '<p class="empty">Nothing to show yet.</p>'; return; }
+  if (!items || !items.length) { el.innerHTML = '<p class="empty">Nothing to show yet.</p>'; return; }
   el.innerHTML = items.map(item => `
     <div class="cv-item">
       <span class="cv-year">${item.year || ''}</span>
@@ -296,5 +381,3 @@ function _renderCVSection(id, items) {
       </span>
     </div>`).join('');
 }
-
-document.getElementById('year').textContent = new Date().getFullYear();

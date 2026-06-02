@@ -1,26 +1,31 @@
-// nav.js — builds the nav dropdowns from data/nav-items.js and marks active page.
+// nav.js — builds the entire nav from data/nav.json loaded by boot.js.
 // You should never need to edit this file.
 
 function buildNav() {
-  // Populate dropdowns
-  _fillDropdown('workshops-menu', NAV_WORKSHOPS, 'workshops.html');
-  _fillDropdown('teaching-menu',  NAV_TEACHING,  'teaching.html');
+  const nav   = document.querySelector('header nav');
+  if (!nav) return;
 
-  // Mark active page
-  const page    = document.body.dataset.page;
+  const items = (window.NAV_ITEMS || []);
   const current = window.location.pathname.split('/').pop() || 'index.html';
 
-  document.querySelectorAll('nav > a').forEach(a => {
-    if (a.getAttribute('href') === `${page}.html`) a.classList.add('active');
-  });
-
-  document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
-    const base = dropdown.querySelector('.nav-dropdown-trigger').dataset.page;
-    if (base && current.startsWith(base)) dropdown.classList.add('active');
-  });
+  nav.innerHTML = items.map(item => {
+    if (item.dropdown) {
+      const subitems = window['NAV_' + item.dropdown.toUpperCase()] || [];
+      const isActive = subitems.some(s => s.href === current) || current.startsWith(item.dropdown);
+      const menuId   = item.dropdown + '-menu';
+      return `<div class="nav-dropdown${isActive ? ' active' : ''}">
+        <button class="nav-dropdown-trigger" data-dropdown="${item.dropdown}">${item.label}</button>
+        <ul class="nav-dropdown-menu" id="${menuId}">
+          ${subitems.map(s => `<li><a href="${s.href}">${s.label}</a></li>`).join('')}
+        </ul>
+      </div>`;
+    }
+    const active = item.href === current;
+    return `<a href="${item.href}"${active ? ' class="active"' : ''}>${item.label}</a>`;
+  }).join('');
 
   // Toggle dropdowns on click; close on outside click
-  document.querySelectorAll('.nav-dropdown-trigger').forEach(trigger => {
+  nav.querySelectorAll('.nav-dropdown-trigger').forEach(trigger => {
     trigger.addEventListener('click', e => {
       e.stopPropagation();
       const dropdown = trigger.closest('.nav-dropdown');
@@ -33,14 +38,5 @@ function buildNav() {
   document.addEventListener('click', () => {
     document.querySelectorAll('.nav-dropdown.open').forEach(d => d.classList.remove('open'));
   });
-}
-
-function _fillDropdown(menuId, items, basePage) {
-  const menu = document.getElementById(menuId);
-  if (!menu) return;
-  menu.innerHTML = items.map(item => {
-    const href = item.href ? item.href : `${basePage}#${item.anchor}`;
-    return `<li><a href="${href}">${item.label}</a></li>`;
-  }).join('');
 }
 // buildNav() is invoked by boot.js once nav data has loaded.

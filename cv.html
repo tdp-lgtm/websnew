@@ -12,19 +12,7 @@
   <header>
     <div class="header-inner">
       <a href="index.html" class="site-title">Jonas Haeg<b>.</b></a>
-      <nav>
-        <a href="research.html">Research</a>
-        <a href="talks.html">Talks</a>
-        <div class="nav-dropdown">
-          <button class="nav-dropdown-trigger" data-page="workshops">Workshops</button>
-          <ul class="nav-dropdown-menu" id="workshops-menu"></ul>
-        </div>
-        <div class="nav-dropdown">
-          <button class="nav-dropdown-trigger" data-page="teaching">Teaching</button>
-          <ul class="nav-dropdown-menu" id="teaching-menu"></ul>
-        </div>
-        <a href="cv.html">CV</a>
-      </nav>
+      <nav></nav>
     </div>
   </header>
 
@@ -37,6 +25,11 @@
         <a class="cv-download" href="files/cv.pdf" target="_blank">↓ Download PDF</a>
         -->
       </h2>
+
+      <div class="cv-section">
+        <span class="eyebrow">Research interests</span>
+        <div id="cv-areas"></div>
+      </div>
 
       <div class="cv-section">
         <span class="eyebrow">Positions</span>
@@ -69,14 +62,23 @@
       </div>
 
       <div class="cv-section">
-        <span class="eyebrow">Service</span>
-        <div class="cv-item">
-          <span class="cv-year">2023–</span>
-          <div>
-            <div class="cv-detail">Editor, Public Ethics blog</div>
-          </div>
-        </div>
-        <!-- Add further service items here if needed -->
+        <span class="eyebrow">Honours, grants &amp; awards</span>
+        <div id="cv-awards"></div>
+      </div>
+
+      <div class="cv-section">
+        <span class="eyebrow">Event organising</span>
+        <div id="cv-events"></div>
+      </div>
+
+      <div class="cv-section">
+        <span class="eyebrow">Professional service</span>
+        <div id="cv-service"></div>
+      </div>
+
+      <div class="cv-section">
+        <span class="eyebrow">References</span>
+        <div id="cv-references" class="cv-references-grid"></div>
       </div>
     </div>
   </main>
@@ -91,7 +93,7 @@
   <script src="nav.js"></script>
   <script src="render.js"></script>
   <script>
-    window.PAGE_NEEDS = ['publications', 'talks', 'teaching'];
+    window.PAGE_NEEDS = ['publications', 'talks', 'teaching', 'cv'];
     window.initPage = function () { renderCV(); };
   </script>
   <script src="boot.js"></script>

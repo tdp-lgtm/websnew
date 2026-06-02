@@ -4,7 +4,26 @@ media:
 
 content:
   # ------------------------------------------------------------
-  #  Front-page / research intro paragraph
+  #  Front page
+  # ------------------------------------------------------------
+  - name: front_page
+    label: Front page text
+    type: file
+    path: data/front-page.json
+    format: json
+    fields:
+      - name: text
+        label: About text
+        type: text
+        description: HTML is allowed — use <a href="..."> for links. Separate paragraphs with a blank line.
+      - name: justify
+        label: Justify text
+        type: boolean
+        default: true
+        description: When on, paragraphs are fully justified.
+
+  # ------------------------------------------------------------
+  #  Research bio (shown at top of Research page)
   # ------------------------------------------------------------
   - name: research_bio
     label: Research bio
@@ -15,7 +34,11 @@ content:
       - name: text
         label: Bio text
         type: text
-        description: A short paragraph shown at the top of the Research page.
+        description: Shown above publications on the Research page.
+      - name: justify
+        label: Justify text
+        type: boolean
+        default: false
 
   # ------------------------------------------------------------
   #  Publications
@@ -26,8 +49,9 @@ content:
     path: data/publications.json
     format: json
     list: true
+    primary: title
     view:
-      fields: [year, title, journal]
+      fields: [year, type, title]
       primary: title
     fields:
       - name: title
@@ -38,14 +62,14 @@ content:
         label: Type
         type: select
         options:
-          values: [Article, Review]
+          values: [Article, Book, Chapter, Editor, Review, Public]
         default: Article
       - name: year
         label: Year
         type: string
-        description: A number, or "Forthcoming" or "Online first".
+        description: A number, "Forthcoming", "Online first", or "Commissioned".
       - name: journal
-        label: Journal
+        label: Journal / Publisher / Venue
         type: string
       - name: volume
         label: Volume
@@ -82,6 +106,7 @@ content:
     path: data/wip.json
     format: json
     list: true
+    primary: title
     view:
       fields: [status, title]
       primary: title
@@ -94,8 +119,8 @@ content:
         label: Status
         type: select
         options:
-          values: [Under review, In preparation]
-        description: Papers are grouped under their status.
+          values: [Under review, R&R, In preparation]
+        description: Papers are grouped under their status on the site.
       - name: abstract
         label: Abstract
         type: text
@@ -112,6 +137,7 @@ content:
     path: data/talks.json
     format: json
     list: true
+    primary: title
     view:
       fields: [title]
       primary: title
@@ -156,6 +182,7 @@ content:
     path: data/teaching.json
     format: json
     list: true
+    primary: institution
     view:
       fields: [institution]
       primary: institution
@@ -196,6 +223,7 @@ content:
     path: data/workshops.json
     format: json
     list: true
+    primary: title
     view:
       fields: [title, year]
       primary: title
@@ -245,16 +273,161 @@ content:
             type: string
 
   # ------------------------------------------------------------
-  #  Navigation menus
+  #  CV
+  # ------------------------------------------------------------
+  - name: cv
+    label: CV
+    type: file
+    path: data/cv.json
+    format: json
+    fields:
+      - name: aos
+        label: AOS (Areas of Specialisation)
+        type: string
+      - name: aoc
+        label: AOC (Areas of Competence)
+        type: string
+
+      - name: employment
+        label: Employment
+        type: object
+        list: true
+        primary: title
+        fields:
+          - name: year
+            label: Year(s)
+            type: string
+          - name: title
+            label: Position title
+            type: string
+          - name: institution
+            label: Institution
+            type: string
+
+      - name: education
+        label: Education
+        type: object
+        list: true
+        primary: degree
+        fields:
+          - name: year
+            label: Year(s)
+            type: string
+          - name: degree
+            label: Degree
+            type: string
+          - name: institution
+            label: Institution
+            type: string
+          - name: note
+            label: Note (e.g. Distinction)
+            type: string
+          - name: thesis
+            label: Thesis title
+            type: string
+          - name: supervisors
+            label: Supervisors
+            type: string
+          - name: examiners
+            label: Examiners
+            type: string
+
+      - name: awards
+        label: Honours, grants & awards
+        type: object
+        list: true
+        primary: description
+        fields:
+          - name: year
+            label: Year
+            type: string
+          - name: description
+            label: Description
+            type: string
+
+      - name: events
+        label: Event organising
+        type: object
+        list: true
+        primary: title
+        fields:
+          - name: year
+            label: Year
+            type: string
+          - name: title
+            label: Event name
+            type: string
+          - name: institution
+            label: Institution
+            type: string
+          - name: note
+            label: Note (e.g. Co-organiser)
+            type: string
+
+      - name: service
+        label: Professional service
+        type: object
+        list: true
+        primary: description
+        fields:
+          - name: year
+            label: Year(s)
+            type: string
+          - name: description
+            label: Description
+            type: string
+
+      - name: reviewer
+        label: Reviewer for journals
+        type: string
+        description: Comma-separated list of journals.
+
+      - name: references
+        label: References
+        type: object
+        list: true
+        primary: name
+        fields:
+          - name: name
+            label: Name
+            type: string
+          - name: title
+            label: Title / position
+            type: string
+          - name: institution
+            label: Institution
+            type: string
+          - name: email
+            label: Email
+            type: string
+
+  # ------------------------------------------------------------
+  #  Navigation (all items, reorderable)
   # ------------------------------------------------------------
   - name: nav
-    label: Navigation menus
+    label: Navigation
     type: file
     path: data/nav.json
     format: json
     fields:
+      - name: items
+        label: Main nav items (drag to reorder)
+        type: object
+        list: true
+        primary: label
+        fields:
+          - name: label
+            label: Label
+            type: string
+          - name: href
+            label: Link (leave blank if using a dropdown)
+            type: string
+          - name: dropdown
+            label: Dropdown key ("workshops" or "teaching")
+            type: string
+            description: If set, this item opens a dropdown instead of linking directly.
       - name: workshops
-        label: Workshops dropdown
+        label: Workshops dropdown items
         type: object
         list: true
         primary: label
@@ -266,7 +439,7 @@ content:
             label: Page link
             type: string
       - name: teaching
-        label: Teaching dropdown
+        label: Teaching dropdown items
         type: object
         list: true
         primary: label
