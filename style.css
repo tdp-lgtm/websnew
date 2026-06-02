@@ -436,10 +436,11 @@ h2 {
 }
 .page-section > .section-label:first-of-type { margin-top: 0.5rem; }
 .section-subtitle {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  color: var(--fg-3);
-  letter-spacing: 0.04em;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0;
   margin-bottom: 1rem;
 }
 .workshop-description {
@@ -505,7 +506,8 @@ h2 {
   line-height: 1.35;
   margin: 0;
 }
-.resource-item-title a { font-weight: 500; }
+.resource-item-title a { font-weight: 500; color: var(--fg-1); }
+.resource-item-title a:hover { color: var(--fg-1); border-bottom-color: var(--fg-3); }
 
 /* ---- About ---- */
 .about-body {
