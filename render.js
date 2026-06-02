@@ -147,6 +147,26 @@ function renderWIP(id) {
   }).join('');
 }
 
+function _talkPresRow(p) {
+  const tag = p.type === 'Invited' ? '<sup class="talk-tag">*</sup>'
+            : p.type === 'Peer-Review' ? '<sup class="talk-tag">†</sup>' : '';
+  const date = p.month ? `${p.month} ${p.year}` : String(p.year || '');
+  const where = [p.venue, p.institution].filter(Boolean).join(', ');
+  const comment = p.comment ? ` <em class="talk-comment">${p.comment}</em>` : '';
+  return `<div class="talk-row">
+    <div class="talk-yr">${date}</div>
+    <div class="talk-row-detail">${where}${tag}${comment}</div>
+  </div>`;
+}
+
+function _talkItem(talk) {
+  const rows = (talk.presentations || []).filter(_isPublished).map(_talkPresRow).join('');
+  return `<li class="talk-item">
+    <div class="talk-row"><div class="talk-yr"></div><h3>${talk.title}</h3></div>
+    <div class="talk-pres-list">${rows}</div>
+  </li>`;
+}
+
 function renderTalks(containerId) {
   const el = document.getElementById(containerId);
   if (!el) return;
@@ -154,29 +174,7 @@ function renderTalks(containerId) {
     el.innerHTML = '<p style="color:var(--fg-3)">Nothing to show yet.</p>';
     return;
   }
-  el.innerHTML = `<ul class="pub-list">${TALKS.filter(_isPublished).map(talk => {
-    const rows = (talk.presentations || []).filter(_isPublished).map(p => {
-      const tag = p.type === 'Invited'
-        ? '<sup class="talk-tag">*</sup>'
-        : p.type === 'Peer-Review'
-        ? '<sup class="talk-tag">†</sup>'
-        : '';
-      const date = p.month ? `${p.month} ${p.year}` : String(p.year);
-      const where = [p.venue, p.institution].filter(Boolean).join(', ');
-      const comment = p.comment ? ` <em class="talk-comment">${p.comment}</em>` : '';
-      return `<div class="talk-row">
-        <div class="talk-yr">${date}</div>
-        <div class="talk-row-detail">${where}${tag}${comment}</div>
-      </div>`;
-    }).join('');
-    return `<li class="talk-item">
-      <div class="talk-row">
-        <div class="talk-yr"></div>
-        <h3>${talk.title}</h3>
-      </div>
-      <div class="talk-pres-list">${rows}</div>
-    </li>`;
-  }).join('')}</ul>`;
+  el.innerHTML = `<ul class="pub-list">${TALKS.filter(_isPublished).map(_talkItem).join('')}</ul>`;
 }
 
 function renderTeaching(id) {
@@ -186,7 +184,7 @@ function renderTeaching(id) {
   // Flatten all entries across institutions, group by role (like the CV).
   const roleOrder = ['Lecturer', 'Seminar Convenor', 'Teaching Assistant', 'Supervisor'];
   const groups = {};
-  TEACHING.forEach(inst => {
+  TEACHING.filter(_isPublished).forEach(inst => {
     (inst.entries || []).forEach(e => {
       (groups[e.role] = groups[e.role] || []).push({ ...e, institution: inst.institution });
     });
@@ -390,23 +388,7 @@ function _renderCVTalks(id, talks) {
   if (!el) return;
   const withPres = talks.filter(t => _isPublished(t) && _isOnCV(t) && (t.presentations || []).filter(_isPublished).length);
   if (!withPres.length) { el.innerHTML = '<p class="empty">Nothing to show yet.</p>'; return; }
-  el.innerHTML = `<ul class="pub-list">${withPres.map(talk => {
-    const rows = (talk.presentations || []).filter(_isPublished).map(p => {
-      const tag = p.type === 'Invited' ? '<sup class="talk-tag">*</sup>'
-                : p.type === 'Peer-Review' ? '<sup class="talk-tag">†</sup>' : '';
-      const date  = p.month ? `${p.month} ${p.year}` : String(p.year || '');
-      const where = [p.venue, p.institution].filter(Boolean).join(', ');
-      const comment = p.comment ? ` <em class="talk-comment">${p.comment}</em>` : '';
-      return `<div class="talk-row">
-        <div class="talk-yr">${date}</div>
-        <div class="talk-row-detail">${where}${tag}${comment}</div>
-      </div>`;
-    }).join('');
-    return `<li class="talk-item">
-      <div class="talk-row"><div class="talk-yr"></div><h3>${talk.title}</h3></div>
-      <div class="talk-pres-list">${rows}</div>
-    </li>`;
-  }).join('')}</ul>`;
+  el.innerHTML = `<ul class="pub-list">${withPres.map(_talkItem).join('')}</ul>`;
 }
 
 function _renderCVTeaching(id, teaching) {

@@ -242,10 +242,6 @@ content:
                 label: Institution
                 type: string
                 required: true
-              - name: anchor
-                label: Anchor (URL id)
-                type: string
-                description: Lowercase, no spaces.
               - name: entries
                 label: Courses
                 type: object
@@ -361,7 +357,7 @@ content:
             type: string
           - name: year
             label: Year
-            type: number
+            type: string
           - name: coorganisers
             label: Co-organisers
             type: string

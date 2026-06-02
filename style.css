@@ -475,78 +475,14 @@ h2 {
   line-height: 1.65;
 }
 
-/* ---- Teaching ---- */
-.teaching-role-group {
-  display: grid;
-  grid-template-columns: 11rem 1fr;
-  gap: 1rem;
-  padding: 0.9rem 0;
-  border-top: 1px solid var(--rule);
-}
-.teaching-role-group:first-of-type { border-top: none; }
-
-.teaching-role {
-  font-family: var(--serif);
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--fg-1);
-  padding-top: 0.1rem;
-  line-height: 1.4;
-}
-
-.teaching-entry { padding: 0.1rem 0; }
-.teaching-course {
-  font-size: 0.9375rem;
-  color: var(--fg-2);
-  line-height: 1.55;
-}
-.teaching-note {
-  font-style: italic;
-  color: var(--fg-3);
-  font-size: 0.875rem;
-}
 .teaching-levels {
   font-size: 0.8rem;
   color: var(--fg-3);
   margin-left: 0.4em;
   font-style: italic;
 }
-.teaching-year {
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  color: var(--fg-3);
-  margin-left: 0.35em;
-}
-
 /* ---- Teaching resources ---- */
 .resource-intro { margin-bottom: 2rem; color: var(--fg-2); }
-.resource-group { margin-bottom: 1.75rem; }
-.resource-heading {
-  font-family: var(--serif);
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--fg-1);
-  margin: 0 0 0.5rem;
-}
-.resource-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.resource-list li {
-  font-family: var(--serif);
-  font-size: 0.95rem;
-  color: var(--fg-1);
-  line-height: 1.5;
-  padding: 0.2rem 0 0.2rem 1rem;
-  position: relative;
-}
-.resource-list li::before {
-  content: "·";
-  position: absolute;
-  left: 0;
-  color: var(--accent);
-}
 .resource-note { color: var(--fg-3); font-style: italic; font-size: 0.85rem; }
 .resource-author { font-family: var(--sans); font-size: 0.875rem; color: var(--fg-2); }
 /* Resource group heading: like section-label (mono uppercase accent) */
@@ -730,8 +666,6 @@ footer {
   justify-content: space-between;
   align-items: center;
 }
-.foot-brand { font-family: var(--serif); font-size: 1rem; font-weight: 500; color: var(--fg-1); }
-.foot-brand b { color: var(--accent); }
 .foot-fine { font-family: var(--mono); font-size: 0.7rem; color: var(--fg-3); letter-spacing: 0.05em; }
 
 /* Courses page: course name styled like pub/talk title */
@@ -800,6 +734,6 @@ footer {
   .cv-references-grid { grid-template-columns: 1fr; padding-left: 0; }
 
   /* Teaching courses: full-width, not crammed under year */
-  #teaching .talk-row,
+  #teaching .talk-row { grid-template-columns: 1fr; gap: 0.15rem; }
   #cv-teaching .cv-item { grid-template-columns: 1fr; gap: 0.15rem; }
 }
