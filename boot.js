@@ -33,6 +33,7 @@
   want('workshops',    'workshops.json');
   want('resources',    'teaching-resources.json');
   want('cv',           'cv.json');
+  want('cv_order',     'cv-order.json');
 
   Promise.all(jobs).then(function (results) {
     var data = {};
@@ -55,6 +56,7 @@
     if (data.workshops)    window.WORKSHOPS    = data.workshops.items || data.workshops;
     if (data.resources)    window.TEACHING_RESOURCES = data.resources;
     if (data.cv)           window.CV_DATA      = data.cv;
+    if (data.cv_order)    window.CV_ORDER     = data.cv_order.sections || [];
 
     if (typeof buildNav   === 'function') buildNav();
     if (typeof window.initPage === 'function') window.initPage();

@@ -1,0 +1,14 @@
+{
+  "sections": [
+    { "key": "interests",     "label": "Research interests" },
+    { "key": "positions",     "label": "Positions" },
+    { "key": "education",     "label": "Education" },
+    { "key": "publications",  "label": "Publications" },
+    { "key": "presentations", "label": "Selected presentations" },
+    { "key": "teaching",      "label": "Teaching" },
+    { "key": "awards",        "label": "Honours, grants & awards" },
+    { "key": "events",        "label": "Event organising" },
+    { "key": "service",       "label": "Professional service" },
+    { "key": "references",    "label": "References" }
+  ]
+}

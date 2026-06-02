@@ -399,15 +399,19 @@ content:
                 type: string
 
   # ------------------------------------------------------------
-  #  CV
+  #  CV (group: content + section order)
   # ------------------------------------------------------------
-  - name: cv
+  - name: cv_group
     label: CV
-    type: file
-    path: data/cv.json
-    format: json
-    fields:
-      - name: contact
+    type: group
+    items:
+      - name: cv
+        label: CV Content
+        type: file
+        path: data/cv.json
+        format: json
+        fields:
+          - name: contact
         label: Contact (shown under your name)
         type: object
         fields:
@@ -557,6 +561,27 @@ content:
           - name: email
             label: Email
             type: string
+
+      - name: cv_order
+        label: CV Section Order
+        type: file
+        path: data/cv-order.json
+        format: json
+        fields:
+          - name: sections
+            label: Drag to reorder sections
+            type: object
+            list:
+              collapsible:
+                collapsed: false
+                summary: "{label}"
+            fields:
+              - name: key
+                label: Key
+                type: string
+              - name: label
+                label: Section name
+                type: string
 
   # ------------------------------------------------------------
   #  Navigation

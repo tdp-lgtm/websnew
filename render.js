@@ -355,8 +355,8 @@ function renderCV() {
   // References
   _renderCVReferences(cv.references || []);
 
-  // Reorder sections per CMS-defined order, if provided
-  _reorderCVSections(cv.section_order || []);
+  // Reorder sections per cv-order.json, if provided
+  _reorderCVSections(window.CV_ORDER || []);
 }
 
 function _reorderCVSections(order) {
@@ -364,7 +364,7 @@ function _reorderCVSections(order) {
   const main = document.querySelector('main .narrow');
   if (!main) return;
   order.forEach(o => {
-    const key = (o && o.section) ? o.section : o;
+    const key = (o && o.key) ? o.key : (o && o.section) ? o.section : o;
     const sec = main.querySelector(`[data-cv-section="${key}"]`);
     if (sec) main.appendChild(sec);
   });
