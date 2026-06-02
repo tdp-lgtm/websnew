@@ -412,155 +412,155 @@ content:
         format: json
         fields:
           - name: contact
-        label: Contact (shown under your name)
-        type: object
-        fields:
-          - name: website
-            label: Website
+            label: Contact (shown under your name)
+            type: object
+            fields:
+              - name: website
+                label: Website
+                type: string
+              - name: email
+                label: Email
+                type: string
+              - name: address
+                label: Address
+                type: string
+
+          - name: aos
+            label: AOS (Areas of Specialisation)
             type: string
-          - name: email
-            label: Email
-            type: string
-          - name: address
-            label: Address
+          - name: aoc
+            label: AOC (Areas of Competence)
             type: string
 
-      - name: aos
-        label: AOS (Areas of Specialisation)
-        type: string
-      - name: aoc
-        label: AOC (Areas of Competence)
-        type: string
+          - name: employment
+            label: Employment
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - name: year
+                label: Year(s)
+                type: string
+              - name: title
+                label: Position title
+                type: string
+              - name: institution
+                label: Institution
+                type: string
 
-      - name: employment
-        label: Employment
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{title}"
-        fields:
-          - name: year
-            label: Year(s)
-            type: string
-          - name: title
-            label: Position title
-            type: string
-          - name: institution
-            label: Institution
-            type: string
+          - name: education
+            label: Education
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{degree}"
+            fields:
+              - name: year
+                label: Year(s)
+                type: string
+              - name: degree
+                label: Degree
+                type: string
+              - name: institution
+                label: Institution
+                type: string
+              - name: note
+                label: Note (e.g. Distinction)
+                type: string
+              - name: thesis
+                label: Thesis title
+                type: string
+              - name: supervisors
+                label: Supervisors
+                type: string
+                description: Separate multiple names with commas — the label adjusts automatically.
+              - name: examiners
+                label: Examiners
+                type: string
 
-      - name: education
-        label: Education
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{degree}"
-        fields:
-          - name: year
-            label: Year(s)
-            type: string
-          - name: degree
-            label: Degree
-            type: string
-          - name: institution
-            label: Institution
-            type: string
-          - name: note
-            label: Note (e.g. Distinction)
-            type: string
-          - name: thesis
-            label: Thesis title
-            type: string
-          - name: supervisors
-            label: Supervisors
-            type: string
-            description: Separate multiple names with commas — the label adjusts automatically.
-          - name: examiners
-            label: Examiners
-            type: string
+          - name: awards
+            label: Honours, grants & awards
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{description}"
+            fields:
+              - name: year
+                label: Year
+                type: string
+              - name: description
+                label: Description
+                type: string
+              - name: amount
+                label: Monetary amount (optional)
+                type: string
+                description: Accepts symbols and text, e.g. "£4,000" or "$500".
 
-      - name: awards
-        label: Honours, grants & awards
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{description}"
-        fields:
-          - name: year
-            label: Year
-            type: string
-          - name: description
-            label: Description
-            type: string
-          - name: amount
-            label: Monetary amount (optional)
-            type: string
-            description: Accepts symbols and text, e.g. "£4,000" or "$500".
+          - name: events
+            label: Event organising
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - name: year
+                label: Year
+                type: string
+              - name: title
+                label: Event name
+                type: string
+              - name: institution
+                label: Institution
+                type: string
+              - name: note
+                label: Note (e.g. Co-organiser)
+                type: string
 
-      - name: events
-        label: Event organising
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{title}"
-        fields:
-          - name: year
-            label: Year
-            type: string
-          - name: title
-            label: Event name
-            type: string
-          - name: institution
-            label: Institution
-            type: string
-          - name: note
-            label: Note (e.g. Co-organiser)
-            type: string
+          - name: service
+            label: Professional service
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{description}"
+            fields:
+              - name: year
+                label: Year(s)
+                type: string
+              - name: description
+                label: Description
+                type: string
 
-      - name: service
-        label: Professional service
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{description}"
-        fields:
-          - name: year
-            label: Year(s)
-            type: string
-          - name: description
-            label: Description
-            type: string
+          - name: reviewer
+            label: Reviewer for journals
+            type: text
+            description: Comma-separated list of journals.
 
-      - name: reviewer
-        label: Reviewer for journals
-        type: text
-        description: Comma-separated list of journals.
-
-      - name: references
-        label: References
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{name}"
-        fields:
-          - name: name
-            label: Name
-            type: string
-          - name: title
-            label: Title / position
-            type: string
-          - name: institution
-            label: Institution
-            type: string
-          - name: email
-            label: Email
-            type: string
+          - name: references
+            label: References
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{name}"
+            fields:
+              - name: name
+                label: Name
+                type: string
+              - name: title
+                label: Title / position
+                type: string
+              - name: institution
+                label: Institution
+                type: string
+              - name: email
+                label: Email
+                type: string
 
       - name: cv_order
         label: CV Section Order

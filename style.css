@@ -214,7 +214,7 @@ h2 {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  color: var(--fg-3);
+  color: var(--accent);
   display: block;
   margin: 2.5rem 0 0.25rem;
 }
@@ -372,7 +372,7 @@ h2 {
   margin: 0 0 0.35rem;
 }
 
-.talk-pres-list { display: flex; flex-direction: column; gap: 0.15rem; }
+.talk-pres-list { display: flex; flex-direction: column; gap: 0.15rem; padding-left: 1.25rem; }
 
 .talk-row {
   display: grid;
@@ -414,6 +414,13 @@ h2 {
   margin-top: 0;
   border-top: none;
 }
+/* Teaching: no divider between institutions, smaller gap */
+#teaching .page-section {
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  border-top: none;
+}
+#teaching .page-section.page-section--first { padding-top: 0; margin-top: 0; }
 
 .section-title {
   font-family: var(--serif);
@@ -537,6 +544,22 @@ h2 {
 }
 .resource-note { color: var(--fg-3); font-style: italic; font-size: 0.85rem; }
 .resource-author { font-family: var(--sans); font-size: 0.875rem; color: var(--fg-2); }
+.resource-group-heading {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--fg-1);
+  margin: 2.25rem 0 0.5rem;
+}
+.resource-group-heading:first-child { margin-top: 0; }
+.resource-item-title {
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--fg-1);
+  line-height: 1.4;
+  margin: 0;
+}
 
 /* ---- About ---- */
 .about-body {
@@ -616,7 +639,9 @@ h2 {
 /* CV talks should match the size of other CV sections, not the larger Talks page */
 #cv-talks .talk-item h3 { font-size: 1rem; }
 #cv-talks .talk-item { padding: 0.3rem 0; }
-#cv-talks .talk-pres-list .talk-row { padding-left: 1.5rem; }
+/* Keep presentation dates aligned with section years; indent only the venue text */
+#cv-talks .talk-pres-list { padding-left: 0; }
+#cv-talks .talk-pres-list .talk-row-detail { padding-left: 1.25rem; }
 .cv-subsection-label {
   font-family: var(--mono);
   font-size: 0.7rem;

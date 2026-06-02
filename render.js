@@ -348,7 +348,7 @@ function renderCV() {
   // Service — plain items, with Reviewer aligned as its own row
   const serviceItems = (cv.service || []).map(s => ({ year: s.year, detail: s.description }));
   if (cv.reviewer) {
-    serviceItems.push({ year: 'Reviewer', detail: cv.reviewer });
+    serviceItems.push({ year: 'Reviewer', detail: `<em>${cv.reviewer}</em>` });
   }
   _renderCVSection('cv-service', serviceItems);
 
@@ -498,16 +498,16 @@ function renderTeachingResources(id) {
         ? `<a href="${it.url}" target="_blank" rel="noopener">${it.title}</a>`
         : it.title;
       const by = it.author ? ` <span class="resource-author">by ${it.author}</span>` : '';
-      const note = it.note ? `<p class="venue">${it.note}</p>` : '';
-      return `<li class="pub">
+      const note = it.note ? `<p class="resource-author">${it.note}</p>` : '';
+      return `<li class="pub resource-item">
         <div class="yr"></div>
         <div>
-          <h3>${label}${by}</h3>
+          <p class="resource-item-title">${label}${by}</p>
           ${note}
         </div>
       </li>`;
     }).join('');
-    return `<span class="section-label">${g.heading}</span>
+    return `<h3 class="resource-group-heading">${g.heading}</h3>
       <ul class="pub-list">${items}</ul>`;
   }).join('');
 
