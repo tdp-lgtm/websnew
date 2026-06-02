@@ -116,6 +116,10 @@ content:
                 type: boolean
                 default: true
                 description: Untick to hide this item without deleting it.
+              - name: cv
+                label: Show on CV
+                type: boolean
+                default: true
 
       - name: wip
         label: Work in progress
@@ -151,6 +155,10 @@ content:
                 type: boolean
                 default: true
                 description: Untick to hide this item without deleting it.
+              - name: cv
+                label: Show on CV
+                type: boolean
+                default: true
 
   # ------------------------------------------------------------
   #  Talks
@@ -178,6 +186,10 @@ content:
             type: boolean
             default: true
             description: Untick to hide this talk without deleting it.
+          - name: cv
+            label: Show on CV
+            type: boolean
+            default: true
           - name: presentations
             label: Presentations
             type: object

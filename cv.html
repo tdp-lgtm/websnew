@@ -45,6 +45,11 @@
         <div id="cv-publications"></div>
       </div>
 
+      <div class="cv-section" data-cv-section="wip">
+        <span class="eyebrow">Work in progress</span>
+        <div id="cv-wip"></div>
+      </div>
+
       <div class="cv-section" data-cv-section="presentations">
         <div class="cv-eyebrow-row">
           <span class="eyebrow">Selected presentations</span>
@@ -89,7 +94,7 @@
   <script src="nav.js"></script>
   <script src="render.js"></script>
   <script>
-    window.PAGE_NEEDS = ['publications', 'talks', 'teaching', 'cv', 'cv_order'];
+    window.PAGE_NEEDS = ['publications', 'wip', 'talks', 'teaching', 'cv', 'cv_order'];
     window.initPage = function () { renderCV(); };
   </script>
   <script src="boot.js"></script>
