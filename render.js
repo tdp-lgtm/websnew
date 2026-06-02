@@ -186,11 +186,11 @@ function renderTeaching(id) {
 
     const rolesHtml = roleOrder.map(role => {
       const courses = roleMap[role].map(e => {
-        const yr = e.year ? `(${e.year}) ` : '';
+        const yr = e.year ? ` <span class="teaching-year">(${e.year})</span>` : '';
         const note = e.note ? ` <span class="teaching-note">${e.note}</span>` : '';
         const levels = (e.levels && e.levels.length) ? ` <span class="teaching-levels">${[].concat(e.levels).join(', ')}</span>` : '';
         return `<div class="teaching-entry">
-          <span class="teaching-course">${yr}${e.course}${note}${levels}</span>
+          <span class="teaching-course">${e.course}${yr}${note}${levels}</span>
         </div>`;
       }).join('');
       return `<div class="teaching-role-group">
@@ -306,11 +306,11 @@ function renderCV() {
         const pgPart  = p.pages  ? `: ${p.pages}` : '';
         const vol = [volPart, issPart].filter(Boolean).join(', ') + pgPart;
         const citation = [p.journal ? `<em>${p.journal}</em>` : '', vol].filter(Boolean).join(', ');
+        const prize = p.prize ? ` <span class="cv-award-amount">${p.prize}</span>` : '';
         return `<div class="cv-item">
           <span class="cv-year">${p.year || ''}</span>
           <span class="cv-detail">
-            ${p.coauthors ? `(with ${p.coauthors}) ` : ''}${p.title}.
-            ${citation ? `<span class="cv-detail-sub">${citation}.</span>` : ''}
+            ${p.coauthors ? `(with ${p.coauthors}) ` : ''}${p.title}.${citation ? ` <span class="cv-detail-inline">${citation}.</span>` : ''}${prize}
           </span>
         </div>`;
       }).join('');
@@ -342,6 +342,20 @@ function renderCV() {
 
   // References
   _renderCVReferences(cv.references || []);
+
+  // Reorder sections per CMS-defined order, if provided
+  _reorderCVSections(cv.section_order || []);
+}
+
+function _reorderCVSections(order) {
+  if (!order || !order.length) return;
+  const main = document.querySelector('main .narrow');
+  if (!main) return;
+  order.forEach(o => {
+    const key = (o && o.section) ? o.section : o;
+    const sec = main.querySelector(`[data-cv-section="${key}"]`);
+    if (sec) main.appendChild(sec);
+  });
 }
 
 function _renderCVContact(c) {
@@ -456,6 +470,30 @@ function renderTeachingResources(id) {
   const el = document.getElementById(id);
   if (!el) return;
   const data = window.TEACHING_RESOURCES || {};
-  const html = _prepHtml(data.text || '');
-  el.innerHTML = html || '<p style="color:var(--fg-3)">Resources coming soon.</p>';
+  const groups = data.groups || [];
+
+  // Optional intro text above the groups.
+  const intro = data.intro ? `<div class="resource-intro">${_prepHtml(data.intro)}</div>` : '';
+
+  if (!groups.length) {
+    el.innerHTML = intro || '<p style="color:var(--fg-3)">Resources coming soon.</p>';
+    return;
+  }
+
+  const html = groups.map(g => {
+    const items = (g.items || []).map(it => {
+      const label = it.url
+        ? `<a href="${it.url}" target="_blank" rel="noopener">${it.title}</a>`
+        : it.title;
+      const by = it.author ? `, by ${it.author}` : '';
+      const note = it.note ? ` <span class="resource-note">${it.note}</span>` : '';
+      return `<li>${label}${by}.${note}</li>`;
+    }).join('');
+    return `<div class="resource-group">
+      <h3 class="resource-heading">${g.heading}</h3>
+      <ul class="resource-list">${items}</ul>
+    </div>`;
+  }).join('');
+
+  el.innerHTML = intro + html;
 }

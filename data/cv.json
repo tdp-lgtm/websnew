@@ -1,4 +1,16 @@
 {
+  "section_order": [
+    { "section": "interests" },
+    { "section": "positions" },
+    { "section": "education" },
+    { "section": "publications" },
+    { "section": "presentations" },
+    { "section": "teaching" },
+    { "section": "awards" },
+    { "section": "events" },
+    { "section": "service" },
+    { "section": "references" }
+  ],
   "aos": "Political Philosophy, Normative Ethics, Legal Philosophy",
   "aoc": "Social Philosophy, Feminist Philosophy, Applied Ethics",
   "employment": [

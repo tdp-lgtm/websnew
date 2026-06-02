@@ -237,7 +237,7 @@ content:
                 type: select
                 options:
                   values: [Undergraduate, MA, MPhil, PhD]
-                multiple: true
+                  multiple: true
               - name: note
                 label: Note
                 type: string
@@ -251,14 +251,46 @@ content:
     path: data/teaching-resources.json
     format: json
     fields:
-      - name: text
-        label: Resources text
+      - name: intro
+        label: Intro text (optional)
         type: rich-text
         options:
           format: html
           switcher: false
           media: false
-        description: Use the toolbar for links, bold, italics, etc.
+        description: Optional paragraph shown above the resource groups.
+      - name: groups
+        label: Resource groups
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{heading}"
+        fields:
+          - name: heading
+            label: Group heading
+            type: string
+            description: e.g. "How to Write Philosophy".
+          - name: items
+            label: Resources
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - name: title
+                label: Title
+                type: string
+              - name: author
+                label: Author / source (optional)
+                type: string
+              - name: url
+                label: Link (optional)
+                type: string
+              - name: note
+                label: Note (optional)
+                type: string
 
   # ------------------------------------------------------------
   #  Workshops
@@ -332,6 +364,30 @@ content:
     path: data/cv.json
     format: json
     fields:
+      - name: section_order
+        label: Section order (drag to reorder)
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{section}"
+        description: Drag to set the order of sections on the CV page.
+        fields:
+          - name: section
+            label: Section
+            type: select
+            options:
+              values:
+                - interests
+                - positions
+                - education
+                - publications
+                - presentations
+                - teaching
+                - awards
+                - events
+                - service
+                - references
       - name: contact
         label: Contact (shown under your name)
         type: object
