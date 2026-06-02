@@ -227,11 +227,9 @@ h2 {
   display: grid;
   grid-template-columns: 4.75rem 1fr;
   gap: 1.5rem;
-  padding: 0.7rem 0;
-  border-top: 1px solid var(--rule);
+  padding: 0.55rem 0;
   align-items: baseline;
 }
-.pub:first-child { border-top: none; }
 
 .yr {
   font-family: var(--mono);
@@ -363,10 +361,8 @@ h2 {
 
 .talk-item {
   list-style: none;
-  padding: 0.7rem 0;
-  border-top: 1px solid var(--rule);
+  padding: 0.55rem 0;
 }
-.talk-item:first-child { border-top: none; }
 
 .talk-item h3 {
   font-family: var(--serif);
@@ -436,19 +432,17 @@ h2 {
 }
 .workshop-description {
   color: var(--fg-2);
-  margin-bottom: 1.25rem;
   line-height: 1.75;
 }
+.workshop-description p { margin-bottom: 1.25rem; }
+.workshop-description a { color: var(--accent); }
 .ws-speaker-list {
   list-style: none;
-  margin: 1.75rem 0 0;
-  border-top: 1px solid var(--rule);
+  margin: 0.25rem 0 0;
 }
 .ws-speaker-item {
-  padding: 0.8rem 0;
-  border-top: 1px solid var(--rule);
+  padding: 0.55rem 0;
 }
-.ws-speaker-item:first-child { border-top: none; }
 .ws-speaker {
   font-family: var(--serif);
   font-size: 1.0625rem;
@@ -604,6 +598,9 @@ h2 {
 .cv-detail { font-family: var(--serif); font-size: 1rem; font-weight: 500; color: var(--fg-1); line-height: 1.4; }
 .cv-detail-sub { display: block; font-family: var(--sans); font-size: 0.875rem; font-weight: 400; color: var(--fg-2); margin-top: 3px; line-height: 1.5; }
 .cv-detail-inline { font-family: var(--sans); font-size: 0.875rem; font-weight: 400; color: var(--fg-2); }
+/* CV talks should match the size of other CV sections, not the larger Talks page */
+#cv-talks .talk-item h3 { font-size: 1rem; }
+#cv-talks .talk-item { padding: 0.3rem 0; }
 .cv-subsection-label {
   font-family: var(--mono);
   font-size: 0.7rem;

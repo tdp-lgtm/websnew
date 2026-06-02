@@ -1,6 +1,9 @@
 // render.js — reads data arrays and builds page content
 // You should never need to edit this file.
 
+// An item is shown unless it has been explicitly hidden (published === false).
+function _isPublished(item) { return !item || item.published !== false; }
+
 // Accepts HTML (from the rich-text editor) or plain text; ensures external
 // links open in a new tab.
 function _prepHtml(text) {
@@ -20,6 +23,8 @@ function renderFrontPage(id) {
   if (!el || typeof FRONT_PAGE === 'undefined') return;
   el.innerHTML = _prepHtml(FRONT_PAGE.text);
   el.style.textAlign = FRONT_PAGE.justify ? 'justify' : '';
+  const img = document.getElementById('portrait-img');
+  if (img && FRONT_PAGE.portrait) img.src = FRONT_PAGE.portrait.replace(/^\//, '');
 }
 
 function renderResearchBio(id) {
@@ -45,7 +50,7 @@ function renderPublications(id) {
 
   let html = '';
   categories.forEach(({ key, label }) => {
-    const items = PUBLICATIONS.filter(p => (p.type || 'Article') === key);
+    const items = PUBLICATIONS.filter(p => _isPublished(p) && (p.type || 'Article') === key);
     if (items.length) {
       html += `<span class="section-label">${label}</span><ul class="pub-list">${items.map(_pubItem).join('')}</ul>`;
     }
@@ -109,7 +114,7 @@ function renderWIP(id) {
 
   const groups = {};
   const order  = [];
-  WIP.forEach(p => {
+  WIP.filter(_isPublished).forEach(p => {
     const key = p.status || 'Other';
     if (!groups[key]) { groups[key] = []; order.push(key); }
     groups[key].push(p);
@@ -147,8 +152,8 @@ function renderTalks(containerId) {
     el.innerHTML = '<p style="color:var(--fg-3)">Nothing to show yet.</p>';
     return;
   }
-  el.innerHTML = `<ul class="pub-list">${TALKS.map(talk => {
-    const rows = (talk.presentations || []).map(p => {
+  el.innerHTML = `<ul class="pub-list">${TALKS.filter(_isPublished).map(talk => {
+    const rows = (talk.presentations || []).filter(_isPublished).map(p => {
       const tag = p.type === 'Invited'
         ? '<sup class="talk-tag">*</sup>'
         : p.type === 'Peer-Review'
@@ -185,18 +190,16 @@ function renderTeaching(id) {
     });
 
     const rolesHtml = roleOrder.map(role => {
-      const courses = roleMap[role].map(e => {
-        const yr = e.year ? ` <span class="teaching-year">(${e.year})</span>` : '';
-        const note = e.note ? ` <span class="teaching-note">${e.note}</span>` : '';
+      const rows = roleMap[role].map(e => {
+        const note = e.note ? ` <span class="talk-comment">${e.note}</span>` : '';
         const levels = (e.levels && e.levels.length) ? ` <span class="teaching-levels">${[].concat(e.levels).join(', ')}</span>` : '';
-        return `<div class="teaching-entry">
-          <span class="teaching-course">${e.course}${yr}${note}${levels}</span>
+        return `<div class="talk-row">
+          <div class="talk-yr">${e.year || ''}</div>
+          <div class="talk-row-detail">${e.course}${levels}${note}</div>
         </div>`;
       }).join('');
-      return `<div class="teaching-role-group">
-        <div class="teaching-role">${role}</div>
-        <div class="teaching-courses">${courses}</div>
-      </div>`;
+      return `<span class="section-label">${role}</span>
+        <div class="talk-pres-list">${rows}</div>`;
     }).join('');
 
     return `<div class="page-section${i === 0 ? ' page-section--first' : ''}" id="${inst.anchor}">
@@ -209,7 +212,7 @@ function renderTeaching(id) {
 function renderWorkshops(id) {
   const el = document.getElementById(id);
   if (!el) return;
-  el.innerHTML = `<ul class="pub-list">${WORKSHOPS.map(w => {
+  el.innerHTML = `<ul class="pub-list">${WORKSHOPS.filter(_isPublished).map(w => {
     const date = [w.month, w.year].filter(Boolean).join(' ');
     const meta = [w.institution, date, w.coorganisers ? `Organised with ${w.coorganisers}` : ''].filter(Boolean).join(' · ');
     return `<li class="pub">
@@ -232,12 +235,19 @@ function renderWorkshopPage(workshopId, containerId) {
 
   const speakers = (w.programme || []).filter(e => e.name);
   const programme = speakers.length
-    ? `<ul class="pub-list ws-speaker-list">${speakers.map(e => {
-        const names = e.name.split('\n');
-        const affiliations = (e.affiliation || '').split('\n');
-        const speakerHtml = names.map((n, i) => {
-          const aff = affiliations[i] ? ` <span class="ws-affiliation">${affiliations[i]}</span>` : '';
-          return `${n}${aff}`;
+    ? `<span class="section-label ws-speakers-label">Speakers</span>
+       <ul class="pub-list ws-speaker-list">${speakers.map(e => {
+        // Support up to two presenters per entry (name/affiliation + name2/affiliation2),
+        // with newline-separated names also accepted for backwards compatibility.
+        const pairs = [];
+        const addPair = (n, a) => { (n || '').split('\n').forEach((nm, i) => {
+          if (nm.trim()) pairs.push({ name: nm.trim(), aff: ((a || '').split('\n')[i] || '').trim() });
+        }); };
+        addPair(e.name, e.affiliation);
+        addPair(e.name2, e.affiliation2);
+        const speakerHtml = pairs.map(p => {
+          const aff = p.aff ? ` <span class="ws-affiliation">${p.aff}</span>` : '';
+          return `${p.name}${aff}`;
         }).join(' &middot; ');
         const titleHtml = e.title && e.title !== 'TBA'
           ? `<p class="venue ws-paper-title">${e.title}</p>`
@@ -250,7 +260,7 @@ function renderWorkshopPage(workshopId, containerId) {
     : '';
 
   const descHtml = w.description
-    ? w.description.split('\n\n').filter(Boolean).map(p => `<p class="workshop-description">${p}</p>`).join('')
+    ? `<div class="workshop-description">${_prepHtml(w.description)}</div>`
     : '';
   const regHtml = w.registration ? `<p class="ws-registration">${w.registration}</p>` : '';
   el.innerHTML = `
@@ -281,7 +291,9 @@ function renderCV() {
 
   // Education from data
   _renderCVSection('cv-education', (cv.education || []).map(e => {
-    const parts = [e.note, e.thesis ? `Thesis: ${e.thesis}` : '', e.supervisors ? `Supervisors: ${e.supervisors}` : '', e.examiners ? `Examiners: ${e.examiners}` : ''].filter(Boolean);
+    const supLabel = e.supervisors && e.supervisors.split(',').filter(s => s.trim()).length > 1 ? 'Supervisors' : 'Supervisor';
+    const exLabel  = e.examiners && e.examiners.split(',').filter(s => s.trim()).length > 1 ? 'Examiners' : 'Examiner';
+    const parts = [e.note, e.thesis ? `Thesis: ${e.thesis}` : '', e.supervisors ? `${supLabel}: ${e.supervisors}` : '', e.examiners ? `${exLabel}: ${e.examiners}` : ''].filter(Boolean);
     return { year: e.year, detail: `${e.degree}, ${e.institution}`, sub: parts.join(' · ') || '' };
   }));
 
@@ -298,7 +310,7 @@ function renderCV() {
   if (pubEl && PUBLICATIONS) {
     let html = '';
     pubGroups.forEach(({ types, label }) => {
-      const items = (PUBLICATIONS || []).filter(p => types.indexOf(p.type || 'Article') > -1);
+      const items = (PUBLICATIONS || []).filter(p => _isPublished(p) && types.indexOf(p.type || 'Article') > -1);
       if (!items.length) return;
       const rendered = items.map(p => {
         const volPart = p.volume ? `vol. ${p.volume}` : '';
@@ -372,10 +384,10 @@ function _renderCVContact(c) {
 function _renderCVTalks(id, talks) {
   const el = document.getElementById(id);
   if (!el) return;
-  const withPres = talks.filter(t => (t.presentations || []).length);
+  const withPres = talks.filter(t => _isPublished(t) && (t.presentations || []).filter(_isPublished).length);
   if (!withPres.length) { el.innerHTML = '<p class="empty">Nothing to show yet.</p>'; return; }
   el.innerHTML = `<ul class="pub-list">${withPres.map(talk => {
-    const rows = (talk.presentations || []).map(p => {
+    const rows = (talk.presentations || []).filter(_isPublished).map(p => {
       const tag = p.type === 'Invited' ? '<sup class="talk-tag">*</sup>'
                 : p.type === 'Peer-Review' ? '<sup class="talk-tag">†</sup>' : '';
       const date  = p.month ? `${p.month} ${p.year}` : String(p.year || '');
@@ -485,14 +497,18 @@ function renderTeachingResources(id) {
       const label = it.url
         ? `<a href="${it.url}" target="_blank" rel="noopener">${it.title}</a>`
         : it.title;
-      const by = it.author ? `, by ${it.author}` : '';
-      const note = it.note ? ` <span class="resource-note">${it.note}</span>` : '';
-      return `<li>${label}${by}.${note}</li>`;
+      const by = it.author ? ` <span class="venue">by ${it.author}</span>` : '';
+      const note = it.note ? `<p class="venue">${it.note}</p>` : '';
+      return `<li class="pub">
+        <div class="yr"></div>
+        <div>
+          <h3>${label}${by}</h3>
+          ${note}
+        </div>
+      </li>`;
     }).join('');
-    return `<div class="resource-group">
-      <h3 class="resource-heading">${g.heading}</h3>
-      <ul class="resource-list">${items}</ul>
-    </div>`;
+    return `<span class="section-label">${g.heading}</span>
+      <ul class="pub-list">${items}</ul>`;
   }).join('');
 
   el.innerHTML = intro + html;
