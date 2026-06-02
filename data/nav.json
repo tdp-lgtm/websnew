@@ -2,16 +2,14 @@
   "items": [
     { "label": "Research",  "href": "research.html" },
     { "label": "Talks",     "href": "talks.html" },
-    { "label": "Workshops", "dropdown": "workshops" },
-    { "label": "Teaching",  "dropdown": "teaching" },
-    { "label": "CV",        "href": "cv.html" }
-  ],
-  "workshops": [
-    { "label": "Ethics of Deception",       "href": "workshop-1.html" },
-    { "label": "Deterrence and Deontology", "href": "workshop-2.html" }
-  ],
-  "teaching": [
-    { "label": "Courses",                "href": "teaching.html" },
-    { "label": "Resources for students", "href": "teaching-resources.html" }
+    { "label": "Workshops", "subitems": [
+      { "label": "Ethics of Deception",       "href": "workshop-1.html" },
+      { "label": "Deterrence and Deontology", "href": "workshop-2.html" }
+    ]},
+    { "label": "Teaching", "subitems": [
+      { "label": "Courses",                "href": "teaching.html" },
+      { "label": "Resources for students", "href": "teaching-resources.html" }
+    ]},
+    { "label": "CV", "href": "cv.html" }
   ]
 }

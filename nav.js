@@ -1,21 +1,20 @@
 // nav.js — builds the entire nav from data/nav.json loaded by boot.js.
-// You should never need to edit this file.
 
 function buildNav() {
-  const nav   = document.querySelector('header nav');
+  const nav = document.querySelector('header nav');
   if (!nav) return;
 
-  const items = (window.NAV_ITEMS || []);
+  const items  = window.NAV_ITEMS || [];
   const current = window.location.pathname.split('/').pop() || 'index.html';
 
   nav.innerHTML = items.map(item => {
-    if (item.dropdown) {
-      const subitems = window['NAV_' + item.dropdown.toUpperCase()] || [];
-      const isActive = subitems.some(s => s.href === current) || current.startsWith(item.dropdown);
-      const menuId   = item.dropdown + '-menu';
+    const subitems = item.subitems || [];
+    if (subitems.length) {
+      const dropKey  = item.label.toLowerCase();
+      const isActive = subitems.some(s => s.href === current) || current.startsWith(dropKey);
       return `<div class="nav-dropdown${isActive ? ' active' : ''}">
-        <button class="nav-dropdown-trigger" data-dropdown="${item.dropdown}">${item.label}</button>
-        <ul class="nav-dropdown-menu" id="${menuId}">
+        <button class="nav-dropdown-trigger" data-dropdown="${dropKey}">${item.label}</button>
+        <ul class="nav-dropdown-menu">
           ${subitems.map(s => `<li><a href="${s.href}">${s.label}</a></li>`).join('')}
         </ul>
       </div>`;
@@ -39,4 +38,3 @@ function buildNav() {
     document.querySelectorAll('.nav-dropdown.open').forEach(d => d.classList.remove('open'));
   });
 }
-// buildNav() is invoked by boot.js once nav data has loaded.

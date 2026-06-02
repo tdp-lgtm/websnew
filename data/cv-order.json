@@ -1,15 +1,15 @@
 {
   "sections": [
-    { "key": "interests",     "label": "Research interests" },
-    { "key": "positions",     "label": "Positions" },
-    { "key": "education",     "label": "Education" },
-    { "key": "publications",  "label": "Publications" },
-    { "key": "wip",           "label": "Work in progress" },
-    { "key": "presentations", "label": "Selected presentations" },
-    { "key": "teaching",      "label": "Teaching" },
-    { "key": "awards",        "label": "Honours, grants & awards" },
-    { "key": "events",        "label": "Event organising" },
-    { "key": "service",       "label": "Professional service" },
-    { "key": "references",    "label": "References" }
+    { "section": "interests" },
+    { "section": "positions" },
+    { "section": "education" },
+    { "section": "publications" },
+    { "section": "wip" },
+    { "section": "presentations" },
+    { "section": "teaching" },
+    { "section": "awards" },
+    { "section": "events" },
+    { "section": "service" },
+    { "section": "references" }
   ]
 }

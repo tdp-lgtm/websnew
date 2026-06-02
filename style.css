@@ -549,23 +549,27 @@ h2 {
 }
 .resource-note { color: var(--fg-3); font-style: italic; font-size: 0.85rem; }
 .resource-author { font-family: var(--sans); font-size: 0.875rem; color: var(--fg-2); }
+/* Resource group heading: like section-label (mono uppercase accent) */
 .resource-group-heading {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  margin: 2.5rem 0 0.25rem;
+}
+.resource-group-heading:first-child { margin-top: 0; }
+/* Resource item title: like pub h3 (serif) */
+.resource-item-title {
   font-family: var(--serif);
   font-size: 1.05rem;
   font-weight: 500;
   color: var(--fg-1);
-  margin: 2.25rem 0 0.25rem;
-}
-.resource-group-heading:first-child { margin-top: 0; }
-.resource-item-title {
-  font-family: var(--sans);
-  font-size: 0.9375rem;
-  font-weight: 400;
-  color: var(--fg-1);
-  line-height: 1.4;
+  line-height: 1.35;
   margin: 0;
 }
-.resource-item-title a { font-weight: 400; }
+.resource-item-title a { font-weight: 500; }
 
 /* ---- About ---- */
 .about-body {
@@ -724,15 +728,54 @@ footer {
 .foot-brand b { color: var(--accent); }
 .foot-fine { font-family: var(--mono); font-size: 0.7rem; color: var(--fg-3); letter-spacing: 0.05em; }
 
-/* ---- Responsive ---- */
+/* Courses page: course name styled like pub/talk title */
+#teaching .talk-row-detail {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--fg-1);
+}
+#teaching .teaching-levels,
+#teaching .talk-comment {
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--fg-2);
+} */
 @media (max-width: 580px) {
+  /* Layout */
   .header-inner { padding: 0 1rem; }
-  .container, .narrow { padding: 2.5rem 1rem 4rem; }
-  nav { gap: 1rem; }
+  .container, .narrow { padding: 2rem 1rem 3.5rem; }
+  nav { gap: 0.85rem; }
   nav > a, .nav-dropdown-trigger { font-size: 0.8rem; }
-  .about-portrait { width: 150px; margin-left: 1.25rem; }
-  .pub, .cv-item { grid-template-columns: 3.5rem 1fr; gap: 1rem; }
-  .talk-row { grid-template-columns: 4.75rem 1fr; }
-  .teaching-role-group { grid-template-columns: 1fr; gap: 0.25rem; }
+
+  /* Typography */
+  h2 { font-size: 1.35rem; }
+  .pub h3, .talk-item h3 { font-size: 1rem; }
+
+  /* Portrait: stop floating, centre above text */
+  .about-portrait {
+    float: none;
+    width: 100%;
+    max-width: 240px;
+    margin: 0 auto 1.5rem;
+    display: block;
+  }
+
+  /* Publications & CV: collapse to single column (year above content) */
+  .pub, .cv-item { grid-template-columns: 1fr; gap: 0.15rem; }
+  .yr, .cv-year { font-size: 0.75rem; opacity: 0.75; }
+
+  /* Talks: narrower year column */
+  .talk-row { grid-template-columns: 3.5rem 1fr; gap: 0.75rem; }
+  .talk-pres-list .talk-row-detail { padding-left: 0; }
+  #cv-talks .talk-pres-list .talk-row-detail { padding-left: 0; }
+
+  /* CV h2 name+button: stack vertically */
+  h2[style*="justify-content"] { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+
+  /* CV references: single column, no indent */
   .cv-references-grid { grid-template-columns: 1fr; padding-left: 0; }
+
+  .teaching-role-group { grid-template-columns: 1fr; gap: 0.25rem; }
 }

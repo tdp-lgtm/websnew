@@ -575,19 +575,29 @@ content:
         format: json
         fields:
           - name: sections
-            label: Drag to reorder sections
+            label: Drag rows to reorder CV sections
             type: object
             list:
               collapsible:
                 collapsed: false
-                summary: "{label}"
+                summary: "{section}"
             fields:
-              - name: key
-                label: Key
-                type: string
-              - name: label
-                label: Section name
-                type: string
+              - name: section
+                label: Section
+                type: select
+                options:
+                  values:
+                    - interests
+                    - positions
+                    - education
+                    - publications
+                    - wip
+                    - presentations
+                    - teaching
+                    - awards
+                    - events
+                    - service
+                    - references
 
   # ------------------------------------------------------------
   #  Navigation
@@ -599,7 +609,7 @@ content:
     format: json
     fields:
       - name: items
-        label: Main nav items (drag to reorder)
+        label: Nav items (drag to reorder)
         type: object
         list:
           collapsible:
@@ -610,36 +620,19 @@ content:
             label: Label
             type: string
           - name: href
-            label: Link (leave blank if using a dropdown)
+            label: Link (leave blank for dropdown)
             type: string
-          - name: dropdown
-            label: Dropdown key ("workshops" or "teaching")
-            type: string
-      - name: workshops
-        label: Workshops dropdown items
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{label}"
-        fields:
-          - name: label
-            label: Label
-            type: string
-          - name: href
-            label: Page link
-            type: string
-      - name: teaching
-        label: Teaching dropdown items
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{label}"
-        fields:
-          - name: label
-            label: Label
-            type: string
-          - name: href
-            label: Page link
-            type: string
+          - name: subitems
+            label: Dropdown items (optional)
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{label}"
+            fields:
+              - name: label
+                label: Label
+                type: string
+              - name: href
+                label: Page link
+                type: string

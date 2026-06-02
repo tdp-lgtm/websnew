@@ -39,10 +39,7 @@
     keys.forEach(function (k, i) { data[k] = results[i]; });
 
     // Nav globals
-    var nav = data.nav || {};
-    window.NAV_ITEMS     = nav.items      || [];
-    window.NAV_WORKSHOPS = nav.workshops  || [];
-    window.NAV_TEACHING  = nav.teaching   || [];
+    window.NAV_ITEMS = (data.nav || {}).items || [];
 
     // Content globals
     if (data.frontpage)    window.FRONT_PAGE   = data.frontpage;
