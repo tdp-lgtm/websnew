@@ -26,7 +26,6 @@
 
   want('frontpage',    'front-page.json');
   want('publications', 'publications.json');
-  want('wip',          'wip.json');
   want('bio',          'research-bio.json');
   want('talks',        'talks.json');
   want('teaching',     'teaching.json');
@@ -48,7 +47,7 @@
     // Content globals
     if (data.frontpage)    window.FRONT_PAGE   = data.frontpage;
     if (data.publications) window.PUBLICATIONS = data.publications.items || data.publications;
-    if (data.wip)          window.WIP          = data.wip.items || data.wip;
+    if (data.publications) window.WIP          = data.publications.wip  || [];
     if (data.bio)          window.RESEARCH_BIO = data.bio.text || '';
     if (data.bio)          window.RESEARCH_BIO_JUSTIFY = data.bio.justify || false;
     if (data.talks)        window.TALKS        = data.talks.items || data.talks;

@@ -121,14 +121,8 @@ content:
                 type: boolean
                 default: true
 
-      - name: wip
-        label: Work in progress
-        type: file
-        path: data/wip.json
-        format: json
-        fields:
-          - name: items
-            label: false
+          - name: wip
+            label: Work in progress
             type: object
             list:
               collapsible:
