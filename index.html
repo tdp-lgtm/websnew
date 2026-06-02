@@ -13,17 +13,7 @@
     <div class="header-inner">
       <a href="index.html" class="site-title">Jonas Haeg<b>.</b></a>
       <nav>
-        <a href="research.html">Research</a>
-        <a href="talks.html">Talks</a>
-        <div class="nav-dropdown">
-          <button class="nav-dropdown-trigger" data-page="workshops">Workshops</button>
-          <ul class="nav-dropdown-menu" id="workshops-menu"></ul>
-        </div>
-        <div class="nav-dropdown">
-          <button class="nav-dropdown-trigger" data-page="teaching">Teaching</button>
-          <ul class="nav-dropdown-menu" id="teaching-menu"></ul>
-        </div>
-        <a href="cv.html">CV</a>
+
       </nav>
     </div>
   </header>
@@ -32,29 +22,31 @@
     <div class="narrow">
       <div class="about-body">
         <div class="about-portrait">
-          <img src="assets/portrait.jpg" alt="Jonas Haeg" />
+          <img id="portrait-img" src="assets/portrait.jpg" alt="Jonas Haeg" />
+          <nav class="about-links" aria-label="Quick links">
+            <a href="mailto:jonas.haeg@philosophy.su.se">Email</a>
+            <a href="cv.html">CV</a>
+            <a href="https://philpeople.org/profiles/jonas-haeg" target="_blank" rel="noopener">PhilPeople</a>
+            <a href="https://instagram.com/taudalpoi" target="_blank" rel="noopener">Art</a>
+          </nav>
         </div>
-        <p>I'm a Postdoctoral Researcher at the <a href="https://www.philosophy.su.se/english/research/our-research/projects/the-stockholm-centre-for-the-ethics-of-war-and-peace" target="_blank" rel="noopener">Stockholm Centre for the Ethics of War and Peace</a>, which is based at the Department of Philosophy, Stockholm University. As part of this, I'm also the current editor of <a href="https://blog.practicalethics.ox.ac.uk/" target="_blank" rel="noopener">the Public Ethics blog</a>.</p>
-        <p>My research focuses primarily on the ethics of self-defence and punishment, as well as the ethics of advising, demanding, and blaming.</p>
-        <p>I received my PhD in Philosophy from King's College London in July 2023, supervised by <a href="https://www.kcl.ac.uk/people/david-owens" target="_blank" rel="noopener">David Owens</a>, <a href="https://www.kcl.ac.uk/people/massimo-renzo" target="_blank" rel="noopener">Massimo Renzo</a>, and <a href="https://www.kcl.ac.uk/people/sarah-fine" target="_blank" rel="noopener">Sarah Fine</a>. Before that, I obtained a BPhil in Philosophy from the University of Oxford, and a BA in Philosophy from King's College London.</p>
-        <p>I occasionally also make <a href="https://instagram.com/taudalpoi" target="_blank" rel="noopener">digital art</a>.</p>
-        <p>You can contact me at <a href="mailto:jonas.haeg@philosophy.su.se">jonas.haeg[æt]philosophy.su.se</a></p>
+        <div id="about-text"></div>
       </div>
     </div>
   </main>
 
   <footer>
     <div class="foot-inner">
-      <div>
-        <div class="foot-brand">Jonas Haeg<b>.</b></div>
-        <div class="foot-fine">Department of Philosophy · Stockholm University</div>
-      </div>
-      <div class="foot-fine">&copy; <span id="year"></span></div>
+      <div class="foot-fine">Jonas Haeg &copy; <span id="year"></span></div>
     </div>
   </footer>
 
-  <script src="data/nav-items.js"></script>
   <script src="nav.js"></script>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="render.js"></script>
+  <script>
+    window.PAGE_NEEDS = ['frontpage'];
+    window.initPage = function () { renderFrontPage('about-text'); };
+  </script>
+  <script src="boot.js"></script>
 </body>
 </html>

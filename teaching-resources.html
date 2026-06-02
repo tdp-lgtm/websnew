@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Research — Jonas Haeg</title>
+  <title>Resources for Students — Jonas Haeg</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>
-<body data-page="research">
+<body data-page="teaching">
 
   <header>
     <div class="header-inner">
@@ -20,13 +20,8 @@
 
   <main>
     <div class="narrow">
-      <span class="eyebrow">Research</span>
-      <div id="research-bio"></div>
-
-      <div id="publications"></div>
-
-      <span class="section-label">Work in progress</span>
-      <div id="wip"></div>
+      <span class="eyebrow">Teaching</span>
+      <div id="resources-content"></div>
     </div>
   </main>
 
@@ -39,12 +34,8 @@
   <script src="nav.js"></script>
   <script src="render.js"></script>
   <script>
-    window.PAGE_NEEDS = ['bio', 'publications', 'wip'];
-    window.initPage = function () {
-      renderResearchBio('research-bio');
-      renderPublications('publications');
-      renderWIP('wip');
-    };
+    window.PAGE_NEEDS = ['resources'];
+    window.initPage = function () { renderTeachingResources('resources-content'); };
   </script>
   <script src="boot.js"></script>
 </body>

@@ -13,17 +13,7 @@
     <div class="header-inner">
       <a href="index.html" class="site-title">Jonas Haeg<b>.</b></a>
       <nav>
-        <a href="research.html">Research</a>
-        <a href="talks.html">Talks</a>
-        <div class="nav-dropdown">
-          <button class="nav-dropdown-trigger" data-page="workshops">Workshops</button>
-          <ul class="nav-dropdown-menu" id="workshops-menu"></ul>
-        </div>
-        <div class="nav-dropdown">
-          <button class="nav-dropdown-trigger" data-page="teaching">Teaching</button>
-          <ul class="nav-dropdown-menu" id="teaching-menu"></ul>
-        </div>
-        <a href="cv.html">CV</a>
+
       </nav>
     </div>
   </header>
@@ -38,15 +28,16 @@
 
   <footer>
     <div class="foot-inner">
-      <div class="foot-brand">Jonas Haeg<b>.</b></div>
-      <div class="foot-fine">&copy; <span id="year"></span> Jonas Haeg</div>
+      <div class="foot-fine">Jonas Haeg &copy; <span id="year"></span></div>
     </div>
   </footer>
 
-  <script src="data/nav-items.js"></script>
-  <script src="data/workshops.js"></script>
   <script src="nav.js"></script>
   <script src="render.js"></script>
-  <script>renderWorkshops('workshops');</script>
+  <script>
+    window.PAGE_NEEDS = ['workshops'];
+    window.initPage = function () { renderWorkshops('workshops'); };
+  </script>
+  <script src="boot.js"></script>
 </body>
 </html>
