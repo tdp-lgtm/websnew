@@ -336,7 +336,7 @@ function renderCV() {
   // Service — plain items, with Reviewer aligned as its own row
   const serviceItems = (cv.service || []).map(s => ({ year: s.year, detail: s.description }));
   if (cv.reviewer) {
-    serviceItems.push({ year: '', detail: 'Reviewer', sub: cv.reviewer });
+    serviceItems.push({ year: 'Reviewer', detail: cv.reviewer });
   }
   _renderCVSection('cv-service', serviceItems);
 
