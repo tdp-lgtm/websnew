@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV — Your Name</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="cv">
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="site-title">Your Name<b>.</b></a>
+      <nav></nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="narrow">
+      <span class="eyebrow">Curriculum Vitae</span>
+      <h2 style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem">
+        Your Name
+        <button class="cv-download" onclick="window.print()">&#8595; Download PDF</button>
+      </h2>
+      <p id="cv-contact" class="cv-contact"></p>
+
+      <div class="cv-section" data-cv-section="interests">
+        <span class="eyebrow">Research interests</span>
+        <div id="cv-areas"></div>
+      </div>
+
+      <div class="cv-section" data-cv-section="positions">
+        <span class="eyebrow">Positions</span>
+        <div id="cv-employment"></div>
+      </div>
+
+      <div class="cv-section" data-cv-section="education">
+        <span class="eyebrow">Education</span>
+        <div id="cv-education"></div>
+      </div>
+
+      <div class="cv-section" data-cv-section="publications">
+        <span class="eyebrow">Publications</span>
+        <div id="cv-publications"></div>
+      </div>
+
+      <div class="cv-section" data-cv-section="wip">
+        <span class="eyebrow">Work in progress</span>
+        <div id="cv-wip"></div>
+      </div>
+
+      <div class="cv-section" data-cv-section="presentations">
+        <div class="cv-eyebrow-row">
+          <span class="eyebrow">Selected presentations</span>
+          <span class="talks-legend"><sup>*</sup> invited &ensp; <sup>&#8224;</sup> peer-reviewed</span>
+        </div>
+        <div id="cv-talks"></div>
+      </div>
+
+      <div class="cv-section" data-cv-section="teaching">
+        <span class="eyebrow">Teaching</span>
+        <div id="cv-teaching"></div>
+      </div>
+
+      <div class="cv-section" data-cv-section="awards">
+        <span class="eyebrow">Honours, grants &amp; awards</span>
+        <div id="cv-awards"></div>
+      </div>
+
+      <div class="cv-section" data-cv-section="events">
+        <span class="eyebrow">Event organising</span>
+        <div id="cv-events"></div>
+      </div>
+
+      <div class="cv-section" data-cv-section="service">
+        <span class="eyebrow">Professional service</span>
+        <div id="cv-service"></div>
+      </div>
+
+      <div class="cv-section" data-cv-section="references">
+        <span class="eyebrow">References</span>
+        <div id="cv-references" class="cv-references-grid"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="foot-inner">
+      <div class="foot-fine">Your Name &copy; <span id="year"></span></div>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+  <script src="render.js"></script>
+  <script>
+    window.PAGE_NEEDS = ['publications', 'talks', 'teaching', 'cv', 'cv_order'];
+    window.initPage = function () { renderCV(); };
+  </script>
+  <script src="boot.js"></script>
+</body>
+</html>

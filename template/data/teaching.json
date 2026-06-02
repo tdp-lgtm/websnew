@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "institution": "Your University",
+      "entries": [
+        {
+          "course": "An Example Course",
+          "role": "Lecturer",
+          "year": "2025",
+          "levels": ["MA"],
+          "note": ""
+        },
+        {
+          "course": "Another Course",
+          "role": "Teaching Assistant",
+          "year": "2024",
+          "levels": ["Undergraduate"]
+        }
+      ]
+    }
+  ]
+}

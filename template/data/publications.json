@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "title": "An Example Journal Article",
+      "type": "Article",
+      "year": "2025",
+      "journal": "Journal Name",
+      "volume": "10",
+      "issue": "2",
+      "pages": "1-20",
+      "abstract": "An optional abstract. Add one and an ‘Abstract’ toggle appears under the entry.",
+      "pdf": "",
+      "doi": "",
+      "published": true,
+      "cv": true
+    },
+    {
+      "title": "An Example Book Review",
+      "type": "Review",
+      "year": "2024",
+      "journal": "Journal Name",
+      "published": true,
+      "cv": true
+    }
+  ],
+  "wip": [
+    {
+      "title": "[An example work in progress]",
+      "status": "Under review",
+      "published": true,
+      "cv": true
+    }
+  ]
+}

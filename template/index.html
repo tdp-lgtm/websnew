@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="about">
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="site-title">Your Name<b>.</b></a>
+      <nav>
+
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="narrow">
+      <div class="about-body">
+        <div class="about-portrait">
+          <img id="portrait-img" src="assets/portrait.svg" alt="Your Name" />
+          <nav class="about-links" aria-label="Quick links">
+            <a href="mailto:you@university.edu">Email</a>
+            <a href="cv.html">CV</a>
+            <a href="https://philpeople.org/profiles/your-profile" target="_blank" rel="noopener">PhilPeople</a>
+          </nav>
+        </div>
+        <div id="about-text"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="foot-inner">
+      <div class="foot-fine">Your Name &copy; <span id="year"></span></div>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+  <script src="render.js"></script>
+  <script>
+    window.PAGE_NEEDS = ['frontpage'];
+    window.initPage = function () { renderFrontPage('about-text'); };
+  </script>
+  <script src="boot.js"></script>
+</body>
+</html>

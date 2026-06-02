@@ -1,0 +1,23 @@
+{
+  "items": [
+    {
+      "id": "workshop-1",
+      "title": "An Example Workshop",
+      "published": true,
+      "institution": "Host Venue, University",
+      "month": "1–2 June",
+      "year": "2025",
+      "coorganisers": "Co-organiser Name",
+      "description": "<p>A description of the workshop, its theme, and aims. Use the editor toolbar for links, bold, and alignment.</p>",
+      "justify": true,
+      "registration": "",
+      "programme": [
+        {
+          "name": "Speaker Name",
+          "affiliation": "University",
+          "title": "Talk Title"
+        }
+      ]
+    }
+  ]
+}

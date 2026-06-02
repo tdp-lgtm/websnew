@@ -1,0 +1,14 @@
+{
+  "items": [
+    { "label": "Research",  "href": "research.html" },
+    { "label": "Talks",     "href": "talks.html" },
+    { "label": "Workshops", "subitems": [
+      { "label": "An Example Workshop", "href": "workshop-1.html" }
+    ]},
+    { "label": "Teaching", "subitems": [
+      { "label": "Courses",                "href": "teaching.html" },
+      { "label": "Resources for students", "href": "teaching-resources.html" }
+    ]},
+    { "label": "CV", "href": "cv.html" }
+  ]
+}

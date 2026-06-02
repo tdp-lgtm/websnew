@@ -1,0 +1,11 @@
+{
+  "intro": "",
+  "groups": [
+    {
+      "heading": "An Example Resource Group",
+      "items": [
+        { "title": "An Example Resource", "author": "Author Name", "url": "", "note": "An optional note about this resource." }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "items": [
+    {
+      "title": "An Example Talk Title",
+      "presentations": [
+        {
+          "venue": "Conference or Seminar Name",
+          "type": "Invited",
+          "year": "2025",
+          "institution": "Host University"
+        },
+        {
+          "venue": "Another Event",
+          "type": "Peer-Review",
+          "year": "2024",
+          "institution": "Another University"
+        }
+      ]
+    }
+  ]
+}

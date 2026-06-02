@@ -1,0 +1,57 @@
+{
+  "contact": {
+    "website": "yourdomain.com",
+    "email": "you@university.edu",
+    "address": "Department, University"
+  },
+  "aos": "Your Areas of Specialisation",
+  "aoc": "Your Areas of Competence",
+  "employment": [
+    {
+      "year": "2025–",
+      "title": "Position Title",
+      "institution": "Institution"
+    }
+  ],
+  "education": [
+    {
+      "year": "2018–23",
+      "degree": "PhD in [Field]",
+      "institution": "University",
+      "note": "",
+      "thesis": "Thesis Title",
+      "supervisors": "Supervisor Name",
+      "examiners": ""
+    }
+  ],
+  "awards": [
+    {
+      "year": "2024",
+      "description": "An example award or grant",
+      "amount": ""
+    }
+  ],
+  "events": [
+    {
+      "year": "2025",
+      "title": "An Example Event You Organised",
+      "institution": "University",
+      "note": "Co-organiser"
+    }
+  ],
+  "service": [
+    {
+      "year": "2024–",
+      "description": "An example service role"
+    }
+  ],
+  "reviewer": "Journal One, Journal Two",
+  "references": [
+    {
+      "name": "Reference Name",
+      "title": "Title / Position",
+      "institution": "University",
+      "email": "reference@university.edu"
+    }
+  ]
+}
