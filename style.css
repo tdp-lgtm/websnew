@@ -645,6 +645,9 @@ h2 {
 .cv-detail { font-family: var(--serif); font-size: 1rem; font-weight: 500; color: var(--fg-1); line-height: 1.4; }
 .cv-detail-sub { display: block; font-family: var(--sans); font-size: 0.875rem; font-weight: 400; color: var(--fg-2); margin-top: 3px; line-height: 1.5; }
 .cv-detail-inline { font-family: var(--sans); font-size: 0.875rem; font-weight: 400; color: var(--fg-2); }
+/* CV publications: journal first and prominent, title lighter below */
+.cv-pub-citation { font-family: var(--serif); font-size: 1rem; font-weight: 500; color: var(--fg-1); display: block; }
+.cv-pub-title { font-family: var(--sans); font-size: 0.875rem; font-weight: 400; color: var(--fg-2); display: block; margin-top: 1px; }
 .cv-prize { display: block; font-family: var(--mono); font-size: 0.75rem; color: var(--fg-3); margin-top: 2px; }
 /* CV talks should match the size of other CV sections, not the larger Talks page */
 #cv-talks .talk-item h3 { font-size: 1rem; }
@@ -741,7 +744,7 @@ footer {
   font-size: 0.875rem;
   font-weight: 400;
   color: var(--fg-2);
-} */
+}
 @media (max-width: 580px) {
   /* Layout */
   .header-inner { padding: 0 1rem; }

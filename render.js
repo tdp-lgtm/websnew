@@ -322,7 +322,7 @@ function renderCV() {
         return `<div class="cv-item">
           <span class="cv-year">${p.year || ''}</span>
           <span class="cv-detail">
-            ${p.coauthors ? `(with ${p.coauthors}) ` : ''}${p.title}.${citation ? ` <span class="cv-detail-inline">${citation}.</span>` : ''}${prize}
+            ${citation ? `<span class="cv-pub-citation">${citation}.</span> ` : ''}<span class="cv-pub-title">${p.coauthors ? `(with ${p.coauthors}) ` : ''}'${p.title}'.</span>${prize}
           </span>
         </div>`;
       }).join('');
