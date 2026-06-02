@@ -1,27 +1,60 @@
 // render.js — reads data arrays and builds page content
 // You should never need to edit this file.
 
+// An item is shown unless it has been explicitly hidden (published === false).
+function _isPublished(item) { return !item || item.published !== false; }
+
+// Accepts HTML (from the rich-text editor) or plain text; ensures external
+// links open in a new tab.
+function _prepHtml(text) {
+  let html = text || '';
+  if (!/<\w+/.test(html)) {
+    // Plain text — wrap paragraphs split on blank lines.
+    html = html.split('\n\n').filter(Boolean).map(p => `<p>${p}</p>`).join('');
+  }
+  // Add target/rel to external links that don't already have a target.
+  html = html.replace(/<a (?![^>]*\btarget=)([^>]*href="https?:\/\/[^"]*"[^>]*)>/g,
+    '<a target="_blank" rel="noopener" $1>');
+  return html;
+}
+
+function renderFrontPage(id) {
+  const el = document.getElementById(id);
+  if (!el || typeof FRONT_PAGE === 'undefined') return;
+  el.innerHTML = _prepHtml(FRONT_PAGE.text);
+  el.style.textAlign = FRONT_PAGE.justify ? 'justify' : '';
+  const img = document.getElementById('portrait-img');
+  if (img && FRONT_PAGE.portrait) img.src = FRONT_PAGE.portrait.replace(/^\//, '');
+}
+
 function renderResearchBio(id) {
   const el = document.getElementById(id);
   if (!el || typeof RESEARCH_BIO === 'undefined') return;
-  const paras = RESEARCH_BIO.split('\n\n').filter(Boolean);
-  el.innerHTML = `<div class="research-bio">${paras.map(p => `<p>${p}</p>`).join('')}</div>`;
+  const justify = window.RESEARCH_BIO_JUSTIFY ? ' style="text-align:justify"' : '';
+  el.innerHTML = `<div class="research-bio"${justify}>${_prepHtml(RESEARCH_BIO)}</div>`;
 }
 
 function renderPublications(id) {
   const el = document.getElementById(id);
   if (!el) return;
 
-  const articles = PUBLICATIONS.filter(p => !p.type || p.type === 'Article');
-  const reviews  = PUBLICATIONS.filter(p => p.type === 'Review');
+  // Ordered category definitions
+  const categories = [
+    { key: 'Article',  label: 'Articles' },
+    { key: 'Book',     label: 'Books' },
+    { key: 'Chapter',  label: 'Book chapters' },
+    { key: 'Editor',   label: 'As editor' },
+    { key: 'Review',   label: 'Reviews' },
+    { key: 'Public',   label: 'Public writing' },
+  ];
 
   let html = '';
-  if (articles.length) {
-    html += `<span class="section-label">Articles</span><ul class="pub-list">${articles.map(_pubItem).join('')}</ul>`;
-  }
-  if (reviews.length) {
-    html += `<span class="section-label">Reviews</span><ul class="pub-list">${reviews.map(_pubItem).join('')}</ul>`;
-  }
+  categories.forEach(({ key, label }) => {
+    const items = PUBLICATIONS.filter(p => _isPublished(p) && (p.type || 'Article') === key);
+    if (items.length) {
+      html += `<span class="section-label">${label}</span><ul class="pub-list">${items.map(_pubItem).join('')}</ul>`;
+    }
+  });
   if (!html) html = '<p style="color:var(--fg-3)">No publications yet.</p>';
   el.innerHTML = html;
 }
@@ -29,7 +62,7 @@ function renderPublications(id) {
 function _pubItem(p) {
   const rawYear = p.year ? String(p.year) : '';
   const displayYear = rawYear === 'Forthcoming'  ? 'Forthc.'
-                    : rawYear === 'Online first' ? 'Online'
+                    : rawYear === 'Online first'  ? 'Online'
                     : rawYear;
 
   const volPart   = p.volume ? `vol. ${p.volume}` : '';
@@ -59,7 +92,7 @@ function _pubItem(p) {
   return `<li class="pub">
     <div class="yr">${displayYear}</div>
     <div>
-      <h3>${p.coauthors ? `(with ${p.coauthors}) ` : ''}${p.title}.</h3>
+      <h3>${p.coauthors ? `(with ${p.coauthors}) ` : ''}${p.title}</h3>
       ${citation ? `<p class="venue">${citation}.</p>` : ''}
       ${links.length ? `<div class="pub-links">${links.join('')}</div>` : ''}
       ${abstractDiv}
@@ -78,25 +111,38 @@ function renderWIP(id) {
   const el = document.getElementById(id);
   if (!el) return;
   if (!WIP.length) { el.innerHTML = '<p style="color:var(--fg-3)">Nothing to show yet.</p>'; return; }
-  el.innerHTML = `<ul class="pub-list">${WIP.map(p => {
-    const abstractId = `abs-${Math.random().toString(36).slice(2,7)}`;
-    const abstractBtn = p.abstract
-      ? `<button onclick="_toggleAbstract('${abstractId}',this)">&#8801; Abstract</button>`
-      : '';
-    const abstractDiv = p.abstract
-      ? `<div class="pub-abstract" id="${abstractId}"><div class="pub-abstract-inner">${p.abstract}</div></div>` : '';
-    const links = [
-      abstractBtn,
-      p.pdf ? `<a href="${p.pdf}" target="_blank" rel="noopener">&#8595; Draft PDF</a>` : '',
-    ].filter(Boolean);
-    return `<li class="pub pub--wip">
-      <div>
-        <p class="wip-title">${p.title}. <span class="wip-status">${p.status}.</span></p>
-        ${links.length ? `<div class="pub-links">${links.join('')}</div>` : ''}
-        ${abstractDiv}
-      </div>
-    </li>`;
-  }).join('')}</ul>`;
+
+  const groups = {};
+  const order  = [];
+  WIP.filter(_isPublished).forEach(p => {
+    const key = p.status || 'Other';
+    if (!groups[key]) { groups[key] = []; order.push(key); }
+    groups[key].push(p);
+  });
+
+  el.innerHTML = order.map(status => {
+    const items = groups[status].map(p => {
+      const abstractId = `abs-${Math.random().toString(36).slice(2,7)}`;
+      const abstractBtn = p.abstract
+        ? `<button onclick="_toggleAbstract('${abstractId}',this)">&#8801; Abstract</button>`
+        : '';
+      const abstractDiv = p.abstract
+        ? `<div class="pub-abstract" id="${abstractId}"><div class="pub-abstract-inner">${p.abstract}</div></div>` : '';
+      const links = [
+        abstractBtn,
+        p.pdf ? `<a href="${p.pdf}" target="_blank" rel="noopener">&#8595; Draft PDF</a>` : '',
+      ].filter(Boolean);
+      return `<li class="pub pub--wip">
+        <div class="yr"></div>
+        <div>
+          <h3 class="wip-title">${p.title}.</h3>
+          ${links.length ? `<div class="pub-links">${links.join('')}</div>` : ''}
+          ${abstractDiv}
+        </div>
+      </li>`;
+    }).join('');
+    return `<span class="section-label wip-group-label">${status}</span><ul class="pub-list">${items}</ul>`;
+  }).join('');
 }
 
 function renderTalks(containerId) {
@@ -106,8 +152,8 @@ function renderTalks(containerId) {
     el.innerHTML = '<p style="color:var(--fg-3)">Nothing to show yet.</p>';
     return;
   }
-  el.innerHTML = `<ul class="pub-list">${TALKS.map(talk => {
-    const rows = (talk.presentations || []).map(p => {
+  el.innerHTML = `<ul class="pub-list">${TALKS.filter(_isPublished).map(talk => {
+    const rows = (talk.presentations || []).filter(_isPublished).map(p => {
       const tag = p.type === 'Invited'
         ? '<sup class="talk-tag">*</sup>'
         : p.type === 'Peer-Review'
@@ -117,12 +163,15 @@ function renderTalks(containerId) {
       const where = [p.venue, p.institution].filter(Boolean).join(', ');
       const comment = p.comment ? ` <em class="talk-comment">${p.comment}</em>` : '';
       return `<div class="talk-row">
-        <div class="yr">${date}</div>
-        <div class="talk-row-detail">${where}${tag}.${comment}</div>
+        <div class="talk-yr">${date}</div>
+        <div class="talk-row-detail">${where}${tag}${comment}</div>
       </div>`;
     }).join('');
     return `<li class="talk-item">
-      <h3>${talk.title}.</h3>
+      <div class="talk-row">
+        <div class="talk-yr"></div>
+        <h3>${talk.title}</h3>
+      </div>
       <div class="talk-pres-list">${rows}</div>
     </li>`;
   }).join('')}</ul>`;
@@ -141,17 +190,16 @@ function renderTeaching(id) {
     });
 
     const rolesHtml = roleOrder.map(role => {
-      const courses = roleMap[role].map(e => {
-        const yr = e.year ? `(${e.year}) ` : '';
-        const note = e.note ? ` <span class="teaching-note">${e.note}</span>` : '';
-        return `<div class="teaching-entry">
-          <span class="teaching-course">${yr}${e.course}${note}</span>
+      const rows = roleMap[role].map(e => {
+        const note = e.note ? ` <span class="talk-comment">${e.note}</span>` : '';
+        const levels = (e.levels && e.levels.length) ? ` <span class="teaching-levels">${[].concat(e.levels).join(', ')}</span>` : '';
+        return `<div class="talk-row">
+          <div class="talk-yr">${e.year || ''}</div>
+          <div class="talk-row-detail">${e.course}${levels}${note}</div>
         </div>`;
       }).join('');
-      return `<div class="teaching-role-group">
-        <div class="teaching-role">${role}</div>
-        <div class="teaching-courses">${courses}</div>
-      </div>`;
+      return `<span class="section-label">${role}</span>
+        <div class="talk-pres-list">${rows}</div>`;
     }).join('');
 
     return `<div class="page-section${i === 0 ? ' page-section--first' : ''}" id="${inst.anchor}">
@@ -164,80 +212,261 @@ function renderTeaching(id) {
 function renderWorkshops(id) {
   const el = document.getElementById(id);
   if (!el) return;
-  el.innerHTML = WORKSHOPS.map((w, i) => {
+  el.innerHTML = `<ul class="pub-list">${WORKSHOPS.filter(_isPublished).map(w => {
     const date = [w.month, w.year].filter(Boolean).join(' ');
-    const meta = [w.institution, date, w.coorganisers ? `Co-organised with ${w.coorganisers}` : ''].filter(Boolean).join(' · ');
-    const programme = w.programme && w.programme.length
-      ? `<div class="ws-programme">${w.programme.map(e => {
-          const speakerHtml = e.speaker.split('\n').join('<br>');
-          const titleHtml = e.title && e.title !== 'TBA'
-            ? `<em class="ws-paper-title">${e.title}</em>`
-            : `<span class="ws-tba">TBA</span>`;
-          return `<div class="ws-entry">
-            <div class="ws-speaker">${speakerHtml}:</div>
-            <div class="ws-paper">${titleHtml}</div>
-          </div>`;
-        }).join('')}</div>`
-      : '';
-    const regHtml = w.registration ? `<p class="ws-registration">${w.registration}</p>` : '';
-    return `<div class="page-section${i === 0 ? ' page-section--first' : ''}" id="${w.id}">
-      <p class="section-title">${w.title}</p>
-      <p class="section-subtitle">${meta}</p>
-      ${w.description ? `<p class="workshop-description">${w.description}</p>` : ''}
-      ${programme}
-      ${regHtml}
-    </div>`;
+    const meta = [w.institution, date, w.coorganisers ? `Organised with ${w.coorganisers}` : ''].filter(Boolean).join(' · ');
+    return `<li class="pub">
+      <div class="yr">${w.year || ''}</div>
+      <div>
+        <h3><a href="${w.id}.html">${w.title}</a></h3>
+        <p class="venue">${meta}.</p>
+      </div>
+    </li>`;
+  }).join('')}</ul>`;
+}
+
+function renderWorkshopPage(workshopId, containerId) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const w = WORKSHOPS.find(x => x.id === workshopId);
+  if (!w) { el.innerHTML = '<p>Workshop not found.</p>'; return; }
+  const date = [w.month, w.year].filter(Boolean).join(' ');
+  const meta = [w.institution, date, w.coorganisers ? `Organised with ${w.coorganisers}` : ''].filter(Boolean).join(' · ');
+
+  const speakers = (w.programme || []).filter(e => e.name);
+  const programme = speakers.length
+    ? `<span class="section-label ws-speakers-label">Speakers</span>
+       <ul class="pub-list ws-speaker-list">${speakers.map(e => {
+        // Support up to two presenters per entry (name/affiliation + name2/affiliation2),
+        // with newline-separated names also accepted for backwards compatibility.
+        const pairs = [];
+        const addPair = (n, a) => { (n || '').split('\n').forEach((nm, i) => {
+          if (nm.trim()) pairs.push({ name: nm.trim(), aff: ((a || '').split('\n')[i] || '').trim() });
+        }); };
+        addPair(e.name, e.affiliation);
+        addPair(e.name2, e.affiliation2);
+        const speakerHtml = pairs.map(p => {
+          const aff = p.aff ? ` <span class="ws-affiliation">${p.aff}</span>` : '';
+          return `${p.name}${aff}`;
+        }).join(' &middot; ');
+        const titleHtml = e.title && e.title !== 'TBA'
+          ? `<p class="venue ws-paper-title">${e.title}</p>`
+          : '';
+        return `<li class="ws-speaker-item">
+          <h3 class="ws-speaker">${speakerHtml}</h3>
+          ${titleHtml}
+        </li>`;
+      }).join('')}</ul>`
+    : '';
+
+  const descHtml = w.description
+    ? `<div class="workshop-description"${w.justify ? ' style="text-align:justify"' : ''}>${_prepHtml(w.description)}</div>`
+    : '';
+  const regHtml = w.registration ? `<p class="ws-registration">${w.registration}</p>` : '';
+  el.innerHTML = `
+    <p class="section-subtitle">${meta}</p>
+    ${descHtml}
+    ${programme}
+    ${regHtml}`;
+  document.title = `${w.title} — Jonas Haeg`;
+  const heading = document.getElementById('ws-title');
+  if (heading) heading.textContent = w.title;
+}
+
+// ---- CV ----
+
+function renderCV() {
+  const cv = window.CV_DATA || {};
+
+  // Contact line (website / email / address) under the name
+  _renderCVContact(cv.contact || {});
+
+  // AOS / AOC
+  _renderCVAreas(cv);
+
+  // Employment from data
+  _renderCVSection('cv-employment', (cv.employment || []).map(e => ({
+    year: e.year, detail: e.title, sub: e.institution,
+  })));
+
+  // Education from data
+  _renderCVSection('cv-education', (cv.education || []).map(e => {
+    const supLabel = e.supervisors && e.supervisors.split(',').filter(s => s.trim()).length > 1 ? 'Supervisors' : 'Supervisor';
+    const exLabel  = e.examiners && e.examiners.split(',').filter(s => s.trim()).length > 1 ? 'Examiners' : 'Examiner';
+    const parts = [e.note, e.thesis ? `Thesis: ${e.thesis}` : '', e.supervisors ? `${supLabel}: ${e.supervisors}` : '', e.examiners ? `${exLabel}: ${e.examiners}` : ''].filter(Boolean);
+    return { year: e.year, detail: `${e.degree}, ${e.institution}`, sub: parts.join(' · ') || '' };
+  }));
+
+  // Publications — grouped by type
+  const pubGroups = [
+    { types: ['Article', undefined, null, ''], label: 'Articles' },
+    { types: ['Book'],    label: 'Books' },
+    { types: ['Chapter'], label: 'Book chapters' },
+    { types: ['Editor'],  label: 'As editor' },
+    { types: ['Review'],  label: 'Reviews' },
+    { types: ['Public'],  label: 'Public writing' },
+  ];
+  const pubEl = document.getElementById('cv-publications');
+  if (pubEl && PUBLICATIONS) {
+    let html = '';
+    pubGroups.forEach(({ types, label }) => {
+      const items = (PUBLICATIONS || []).filter(p => _isPublished(p) && types.indexOf(p.type || 'Article') > -1);
+      if (!items.length) return;
+      const rendered = items.map(p => {
+        const volPart = p.volume ? `vol. ${p.volume}` : '';
+        const issPart = p.issue  ? `no. ${p.issue}`   : '';
+        const pgPart  = p.pages  ? `: ${p.pages}` : '';
+        const vol = [volPart, issPart].filter(Boolean).join(', ') + pgPart;
+        const citation = [p.journal ? `<em>${p.journal}</em>` : '', vol].filter(Boolean).join(', ');
+        const prize = p.prize ? `<span class="cv-prize">${p.prize}</span>` : '';
+        return `<div class="cv-item">
+          <span class="cv-year">${p.year || ''}</span>
+          <span class="cv-detail">
+            ${p.coauthors ? `(with ${p.coauthors}) ` : ''}${p.title}.${citation ? ` <span class="cv-detail-inline">${citation}.</span>` : ''}${prize}
+          </span>
+        </div>`;
+      }).join('');
+      html += `<div class="cv-subsection-label">${label}</div>${rendered}`;
+    });
+    pubEl.innerHTML = html || '<p class="empty">Nothing to show yet.</p>';
+  }
+
+  // Talks — grouped by paper title, like the Talks page, with * / † symbols
+  _renderCVTalks('cv-talks', TALKS || []);
+
+  // Teaching — grouped by role (Lecturer, Seminar Convenor, …)
+  _renderCVTeaching('cv-teaching', TEACHING || []);
+
+  // Awards (with optional monetary amount)
+  _renderCVAwards('cv-awards', cv.awards || []);
+
+  // Event organising
+  _renderCVSection('cv-events', (cv.events || []).map(e => ({
+    year: e.year, detail: e.title, sub: `${e.institution}${e.note ? ' · ' + e.note : ''}`,
+  })));
+
+  // Service — plain items, with Reviewer aligned as its own row
+  const serviceItems = (cv.service || []).map(s => ({ year: s.year, detail: s.description }));
+  if (cv.reviewer) {
+    serviceItems.push({ year: 'Reviewer', detail: cv.reviewer });
+  }
+  _renderCVSection('cv-service', serviceItems);
+
+  // References
+  _renderCVReferences(cv.references || []);
+
+  // Reorder sections per CMS-defined order, if provided
+  _reorderCVSections(cv.section_order || []);
+}
+
+function _reorderCVSections(order) {
+  if (!order || !order.length) return;
+  const main = document.querySelector('main .narrow');
+  if (!main) return;
+  order.forEach(o => {
+    const key = (o && o.section) ? o.section : o;
+    const sec = main.querySelector(`[data-cv-section="${key}"]`);
+    if (sec) main.appendChild(sec);
+  });
+}
+
+function _renderCVContact(c) {
+  const el = document.getElementById('cv-contact');
+  if (!el) return;
+  const parts = [
+    c.website ? `<a href="https://${c.website.replace(/^https?:\/\//,'')}" target="_blank" rel="noopener">${c.website}</a>` : '',
+    c.email   ? `<a href="mailto:${c.email}">${c.email}</a>` : '',
+    c.address || '',
+  ].filter(Boolean);
+  el.innerHTML = parts.join('<span class="cv-contact-sep">·</span>');
+}
+
+function _renderCVTalks(id, talks) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const withPres = talks.filter(t => _isPublished(t) && (t.presentations || []).filter(_isPublished).length);
+  if (!withPres.length) { el.innerHTML = '<p class="empty">Nothing to show yet.</p>'; return; }
+  el.innerHTML = `<ul class="pub-list">${withPres.map(talk => {
+    const rows = (talk.presentations || []).filter(_isPublished).map(p => {
+      const tag = p.type === 'Invited' ? '<sup class="talk-tag">*</sup>'
+                : p.type === 'Peer-Review' ? '<sup class="talk-tag">†</sup>' : '';
+      const date  = p.month ? `${p.month} ${p.year}` : String(p.year || '');
+      const where = [p.venue, p.institution].filter(Boolean).join(', ');
+      const comment = p.comment ? ` <em class="talk-comment">${p.comment}</em>` : '';
+      return `<div class="talk-row">
+        <div class="talk-yr">${date}</div>
+        <div class="talk-row-detail">${where}${tag}${comment}</div>
+      </div>`;
+    }).join('');
+    return `<li class="talk-item">
+      <div class="talk-row"><div class="talk-yr"></div><h3>${talk.title}</h3></div>
+      <div class="talk-pres-list">${rows}</div>
+    </li>`;
+  }).join('')}</ul>`;
+}
+
+function _renderCVTeaching(id, teaching) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  // Flatten all entries, then group by role in a fixed order.
+  const all = [];
+  teaching.forEach(inst => (inst.entries || []).forEach(e => all.push(e)));
+  if (!all.length) { el.innerHTML = '<p class="empty">Nothing to show yet.</p>'; return; }
+
+  const roleOrder = ['Lecturer', 'Seminar Convenor', 'Teaching Assistant', 'Supervisor'];
+  const groups = {};
+  all.forEach(e => { (groups[e.role] = groups[e.role] || []).push(e); });
+  const roles = roleOrder.filter(r => groups[r]).concat(Object.keys(groups).filter(r => roleOrder.indexOf(r) === -1));
+
+  el.innerHTML = roles.map(role => {
+    const rows = groups[role].map(e => {
+      const note = e.note ? ` <span class="cv-detail-sub" style="display:inline">${e.note}</span>` : '';
+      return `<div class="cv-item">
+        <span class="cv-year">${e.year || ''}</span>
+        <span class="cv-detail">${e.course}${note}</span>
+      </div>`;
+    }).join('');
+    return `<div class="cv-subsection-label">${role}</div>${rows}`;
   }).join('');
 }
 
-function renderCV() {
-  _renderCVSection('cv-employment', [
-    { year: '2023–', detail: 'Postdoctoral Researcher, Stockholm Centre for the Ethics of War and Peace, Department of Philosophy, Stockholm University' },
-  ]);
+function _renderCVAwards(id, awards) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (!awards.length) { el.innerHTML = '<p class="empty">Nothing to show yet.</p>'; return; }
+  el.innerHTML = awards.map(a => `
+    <div class="cv-item">
+      <span class="cv-year">${a.year || ''}</span>
+      <span class="cv-detail">${a.description}${a.amount ? ` <span class="cv-award-amount">${a.amount}</span>` : ''}</span>
+    </div>`).join('');
+}
 
-  const edu = [
-    { year: '2023', detail: "PhD in Philosophy, King's College London", sub: 'Supervised by David Owens, Massimo Renzo, and Sarah Fine' },
-    { year: '',     detail: 'MPhil in Philosophy, University of Oxford' },
-    { year: '',     detail: "BA in Philosophy, King's College London" },
-  ];
-  _renderCVSection('cv-education', edu);
+function _renderCVAreas(cv) {
+  const el = document.getElementById('cv-areas');
+  if (!el) return;
+  const rows = [
+    cv.aos ? `<div class="cv-item"><span class="cv-year cv-area-label">AOS</span><span class="cv-detail">${cv.aos}</span></div>` : '',
+    cv.aoc ? `<div class="cv-item"><span class="cv-year cv-area-label">AOC</span><span class="cv-detail">${cv.aoc}</span></div>` : '',
+  ].filter(Boolean);
+  el.innerHTML = rows.join('') || '';
+}
 
-  const pubItems = PUBLICATIONS.map(p => ({
-    year: p.year ? String(p.year) : '',
-    detail: `${p.coauthors ? `(with ${p.coauthors}) ` : ''}${p.title}.`,
-    sub: (() => { const v = p.volume ? `vol. ${p.volume}` : ''; const iss = p.issue ? `no. ${p.issue}` : ''; const pg = p.pages ? `: ${p.pages}` : ''; const vol = [v,iss].filter(Boolean).join(', ')+pg; return [p.journal ? `<em>${p.journal}</em>` : '', vol].filter(Boolean).join(', '); })(),
-    link: p.doi || p.pdf || '',
-  }));
-  _renderCVSection('cv-publications', pubItems);
-
-  const allPresFlat = [];
-  (TALKS || []).forEach(talk => {
-    (talk.presentations || []).forEach(p => {
-      allPresFlat.push({ pres: p, talk });
-    });
-  });
-  _renderCVSection('cv-talks-invited', allPresFlat.filter(x => x.pres.type === 'Invited').map(x => ({
-    year: String(x.pres.year),
-    detail: `${x.talk.title}. ${[x.pres.venue, x.pres.institution].filter(Boolean).join(', ')}.`,
-  })));
-  _renderCVSection('cv-talks-conference', allPresFlat.filter(x => x.pres.type === 'Peer-Review').map(x => ({
-    year: String(x.pres.year),
-    detail: `${x.talk.title}. ${[x.pres.venue, x.pres.institution].filter(Boolean).join(', ')}.`,
-  })));
-
-  const teachItems = [];
-  (TEACHING || []).forEach(inst => {
-    (inst.entries || []).forEach(e => {
-      teachItems.push({ year: e.year, detail: e.course, sub: `${e.role} · ${inst.institution}` });
-    });
-  });
-  _renderCVSection('cv-teaching', teachItems);
+function _renderCVReferences(refs) {
+  const el = document.getElementById('cv-references');
+  if (!el || !refs.length) return;
+  el.innerHTML = refs.map(r => `
+    <div class="cv-ref">
+      <div class="cv-ref-name">${r.name}</div>
+      <div class="cv-ref-detail">${r.title}</div>
+      <div class="cv-ref-detail">${r.institution}</div>
+      ${r.email ? `<div class="cv-ref-detail"><a href="mailto:${r.email}">${r.email}</a></div>` : ''}
+    </div>`).join('');
 }
 
 function _renderCVSection(id, items) {
   const el = document.getElementById(id);
   if (!el) return;
-  if (!items.length) { el.innerHTML = '<p class="empty">Nothing to show yet.</p>'; return; }
+  if (!items || !items.length) { el.innerHTML = '<p class="empty">Nothing to show yet.</p>'; return; }
   el.innerHTML = items.map(item => `
     <div class="cv-item">
       <span class="cv-year">${item.year || ''}</span>
@@ -248,4 +477,39 @@ function _renderCVSection(id, items) {
     </div>`).join('');
 }
 
-document.getElementById('year').textContent = new Date().getFullYear();
+
+function renderTeachingResources(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const data = window.TEACHING_RESOURCES || {};
+  const groups = data.groups || [];
+
+  // Optional intro text above the groups.
+  const intro = data.intro ? `<div class="resource-intro">${_prepHtml(data.intro)}</div>` : '';
+
+  if (!groups.length) {
+    el.innerHTML = intro || '<p style="color:var(--fg-3)">Resources coming soon.</p>';
+    return;
+  }
+
+  const html = groups.map(g => {
+    const items = (g.items || []).map(it => {
+      const label = it.url
+        ? `<a href="${it.url}" target="_blank" rel="noopener">${it.title}</a>`
+        : it.title;
+      const by = it.author ? ` <span class="resource-author">by ${it.author}</span>` : '';
+      const note = it.note ? `<p class="venue">${it.note}</p>` : '';
+      return `<li class="pub">
+        <div class="yr"></div>
+        <div>
+          <h3>${label}${by}</h3>
+          ${note}
+        </div>
+      </li>`;
+    }).join('');
+    return `<span class="section-label">${g.heading}</span>
+      <ul class="pub-list">${items}</ul>`;
+  }).join('');
+
+  el.innerHTML = intro + html;
+}

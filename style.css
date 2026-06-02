@@ -24,7 +24,7 @@
   --sans:  'Hanken Grotesk', system-ui, sans-serif;
   --mono:  'IBM Plex Mono', ui-monospace, monospace;
 
-  --max-w:  760px;
+  --max-w:  800px;
   --nav-h:  56px;
   --ease:   cubic-bezier(0.22, 1, 0.36, 1);
   --dur:    200ms;
@@ -34,6 +34,9 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 ::selection { background: var(--selection); }
 img { max-width: 100%; display: block; }
+
+/* Scale the whole site one notch smaller (the header is restored below). */
+html { font-size: 15px; }
 
 /* ---- Base ---- */
 body {
@@ -77,7 +80,7 @@ header {
 
 .site-title {
   font-family: var(--serif);
-  font-size: 1.125rem;
+  font-size: 1.2rem;
   font-weight: 500;
   color: var(--fg-1);
   letter-spacing: -0.01em;
@@ -99,7 +102,7 @@ nav {
 nav > a,
 .nav-dropdown-trigger {
   font-family: var(--sans);
-  font-size: 0.875rem;
+  font-size: 0.933rem;
   font-weight: 500;
   color: var(--fg-3);
   background: none;
@@ -224,16 +227,15 @@ h2 {
   display: grid;
   grid-template-columns: 4.75rem 1fr;
   gap: 1.5rem;
-  padding: 1.25rem 0;
-  border-top: 1px solid var(--rule);
+  padding: 0.55rem 0;
+  align-items: baseline;
 }
-.pub:first-child { border-top: none; }
 
 .yr {
   font-family: var(--mono);
   font-size: 0.8125rem;
   color: var(--fg-3);
-  padding-top: 0.2rem;
+  line-height: 1.35;
 }
 
 .pub h3 {
@@ -257,7 +259,7 @@ h2 {
   font-family: var(--mono);
   font-size: 0.75rem;
   color: var(--fg-3);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
 }
 
 .pub-links {
@@ -317,22 +319,26 @@ h2 {
 }
 
 /* ---- WIP ---- */
-.pub--wip { display: block; }
+/* .pub--wip keeps the .pub grid so titles align with article titles,
+   but is lighter and more compact since it's less prominent. */
+.pub--wip {
+  padding: 0.8rem 0;
+}
 
-.wip-title {
+.wip-group-label {
+  margin-top: 2rem;
+}
+
+.pub h3.wip-title {
   font-family: var(--serif);
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   font-weight: 400;
   color: var(--fg-2);
-  line-height: 1.5;
-  margin: 0 0 0.2rem;
+  line-height: 1.45;
+  margin: 0;
 }
-
-.wip-status {
-  font-size: 0.9375rem;
-  font-style: italic;
-  color: var(--fg-3);
-}
+.pub--wip .pub-links a,
+.pub--wip .pub-links button { font-size: 0.78rem; }
 
 /* ---- Page description ---- */
 .page-description {
@@ -348,17 +354,15 @@ h2 {
   font-family: var(--mono);
   font-size: 0.75rem;
   color: var(--fg-3);
-  margin-top: -1.25rem;
-  margin-bottom: 1.75rem;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
   letter-spacing: 0.02em;
 }
 
 .talk-item {
   list-style: none;
-  padding: 1.25rem 0;
-  border-top: 1px solid var(--rule);
+  padding: 0.55rem 0;
 }
-.talk-item:first-child { border-top: none; }
 
 .talk-item h3 {
   font-family: var(--serif);
@@ -366,23 +370,23 @@ h2 {
   font-weight: 500;
   color: var(--fg-1);
   line-height: 1.35;
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.35rem;
 }
 
-.talk-pres-list { margin-top: 0.15rem; }
+.talk-pres-list { display: flex; flex-direction: column; gap: 0.15rem; }
 
 .talk-row {
   display: grid;
   grid-template-columns: 4.75rem 1fr;
   gap: 1.5rem;
-  padding: 0.1rem 0;
+  align-items: baseline;
 }
 
-.talk-row .yr {
+.talk-yr {
   font-family: var(--mono);
   font-size: 0.8125rem;
   color: var(--fg-3);
-  padding-top: 0.15rem;
+  line-height: 1.5;
 }
 
 .talk-row-detail {
@@ -417,8 +421,9 @@ h2 {
   font-size: 1.25rem;
   font-weight: 500;
   color: var(--fg-1);
-  margin-bottom: 0.15rem;
+  margin-bottom: 0;
 }
+.page-section > .section-label:first-of-type { margin-top: 0.5rem; }
 .section-subtitle {
   font-family: var(--mono);
   font-size: 0.72rem;
@@ -428,33 +433,29 @@ h2 {
 }
 .workshop-description {
   color: var(--fg-2);
-  margin-bottom: 1.25rem;
   line-height: 1.75;
 }
-.ws-programme {
-  margin: 1rem 0;
-  border-top: 1px solid var(--rule);
+.workshop-description p { margin-bottom: 1.25rem; }
+.workshop-description a { color: var(--accent); }
+.ws-speaker-list {
+  list-style: none;
+  margin: 0.25rem 0 0;
 }
-.ws-entry {
-  padding: 0.75rem 0;
-  border-bottom: 1px solid var(--rule);
+.ws-speaker-item {
+  padding: 0.55rem 0;
 }
 .ws-speaker {
-  font-size: 0.9375rem;
-  color: var(--fg-2);
-  line-height: 1.5;
-}
-.ws-paper { margin-top: 0.1rem; }
-.ws-paper-title {
   font-family: var(--serif);
-  font-size: 0.9375rem;
-  font-style: italic;
+  font-size: 1.0625rem;
+  font-weight: 500;
   color: var(--fg-1);
+  line-height: 1.35;
+  margin: 0;
 }
-.ws-tba {
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  color: var(--fg-3);
+.ws-affiliation { font-weight: 400; color: var(--fg-3); }
+.ws-paper-title {
+  font-style: italic;
+  margin: 0.15rem 0 0;
 }
 .ws-registration {
   font-size: 0.9rem;
@@ -493,6 +494,50 @@ h2 {
   color: var(--fg-3);
   font-size: 0.875rem;
 }
+.teaching-levels {
+  font-size: 0.8rem;
+  color: var(--fg-3);
+  margin-left: 0.4em;
+  font-style: italic;
+}
+.teaching-year {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--fg-3);
+  margin-left: 0.35em;
+}
+
+/* ---- Teaching resources ---- */
+.resource-intro { margin-bottom: 2rem; color: var(--fg-2); }
+.resource-group { margin-bottom: 1.75rem; }
+.resource-heading {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--fg-1);
+  margin: 0 0 0.5rem;
+}
+.resource-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.resource-list li {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  color: var(--fg-1);
+  line-height: 1.5;
+  padding: 0.2rem 0 0.2rem 1rem;
+  position: relative;
+}
+.resource-list li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+.resource-note { color: var(--fg-3); font-style: italic; font-size: 0.85rem; }
+.resource-author { font-family: var(--sans); font-size: 0.875rem; color: var(--fg-2); }
 
 /* ---- About ---- */
 .about-body {
@@ -506,15 +551,35 @@ h2 {
 
 .about-portrait {
   float: right;
-  width: 220px;
-  margin: 0.15rem 0 1.5rem 2.25rem;
-  shape-outside: border-box;
+  width: 280px;
+  margin: 0.2rem 0 1.25rem 2.5rem;
+  shape-outside: margin-box;
 }
 .about-portrait img {
   width: 100%;
   display: block;
+  border-radius: 6px;
   filter: grayscale(1) contrast(1.03);
+  transition: filter 0.4s ease;
 }
+.about-portrait img:hover { filter: grayscale(0) contrast(1); }
+
+.about-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 1.25rem;
+  margin-top: 0.85rem;
+}
+.about-links a {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+  border-bottom: none;
+}
+.about-links a:hover { color: var(--accent); border-bottom: none; }
 .about-portrait .photo-placeholder {
   width: 100%;
   aspect-ratio: 3/4;
@@ -523,26 +588,85 @@ h2 {
 
 /* ---- CV ---- */
 .cv-section { margin-bottom: 2.5rem; }
+.cv-section > .eyebrow {
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0.6rem;
+}
 .cv-item {
   display: grid;
   grid-template-columns: 4.75rem 1fr;
   gap: 1.5rem;
-  padding: 1rem 0;
-  border-top: 1px solid var(--rule);
+  padding: 0.4rem 0;
+  align-items: baseline;
 }
-.cv-item:first-of-type { border-top: none; }
-.cv-year { font-family: var(--mono); font-size: 0.8125rem; color: var(--fg-3); }
-.cv-detail { font-family: var(--serif); font-size: 1.0625rem; font-weight: 500; color: var(--fg-1); line-height: 1.4; }
-.cv-detail-sub { display: block; font-family: var(--sans); font-size: 0.9rem; font-weight: 400; color: var(--fg-2); margin-top: 2px; }
+.cv-year { font-family: var(--mono); font-size: 0.8125rem; color: var(--fg-3); line-height: 1.5; }
+.cv-area-label { color: var(--fg-2); font-size: 0.75rem; letter-spacing: 0.04em; }
+.cv-detail { font-family: var(--serif); font-size: 1rem; font-weight: 500; color: var(--fg-1); line-height: 1.4; }
+.cv-detail-sub { display: block; font-family: var(--sans); font-size: 0.875rem; font-weight: 400; color: var(--fg-2); margin-top: 3px; line-height: 1.5; }
+.cv-detail-inline { font-family: var(--sans); font-size: 0.875rem; font-weight: 400; color: var(--fg-2); }
+.cv-prize { display: block; font-family: var(--mono); font-size: 0.75rem; color: var(--fg-3); margin-top: 2px; }
+/* CV talks should match the size of other CV sections, not the larger Talks page */
+#cv-talks .talk-item h3 { font-size: 1rem; }
+#cv-talks .talk-item { padding: 0.3rem 0; }
+#cv-talks .talk-pres-list .talk-row { padding-left: 1.5rem; }
+.cv-subsection-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fg-3);
+  margin: 1.25rem 0 0;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--rule);
+}
+.cv-subsection-label:first-child { margin-top: 0; }
+.cv-references-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 2rem;
+  margin-top: 0.5rem;
+  padding-left: 6.25rem;
+}
+.cv-ref-name { font-family: var(--serif); font-size: 1rem; font-weight: 500; color: var(--fg-1); margin-bottom: 0.2rem; }
+.cv-ref-detail { font-size: 0.9rem; color: var(--fg-2); line-height: 1.5; }
 .cv-download {
   display: inline-flex; align-items: center; gap: 0.4rem;
-  font-family: var(--sans); font-size: 0.875rem; font-weight: 500;
+  font-family: var(--sans); font-size: 0.85rem; font-weight: 500;
   border: 1px solid var(--rule-strong); border-radius: 3px;
   padding: 0.4rem 0.9rem; color: var(--fg-1); text-decoration: none;
+  background: none; cursor: pointer;
   transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
-  margin-bottom: 2rem;
 }
-.cv-download:hover { background: var(--paper-2); border-color: var(--fg-3); border-bottom-color: var(--fg-3); }
+.cv-download:hover { background: var(--paper-2); border-color: var(--fg-3); }
+
+.cv-contact {
+  font-size: 0.9rem;
+  color: var(--fg-2);
+  margin: -0.5rem 0 2rem;
+}
+.cv-contact a { color: var(--fg-2); }
+.cv-contact a:hover { color: var(--accent); }
+.cv-contact-sep { color: var(--fg-3); margin: 0 0.6rem; }
+.cv-award-amount {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--fg-3);
+}
+
+/* ---- Print: clean CV as PDF ---- */
+@page { margin: 2cm 1.9cm; }
+@media print {
+  header, footer, .cv-download, .nav-dropdown-menu { display: none !important; }
+  html { font-size: 11pt; }
+  body { background: #fff; color: #000; }
+  main { padding: 0; }
+  .narrow { max-width: 100%; padding: 0; }
+  a { color: #000 !important; border: none !important; }
+  .cv-item, .talk-item, .pub { break-inside: avoid; }
+  .cv-section { margin-bottom: 1.2rem; }
+  .eyebrow { color: #000 !important; }
+}
 
 /* ---- Footer ---- */
 footer {
@@ -572,4 +696,5 @@ footer {
   .pub, .cv-item { grid-template-columns: 3.5rem 1fr; gap: 1rem; }
   .talk-row { grid-template-columns: 4.75rem 1fr; }
   .teaching-role-group { grid-template-columns: 1fr; gap: 0.25rem; }
+  .cv-references-grid { grid-template-columns: 1fr; padding-left: 0; }
 }
