@@ -22,11 +22,7 @@
     <div class="narrow">
       <span class="eyebrow">Teaching</span>
       <h2>Resources for students</h2>
-      <div id="resources-content">
-        <!-- Edit this section directly to add resources for students.
-             You can add links to reading lists, essay guides, etc. -->
-        <p style="color:var(--fg-3)">Resources coming soon.</p>
-      </div>
+      <div id="resources-content"></div>
     </div>
   </main>
 
@@ -38,6 +34,11 @@
   </footer>
 
   <script src="nav.js"></script>
+  <script src="render.js"></script>
+  <script>
+    window.PAGE_NEEDS = ['resources'];
+    window.initPage = function () { renderTeachingResources('resources-content'); };
+  </script>
   <script src="boot.js"></script>
 </body>
 </html>

@@ -31,6 +31,7 @@
   want('talks',        'talks.json');
   want('teaching',     'teaching.json');
   want('workshops',    'workshops.json');
+  want('resources',    'teaching-resources.json');
   want('cv',           'cv.json');
 
   Promise.all(jobs).then(function (results) {
@@ -52,6 +53,7 @@
     if (data.talks)        window.TALKS        = data.talks.items || data.talks;
     if (data.teaching)     window.TEACHING     = data.teaching.items || data.teaching;
     if (data.workshops)    window.WORKSHOPS    = data.workshops.items || data.workshops;
+    if (data.resources)    window.TEACHING_RESOURCES = data.resources;
     if (data.cv)           window.CV_DATA      = data.cv;
 
     if (typeof buildNav   === 'function') buildNav();

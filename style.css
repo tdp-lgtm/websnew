@@ -499,6 +499,12 @@ h2 {
   color: var(--fg-3);
   font-size: 0.875rem;
 }
+.teaching-levels {
+  font-size: 0.8rem;
+  color: var(--fg-3);
+  margin-left: 0.4em;
+  font-style: italic;
+}
 
 /* ---- About ---- */
 .about-body {

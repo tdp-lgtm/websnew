@@ -188,8 +188,9 @@ function renderTeaching(id) {
       const courses = roleMap[role].map(e => {
         const yr = e.year ? `(${e.year}) ` : '';
         const note = e.note ? ` <span class="teaching-note">${e.note}</span>` : '';
+        const levels = (e.levels && e.levels.length) ? ` <span class="teaching-levels">${[].concat(e.levels).join(', ')}</span>` : '';
         return `<div class="teaching-entry">
-          <span class="teaching-course">${yr}${e.course}${note}</span>
+          <span class="teaching-course">${yr}${e.course}${note}${levels}</span>
         </div>`;
       }).join('');
       return `<div class="teaching-role-group">
@@ -448,4 +449,13 @@ function _renderCVSection(id, items) {
         ${item.sub ? `<span class="cv-detail-sub">${item.sub}</span>` : ''}
       </span>
     </div>`).join('');
+}
+
+
+function renderTeachingResources(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const data = window.TEACHING_RESOURCES || {};
+  const html = _prepHtml(data.text || '');
+  el.innerHTML = html || '<p style="color:var(--fg-3)">Resources coming soon.</p>';
 }

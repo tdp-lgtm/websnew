@@ -232,9 +232,33 @@ content:
               - name: year
                 label: Year
                 type: string
+              - name: levels
+                label: Level of study
+                type: select
+                options:
+                  values: [Undergraduate, MA, MPhil, PhD]
+                multiple: true
               - name: note
                 label: Note
                 type: string
+
+  # ------------------------------------------------------------
+  #  Teaching resources
+  # ------------------------------------------------------------
+  - name: teaching_resources
+    label: Teaching resources
+    type: file
+    path: data/teaching-resources.json
+    format: json
+    fields:
+      - name: text
+        label: Resources text
+        type: rich-text
+        options:
+          format: html
+          switcher: false
+          media: false
+        description: Use the toolbar for links, bold, italics, etc.
 
   # ------------------------------------------------------------
   #  Workshops
