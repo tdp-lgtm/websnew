@@ -758,7 +758,7 @@ footer {
 
   /* Nav: tighter gaps and smaller font to fit all items */
   nav { gap: 0.6rem; }
-  nav > a, .nav-dropdown-trigger { font-size: 0.72rem; }
+  nav > a, .nav-dropdown-trigger { font-size: 0.9rem; }
 
   /* Typography */
   h2 { font-size: 1.35rem; }
