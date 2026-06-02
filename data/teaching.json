@@ -5,64 +5,67 @@
       "anchor": "kcl",
       "entries": [
         {
+          "course": "The Ethics of War",
           "role": "Lecturer",
           "year": "2025",
-          "course": "The Ethics of War",
           "note": "with Helen Frowe"
         },
         {
-          "role": "Lecturer",
-          "year": "2024",
           "course": "General Philosophy",
-          "note": ""
+          "role": "Lecturer",
+          "year": "2024"
         },
         {
-          "role": "Seminar Convenor",
-          "year": "2024",
           "course": "Philosophy and Medicine",
-          "note": ""
+          "role": "Seminar Convenor",
+          "year": "2024"
         },
         {
-          "role": "Seminar Convenor",
-          "year": "2023",
           "course": "Political Philosophy II",
-          "note": ""
+          "role": "Seminar Convenor",
+          "year": "2023"
         },
         {
-          "role": "Teaching Assistant",
-          "year": "2022",
           "course": "Philosophy and Medicine",
-          "note": ""
+          "role": "Teaching Assistant",
+          "year": "2022"
         },
         {
-          "role": "Teaching Assistant",
-          "year": "2021",
           "course": "Ethics II: Contemporary Ethical Philosophy",
-          "note": ""
+          "role": "Teaching Assistant",
+          "year": "2021"
         },
         {
-          "role": "Teaching Assistant",
-          "year": "2020",
           "course": "Environmental Ethics",
-          "note": ""
+          "role": "Teaching Assistant",
+          "year": "2020"
         },
         {
-          "role": "Teaching Assistant",
-          "year": "2020",
           "course": "Topics in Political Philosophy: Ethics of Migration",
-          "note": ""
-        },
-        {
           "role": "Teaching Assistant",
-          "year": "2019",
-          "course": "Ethics I",
-          "note": ""
+          "year": "2020"
         },
         {
-          "role": "Supervisor",
-          "year": "2023–24",
+          "course": "Ethics I",
+          "role": "Teaching Assistant",
+          "year": "2019"
+        },
+        {
           "course": "BA Philosophy Dissertation (×3)",
-          "note": ""
+          "role": "Supervisor",
+          "year": "2023–24"
+        }
+      ]
+    },
+    {
+      "institution": "Stockholm University",
+      "entries": [
+        {
+          "course": "The Ethics of War",
+          "role": "Lecturer",
+          "year": "2025",
+          "levels": "PhD",
+          "note": "with Helen Frowe"
         }
       ]
     }
