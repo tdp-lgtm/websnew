@@ -74,7 +74,7 @@ function _pubItem(p) {
   const citation  = [
     p.journal ? `<em>${p.journal}</em>` : '',
     volStr,
-  ].filter(Boolean).join(', ');
+  ].filter(Boolean).join(' ');
 
   const abstractId = `abs-${Math.random().toString(36).slice(2, 7)}`;
   const abstractBtn = p.abstract
@@ -323,7 +323,7 @@ function renderCV() {
         return `<div class="cv-item">
           <span class="cv-year">${p.year || ''}</span>
           <span class="cv-detail">
-            <span class="cv-pub-title">${p.coauthors ? `(with ${p.coauthors}) ` : ''}${p.title}.</span>${journalPart ? ` ${journalPart}` : ''}${volPart2 ? ` ${volPart2}` : ''}${prize}
+            <span class="cv-pub-title">${p.coauthors ? `(with ${p.coauthors}) ` : ''}${p.title}${/[.?!]$/.test(p.title) ? '' : '.'}</span>${journalPart ? ` ${journalPart}` : ''}${volPart2 ? ` ${volPart2}` : ''}${prize}
           </span>
         </div>`;
       }).join('');
