@@ -36,9 +36,10 @@
 img { max-width: 100%; display: block; }
 
 /* Scale the whole site one notch smaller (the header is restored below). */
-html { font-size: 15px; }
+html { font-size: 15px; scrollbar-gutter: stable; }
 
 /* ---- Base ---- */
+@keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
 body {
   background: var(--paper);
   color: var(--fg-2);
@@ -46,6 +47,7 @@ body {
   font-size: 1.0625rem;
   line-height: 1.75;
   -webkit-font-smoothing: antialiased;
+  animation: pageFadeIn 0.15s ease;
 }
 
 a {
