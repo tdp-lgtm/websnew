@@ -104,8 +104,17 @@ function _pubItem(p) {
 
 function _toggleAbstract(id, btn) {
   const el = document.getElementById(id);
+  const inner = el.firstElementChild;
   const isOpen = el.classList.contains('open');
-  el.classList.toggle('open', !isOpen);
+  if (isOpen) {
+    el.classList.remove('open');
+    el.style.gridTemplateRows = '';
+  } else {
+    // Set an explicit pixel row so Safari renders the full height.
+    const h = inner.scrollHeight;
+    el.style.gridTemplateRows = `${h}px`;
+    el.classList.add('open');
+  }
   btn.textContent = isOpen ? '≡ Abstract' : '≡ Hide';
 }
 
