@@ -107,12 +107,14 @@ function _toggleAbstract(id, btn) {
   const inner = el.firstElementChild;
   const isOpen = el.classList.contains('open');
   if (isOpen) {
-    el.classList.remove('open');
-    el.style.gridTemplateRows = '';
+    // Pin to current pixel height first so the collapse transition has a start point.
+    el.style.gridTemplateRows = `${inner.scrollHeight}px`;
+    requestAnimationFrame(() => {
+      el.style.gridTemplateRows = '0fr';
+      el.classList.remove('open');
+    });
   } else {
-    // Set an explicit pixel row so Safari renders the full height.
-    const h = inner.scrollHeight;
-    el.style.gridTemplateRows = `${h}px`;
+    el.style.gridTemplateRows = `${inner.scrollHeight}px`;
     el.classList.add('open');
   }
   btn.textContent = isOpen ? '≡ Abstract' : '≡ Hide';
