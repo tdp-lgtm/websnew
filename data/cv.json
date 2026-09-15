@@ -55,7 +55,8 @@
   "awards": [
     {
       "year": "2027–29",
-      "description": "Leverhulme Early Career Fellowship (accepted)"
+      "description": "Leverhulme Early Career Fellowship (accepted)",
+      "amount": "£102,000"
     },
     {
       "year": "2024",
@@ -151,7 +152,7 @@
       "description": "Personal Tutor for 18 students at KCL (academic and welfare support)"
     }
   ],
-  "reviewer": "Analysis, Ethical Theory and Moral Practice, Journal of Controversial Ideas, Journal of Moral Philosophy, Law and Philosophy, Philosophical Quarterly, Res Publica, Synthese",
+  "reviewer": "Analysis, Ethical Theory and Moral Practice, Journal of Controversial Ideas, Journal of Moral Philosophy, Law and Philosophy, Philosophers' Imprint, Philosophical Quarterly, Res Publica, Synthese",
   "references": [
     {
       "name": "Massimo Renzo",
@@ -164,6 +165,12 @@
       "title": "Professor of Practical Philosophy",
       "institution": "Stockholm University",
       "email": "helen.frowe@philosophy.su.se"
+    },
+    {
+      "name": "Gerald Lang",
+      "title": "Professor of Philosophy",
+      "institution": "Department of Philosophy, Leeds University",
+      "email": "G.R.Lang@leeds.ac.uk"
     }
   ]
 }
